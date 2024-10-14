@@ -1,10 +1,10 @@
-package be.kdg.programming3.carebot_integration3_team17;
+package be.kdg.programming3;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CareBotIntegration3Team17ApplicationTests {
+class StartApplicationTests {
 
     @Test
     void contextLoads() {
