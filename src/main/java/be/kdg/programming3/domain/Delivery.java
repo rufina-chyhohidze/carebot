@@ -16,6 +16,12 @@ public class Delivery {
         this.deliveryTime = deliveryTime;
     }
 
+    public Delivery(int deliveryId, int employeeId, Timestamp deliveryTime) {
+        this.deliveryId = deliveryId;
+        this.employeeId = employeeId;
+        this.deliveryTime = deliveryTime;
+    }
+
     public int getDeliveryId() {return deliveryId;}
     public void setDeliveryId(int deliveryId) {this.deliveryId = deliveryId;}
 

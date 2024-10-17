@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Delivery Table</title>
+</head>
+<body>
+
+
+<h1>Delivery Table</h1>
+<table border="1">
+  <thead>
+  <tr>
+    <th>Delivery ID</th>
+    <th>Delivery Time</th>
+    <th>Number Of Obstacles</th>
+    <th>Drop Point Name</th>
+    <th>Delivery Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="course : ${courses}">
+    <td th:text="${course.courseId}"></td>
+    <td th:text="${course.courseName}"></td>
+    <td th:text="${course.startDate}"></td>
+    <td th:text="${course.teacherName}"></td>
+    <td th:text="${course.credits}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
