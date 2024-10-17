@@ -3,15 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+
+    <script>
+        function getsend(action) {
+            // Set the URL to send requests to
+            var url = 'http://192.168.137.220/' + action;
+
+            // Use the fetch API to send the request
+            fetch(url + '?' + new Date().getTime())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // You can change to response.json() if expecting JSON
+                })
+                .then(data => {
+                    console.log(data); // Handle the response data here
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    </script>
+
 </head>
 <body>
 
+<!--BUTTON TO MOVE CAR-->
+<button style="background-color:indianred;width:90px;height:40px"
+        onmousedown="getsend('go')"
+        onmouseup="getsend('stop')">
+    <b>GO</b>
+</button>
+<div>Move Forward</div>
+
+<!--LINK TO ANOTHER PAGE WITH DELIVERY TABLE-->
 <nav>
     <ul>
         <li><a href="deliveries">Delivery Table</a></li>
 <!--        <li><a href="addStudent">Obstacle Table</a></li>-->
     </ul>
 </nav>
+
+
 
 </body>
 </html>
