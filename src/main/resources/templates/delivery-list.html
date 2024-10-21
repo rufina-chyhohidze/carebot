@@ -12,6 +12,7 @@
   <thead>
   <tr>
     <th>Delivery ID</th>
+    <th>Employee ID</th>
     <th>Delivery Time</th>
 <!--    <th>Number Of Obstacles</th>-->
 <!--    <th>Drop Point Name</th>-->
@@ -20,11 +21,14 @@
   </thead>
   <tbody>
   <tr th:each="delivery : ${deliveries}">
-    <td th:text="${delivery.deliveryId}"></td>
-    <td th:text="${delivery.deliveryTime}"></td>
+    <td th:text="${delivery.deliveryId}">Delivery ID</td>
+    <td th:text="${delivery.employeeId}">Employee ID</td>
+    <td th:text="${delivery.deliveryTime}">Delivery Time</td>
   </tr>
   </tbody>
 </table>
+
+<!--<a href="/addDeliveryForm">Add New Delivery</a>-->
 
 </body>
 </html>

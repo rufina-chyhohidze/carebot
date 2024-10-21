@@ -1,20 +1,15 @@
 package be.kdg.programming3.domain;
 
+import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.List;
 
 public class Delivery {
     private int deliveryId;
     private int employeeId;
-    private List<ItemRequest> itemRequests;
     private Timestamp deliveryTime;
-
-    public Delivery(int deliveryId, int employeeId, List<ItemRequest> itemRequests, Timestamp deliveryTime) {
-        this.deliveryId = deliveryId;
-        this.employeeId = employeeId;
-        this.itemRequests = itemRequests;
-        this.deliveryTime = deliveryTime;
-    }
+    private List<ItemRequest> itemRequests;
 
     public Delivery(int deliveryId, int employeeId, Timestamp deliveryTime) {
         this.deliveryId = deliveryId;
