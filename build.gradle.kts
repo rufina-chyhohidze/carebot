@@ -23,21 +23,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     "developmentOnly"("org.springframework.boot:spring-boot-devtools")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.postgresql:postgresql:42.6.0")
-//    implementation("org.springframework.boot:spring-boot-starter")
-//    implementation("org.springframework.boot:spring-boot-starter-web")
-//    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-//    implementation("org.springframework.boot:spring-boot-starter-data-jpa") // For JPA support
-//    implementation("com.h2database:h2") // H2 Database dependency
-//    testImplementation("org.springframework.boot:spring-boot-starter-test")
-//    "developmentOnly"("org.springframework.boot:spring-boot-devtools")
-//    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-//    implementation(kotlin("stdlib-jdk8"))
+    implementation("org.webjars:bootstrap:5.3.2")
+    implementation("org.webjars.npm:bootstrap-icons:1.11.1")
+    implementation("org.webjars:webjars-locator-core:0.48")
 }
 
 tasks.withType<Test> {
