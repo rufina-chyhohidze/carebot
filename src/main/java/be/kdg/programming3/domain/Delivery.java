@@ -1,7 +1,5 @@
 package be.kdg.programming3.domain;
 
-import jakarta.persistence.*;
-
 import java.sql.Timestamp;
 import java.util.List;
 
