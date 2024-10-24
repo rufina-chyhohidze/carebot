@@ -31,7 +31,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public List<Delivery> getAllDeliveries() {
+    public List<List<String>> getAllDeliveries() {
         LOG.debug("Getting all deliveries");
         return deliveryRepository.findAllDeliveries();
     }

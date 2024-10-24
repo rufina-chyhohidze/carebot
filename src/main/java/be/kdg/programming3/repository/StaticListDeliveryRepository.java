@@ -1,5 +1,6 @@
 package be.kdg.programming3.repository;
 
+import be.kdg.programming3.database.DataBase;
 import be.kdg.programming3.domain.Delivery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +39,8 @@ public class StaticListDeliveryRepository implements DeliveryRepository {
 
 
     @Override
-    public List<Delivery> findAllDeliveries() {
+    public List<List<String>> findAllDeliveries() {
         LOG.info("Finding all deliveries");
-        return new ArrayList<>(deliveries);
+        return new ArrayList<>(DataBase.getObstacles());
     }
 }

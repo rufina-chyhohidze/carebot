@@ -22,7 +22,7 @@ public class DeliveryController {
 
     @GetMapping("/deliveries")
     public String showDeliveries(Model model) {
-        List<Delivery> deliveries = deliveryService.getAllDeliveries();
+        List<List<String>> deliveries = deliveryService.getAllDeliveries();
         model.addAttribute("deliveries", deliveries);
         LOG.info("All deliveries: {}", deliveries);
         return "delivery-list";

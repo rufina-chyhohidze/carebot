@@ -9,6 +9,6 @@ public interface DeliveryRepository {
 
     Delivery createDelivery(Delivery delivery);
     Delivery findDeliveryByDeliveryId(int id);
-    List<Delivery> findAllDeliveries();
+    List<List<String>> findAllDeliveries();
 
 }
