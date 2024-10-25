@@ -22,8 +22,8 @@
   <tbody style="overflow-y: scroll; height: 50vh;" >
   <tr th:each="delivery : ${deliveries}">
     <td th:text="${delivery.get(0)}">Delivery ID</td>
-    <td th:text="${delivery.get(1)}">Employee ID</td>
-    <td th:text="${delivery.get(2)}">Delivery Time</td>
+    <td th:text="${delivery.get(1)}">Obstacle Time</td>
+    <td th:text="${delivery.get(2)}">Distance</td>
   </tr>
   </tbody>
 </table>

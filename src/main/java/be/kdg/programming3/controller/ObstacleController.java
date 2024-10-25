@@ -1,7 +1,6 @@
 package be.kdg.programming3.controller;
 
 import be.kdg.programming3.domain.Obstacle;
-import be.kdg.programming3.service.ObstacleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import be.kdg.programming3.service.ObstacleService;
 
 import java.util.List;
 
@@ -18,7 +18,9 @@ public class ObstacleController {
     private final ObstacleService obstacleService;
     private static final Logger LOG = LoggerFactory.getLogger(ObstacleController.class);
 
-    public ObstacleController(ObstacleService obstacleService) {this.obstacleService = obstacleService;}
+    public ObstacleController(ObstacleService obstacleService) {
+        this.obstacleService = obstacleService;
+    }
 
     @GetMapping("/obstacles")
     public String showObstacles(Model model) {
@@ -27,11 +29,21 @@ public class ObstacleController {
         return "obstacle-list";
     }
 
-    @PostMapping("/addObstacle")
-    public String addObstacle(@ModelAttribute Obstacle obstacle) {
-        obstacleService.addObstacle(obstacle.getObstacleId());
-        return "redirect:/obstacles";
+    @GetMapping("/addObstacle")
+    public String addObstacleForm(Model model) {
+        model.addAttribute("obstacle", new Obstacle());
+        return "add-obstacle";
     }
 
-    //add GetMapping for addObstacles
+    @PostMapping("/addObstacle")
+    public String addObstacle(@ModelAttribute Obstacle obstacle) {
+        LOG.debug("Adding new obstacle: {}", obstacle);
+
+//        Long obstacleId = obstacle.getObstacleId();
+        float distance = obstacle.getObstacle_distance();
+
+        obstacleService.addObstacle(distance);
+        LOG.info("Obstacle added: {}", obstacle);
+        return "redirect:/obstacles";
+    }
 }

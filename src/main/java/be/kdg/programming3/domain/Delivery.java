@@ -1,13 +1,23 @@
 package be.kdg.programming3.domain;
 
+import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.List;
 
+@Entity
+@Table(name = "delivery_table")
 public class Delivery {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int deliveryId;
     private int employeeId;
     private Timestamp deliveryTime;
-    private List<ItemRequest> itemRequests;
+
+//    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<ItemRequest> itemRequests;
+
+    public Delivery() {} // JPA requires a no-arg constructor
 
     public Delivery(int deliveryId, int employeeId, Timestamp deliveryTime) {
         this.deliveryId = deliveryId;
@@ -21,8 +31,8 @@ public class Delivery {
     public int getEmployeeId() {return employeeId;}
     public void setEmployeeId(int employeeId) {this.employeeId = employeeId;}
 
-    public List<ItemRequest> getItemRequests() {return itemRequests;}
-    public void setItemRequests(List<ItemRequest> itemRequests) {this.itemRequests = itemRequests;}
+//    public List<ItemRequest> getItemRequests() {return itemRequests;}
+//    public void setItemRequests(List<ItemRequest> itemRequests) {this.itemRequests = itemRequests;}
 
     public Timestamp getDeliveryTime() {return deliveryTime;}
     public void setDeliveryTime(Timestamp deliveryTime) {this.deliveryTime = deliveryTime;}
@@ -32,7 +42,7 @@ public class Delivery {
         return "Delivery{" +
                 "deliveryId=" + deliveryId +
                 ", employeeId=" + employeeId +
-                ", itemRequests=" + itemRequests +
+//                ", itemRequests=" + itemRequests +
                 ", deliveryTime=" + deliveryTime +
                 '}';
     }

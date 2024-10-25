@@ -31,6 +31,8 @@ dependencies {
     implementation("org.webjars:bootstrap:5.3.2")
     implementation("org.webjars.npm:bootstrap-icons:1.11.1")
     implementation("org.webjars:webjars-locator-core:0.48")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
 }
 
 tasks.withType<Test> {

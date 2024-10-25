@@ -5,7 +5,10 @@ import be.kdg.programming3.domain.Obstacle;
 import java.util.List;
 
 public interface ObstacleService {
-    void addObstacle(int obstacleId);
+    void addObstacle(float distance);
 
     List<Obstacle> getAllObstacles();
+
+//    Obstacle findObstacleById(Long obstacleId);
+
 }

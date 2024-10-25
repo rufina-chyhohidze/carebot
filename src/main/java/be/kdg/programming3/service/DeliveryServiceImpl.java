@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeliveryServiceImpl.class);
-    private DeliveryRepository deliveryRepository;
+    private final DeliveryRepository deliveryRepository;
 
     @Autowired
     public DeliveryServiceImpl(DeliveryRepository deliveryRepository) {
@@ -23,17 +24,29 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public void addDelivery(int deliveryId, int employeeId, Timestamp deliveryTime) {
-        LOG.debug("Adding delivery with id: {}", deliveryId);
-        Delivery delivery = new Delivery(deliveryId, employeeId, deliveryTime);
-        deliveryRepository.createDelivery(delivery);
-        LOG.debug("Delivery added: {}", delivery);
+    public List<List<String>> getAllDeliveries() {
+        LOG.info("Retrieving all deliveries");
+
+        List<Delivery> deliveries = deliveryRepository.findAll();  // JPA method
+
+        return deliveries.stream()
+                .map(delivery -> List.of(
+                        String.valueOf(delivery.getDeliveryId()),
+                        String.valueOf(delivery.getDeliveryTime()),
+                        String.valueOf(delivery.getEmployeeId())
+                ))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<List<String>> getAllDeliveries() {
-        LOG.debug("Getting all deliveries");
-        return deliveryRepository.findAllDeliveries();
+    public void addDelivery(int deliveryId, int employeeId, Timestamp deliveryTime) {
+        LOG.debug("Adding new delivery for employeeId: {}", employeeId);
+        Delivery delivery = new Delivery();
+        delivery.setDeliveryId(deliveryId);
+        delivery.setEmployeeId(employeeId);
+        delivery.setDeliveryTime(deliveryTime);
+        deliveryRepository.save(delivery);
+        LOG.info("Delivery added: {}", delivery);
     }
 
 }
