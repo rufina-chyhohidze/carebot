@@ -1,6 +1,6 @@
 package be.kdg.programming3.database;
 
-import org.springframework.data.repository.query.ReturnedType;
+//import org.springframework.data.repository.query.ReturnedType;
 
 import java.sql.*;
 import java.util.ArrayList;
