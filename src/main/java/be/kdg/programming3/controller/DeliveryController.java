@@ -32,7 +32,7 @@ public class DeliveryController {
     public String addDeliveries(@ModelAttribute Delivery delivery) {
         LOG.debug("Adding a delivery: {}", delivery);
         deliveryService.addDelivery(
-                delivery.getDeliveryId(),
+//                delivery.getDeliveryId(),
                 delivery.getEmployeeId(),
                 delivery.getDeliveryTime()
         );

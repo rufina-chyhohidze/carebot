@@ -10,7 +10,7 @@ import java.util.List;
 public interface DeliveryRepository extends JpaRepository<Delivery, Integer> {
 
 //    Delivery createDelivery(Delivery delivery);
-//    Delivery findDeliveryByDeliveryId(int id);
+    Delivery findDeliveryByDeliveryId(int id);
 //    List<List<String>> findAllDeliveries();
 
 }

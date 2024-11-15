@@ -12,9 +12,9 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int deliveryId;
 
+
     private int employeeId;
 
-    @Column(name = "delivery_time")
     private Timestamp deliveryTime;
 
 //    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -39,6 +39,8 @@ public class Delivery {
 
     public Timestamp getDeliveryTime() {return deliveryTime;}
     public void setDeliveryTime(Timestamp deliveryTime) {this.deliveryTime = deliveryTime;}
+
+
 
     @Override
     public String toString() {

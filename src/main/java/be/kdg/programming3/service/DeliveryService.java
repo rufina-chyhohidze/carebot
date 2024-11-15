@@ -6,6 +6,6 @@ import java.util.List;
 public interface DeliveryService {
     List<List<String>> getAllDeliveries();
 
-    void addDelivery(int deliveryId, int employeeId, Timestamp deliveryTime);
+    void addDelivery(int employeeId, Timestamp deliveryTime);
 
 }

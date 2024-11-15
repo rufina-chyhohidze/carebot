@@ -2,12 +2,12 @@ package be.kdg.programming3.domain;
 
 import jakarta.persistence.*;
 
-//@Entity
-//@Table(name = "employee_table")
+@Entity
+@Table(name = "employee_table")
 public class Employee {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int employee_id;
 
     private String firstName;
@@ -43,7 +43,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + employee_id +
+                "employee_id=" + employee_id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", role=" + role +
