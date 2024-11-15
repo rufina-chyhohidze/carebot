@@ -11,6 +11,10 @@ public class Obstacle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long obstacleId;
 
+    @ManyToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
+
 //    private int deliveryId;
     @Column(name = "obstacle_timestamp")
     private Timestamp obstacle_timestamp;
