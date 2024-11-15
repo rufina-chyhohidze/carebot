@@ -8,7 +8,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int employeeId;
+    private int employee_id;
 
     private String firstName;
     private String lastName;
@@ -17,16 +17,16 @@ public class Employee {
 
     public Employee() {}
 
-    public Employee(int employeeId, String firstName, String lastName, EmployeeRole role, EmployeeDepartment department) {
-        this.employeeId = employeeId;
+    public Employee(int employee_id, String firstName, String lastName, EmployeeRole role, EmployeeDepartment department) {
+        this.employee_id = employee_id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
         this.department = department;
     }
 
-    public int getEmployeeId() {return employeeId;}
-    public void setEmployeeId(int id) {this.employeeId = id;}
+    public int getEmployee_id() {return employee_id;}
+    public void setEmployee_id(int id) {this.employee_id = id;}
 
     public String getFirstName() {return firstName;}
     public void setFirstName(String firstName) {this.firstName = firstName;}
@@ -43,7 +43,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + employeeId +
+                "employee_id=" + employee_id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", role=" + role +

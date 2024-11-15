@@ -39,13 +39,14 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public void addDelivery(int deliveryId, int employeeId, Timestamp deliveryTime) {
+    public void addDelivery(int employeeId, Timestamp deliveryTime) {
         LOG.debug("Adding new delivery for employeeId: {}", employeeId);
-        Delivery delivery = new Delivery();
-        delivery.setDeliveryId(deliveryId);
+
+        Delivery delivery = new Delivery(); // Don't set deliveryId, it's auto-generated
         delivery.setEmployeeId(employeeId);
         delivery.setDeliveryTime(deliveryTime);
-        deliveryRepository.save(delivery);
+
+        deliveryRepository.save(delivery); // Save will handle the ID generation
         LOG.info("Delivery added: {}", delivery);
     }
 
