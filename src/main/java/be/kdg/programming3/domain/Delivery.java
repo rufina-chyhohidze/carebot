@@ -13,10 +13,9 @@ public class Delivery {
     private int deliveryId;
 
     private int employeeId;
-    private Timestamp deliveryTime;
 
-    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Obstacle> obstacles;
+    @Column(name = "delivery_time")
+    private Timestamp deliveryTime;
 
 //    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<ItemRequest> itemRequests;
@@ -38,10 +37,6 @@ public class Delivery {
 //    public List<ItemRequest> getItemRequests() {return itemRequests;}
 //    public void setItemRequests(List<ItemRequest> itemRequests) {this.itemRequests = itemRequests;}
 
-
-    public List<Obstacle> getObstacles() {return obstacles;}
-    public void setObstacles(List<Obstacle> obstacles) {this.obstacles = obstacles;}
-
     public Timestamp getDeliveryTime() {return deliveryTime;}
     public void setDeliveryTime(Timestamp deliveryTime) {this.deliveryTime = deliveryTime;}
 
@@ -50,8 +45,8 @@ public class Delivery {
         return "Delivery{" +
                 "deliveryId=" + deliveryId +
                 ", employeeId=" + employeeId +
+//                ", itemRequests=" + itemRequests +
                 ", deliveryTime=" + deliveryTime +
-                ", obstacles=" + obstacles +
                 '}';
     }
 }
