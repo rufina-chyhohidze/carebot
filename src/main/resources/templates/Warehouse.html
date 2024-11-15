@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}">
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.js}"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Warehouse</title>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navbar"></div>
+
+<div class="container mt-4">
+    <h1>Requested Items</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Item Name</th>
+            <th>Drop Point</th>
+            <th>Requested By</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="delivery : ${deliveries}">
+            <td th:text="${delivery[0]}"></td> <!-- Delivery ID -->
+            <td th:text="${delivery[1]}"></td> <!-- Item Name -->
+            <td th:text="${delivery[2]}"></td> <!-- Drop Point -->
+            <td th:text="${delivery[3]}"></td> <!-- Employee Name -->
+        </tr>
+        </tbody>
+    </table>
+    <a href="/addDelivery" class="btn btn-primary mt-3">Add New Delivery</a>
+</div>
+
+
+
+<div th:replace="fragments/fragments :: footer"></div>
+
+</body>
+</html>
