@@ -28,12 +28,11 @@
 
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
-          <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="requestform">Request an Item</a>
-          <a class="nav-link" href="/deliveries">Deliveries</a>
-          <a class="nav-link" href="">Data Tables</a>
-          <a class="nav-link" href="/sendrobot">SendRobot</a>
-          <a class="nav-link" href="/warehouse">Warehouse</a>
+          <a class="nav-link" href="/" th:href="@{/}">Home</a>
+          <a class="nav-link" href="/request-form" th:href="@{/requestform}">Request an Item</a>
+          <a class="nav-link" href="/send-robot" th:href="@{/sendrobot}">Send Robot</a>
+          <a class="nav-link" href="warehouse" th:href="@{/warehouse}">Warehouse</a>
+          <a class="nav-link" href="/login" th:href="@{/login}">Log in</a>
         </div>
       </div>
     </div>
@@ -50,7 +49,7 @@
         <!-- Brand Section -->
         <div class="col-md-6 col-lg-6 col-xl-4">
           <div class="footer-item">
-            <a href="index.html" class="text-decoration-none">
+            <a href="../index.html" class="text-decoration-none">
               <h4 class="text-white mb-3">CareBot</h4>
             </a>
             <p class="mb-4">Download our application on:</p>
