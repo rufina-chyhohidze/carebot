@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ObstacleServiceImpl implements ObstacleService {
@@ -19,8 +20,7 @@ public class ObstacleServiceImpl implements ObstacleService {
     }
 
     @Override
-    public void addObstacle(float distance) {
-        Obstacle obstacle = new Obstacle(distance);
+    public void addObstacle(Obstacle obstacle) {
         LOG.info("Adding new obstacle: {}", obstacle);
         obstacleRepository.save(obstacle);
         LOG.info("Obstacle saved successfully.");
@@ -28,12 +28,18 @@ public class ObstacleServiceImpl implements ObstacleService {
 
 
     @Override
-    @GetMapping
     public List<Obstacle> getAllObstacles() {
         LOG.info("Fetching all obstacles from the database");
         List<Obstacle> obstacles = obstacleRepository.findAll();
         LOG.info("Fetched obstacles: {}", obstacles);
         return obstacles;
+    }
+
+    @Override
+    public Obstacle getObstacleById(Long obstacleId) {
+        LOG.info("Fetching obstacle with id: {}", obstacleId);
+        Optional<Obstacle> optionalObstacle = obstacleRepository.findById(obstacleId);
+        return optionalObstacle.orElse(null);
     }
 
 //    @Override

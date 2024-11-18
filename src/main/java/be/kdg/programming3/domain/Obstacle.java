@@ -3,6 +3,7 @@ package be.kdg.programming3.domain;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "obstacle_table")
@@ -15,46 +16,37 @@ public class Obstacle {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-//    private int deliveryId;
-    @Column(name = "obstacle_timestamp")
-    private Timestamp obstacle_timestamp;
+    @Column(name = "obstacle_timestamp_before")
+    private LocalDateTime obstacleTimestampBefore; //when found an obstacle
 
-    @Column(name = "obstacle_distance")
-    private float obstacle_distance;
+    @Column(name = "obstacle_timestamp_after")
+    private LocalDateTime obstacleTimestampAfter; //when started driving again
 
     public Obstacle() {}
 
-//    public Obstacle() {
-//        this.obstacleTimestamp = new Timestamp(System.currentTimeMillis());
-//    }
-
-    public Obstacle(float obstacle_distance) {
-        this();
-        this.obstacle_distance = obstacle_distance;
+    public Obstacle(Long obstacleId, Delivery delivery, LocalDateTime obstacleTimestampBefore, LocalDateTime obstacleTimestampAfter) {
+        this.obstacleId = obstacleId;
+        this.delivery = delivery;
+        this.obstacleTimestampBefore = obstacleTimestampBefore;
+        this.obstacleTimestampAfter = obstacleTimestampAfter;
     }
-//    public Obstacle(int deliveryId, int obstacleDistance) {
-//        this();
-//        this.deliveryId = deliveryId;
-//        this.obstacleDistance = obstacleDistance;
-//    }
 
     public Long getObstacleId() {return obstacleId;}
     public void setObstacleId(Long obstacleId) {this.obstacleId = obstacleId;}
-//    public int getDeliveryId() {return deliveryId;}
-//    public void setDeliveryId(int deliveryId) {this.deliveryId = deliveryId;}
-
-
-    public Timestamp getObstacle_timestamp() {return obstacle_timestamp;}
-    public void setObstacle_timestamp(Timestamp obstacle_timestamp) {this.obstacle_timestamp = obstacle_timestamp;}
-    public float getObstacle_distance() {return obstacle_distance;}
-    public void setObstacle_distance(float obstacle_distance) {this.obstacle_distance = obstacle_distance;}
+    public Delivery getDelivery() {return delivery;}
+    public void setDelivery(Delivery delivery) {this.delivery = delivery;}
+    public LocalDateTime getObstacleTimestampBefore() {return obstacleTimestampBefore;}
+    public void setObstacleTimestampBefore(LocalDateTime obstacleTimestampBefore) {this.obstacleTimestampBefore = obstacleTimestampBefore;}
+    public LocalDateTime getObstacleTimestampAfter() {return obstacleTimestampAfter;}
+    public void setObstacleTimestampAfter(LocalDateTime obstacleTimestampAfter) {this.obstacleTimestampAfter = obstacleTimestampAfter;}
 
     @Override
     public String toString() {
         return "Obstacle{" +
                 "obstacleId=" + obstacleId +
-                ", obstacle_timestamp=" + obstacle_timestamp +
-                ", obstacle_distance=" + obstacle_distance +
+                ", delivery=" + delivery +
+                ", obstacleTimestampBefore=" + obstacleTimestampBefore +
+                ", obstacleTimestampAfter=" + obstacleTimestampAfter +
                 '}';
     }
 }

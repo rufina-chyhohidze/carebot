@@ -9,8 +9,4 @@ import java.util.List;
 @Repository
 public interface DeliveryRepository extends JpaRepository<Delivery, Integer> {
 
-//    Delivery createDelivery(Delivery delivery);
-    Delivery findDeliveryByDeliveryId(int id);
-//    List<List<String>> findAllDeliveries();
-
 }

@@ -49,10 +49,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="dropPoint : ${dropPoints}">
-                    <td th:text="${dropPoint.id}"></td> <!-- Drop Point ID -->
-                    <td th:text="${dropPoint.locationName}"></td> <!-- Drop Point Name -->
-                    <td th:text="${dropPoint.coordinates}"></td> <!-- Coordinates -->
+                <tr th:each="point : ${dropPoints}">
+                    <td th:text="${point.id}"></td> <!-- Drop Point ID -->
+                    <td th:text="${point.locationName}"></td> <!-- Drop Point Name -->
+                    <td th:text="${point.coordinates}"></td> <!-- Coordinates -->
                 </tr>
                 </tbody>
             </table>

@@ -1,63 +1,67 @@
 package be.kdg.programming3.domain;
 
+import jakarta.persistence.*;
+
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "item_request_table")
 public class ItemRequest {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String title;
-    private String description;
-    private Timestamp requestTime;
-    private Timestamp deliveryTime;
-    private Employee employee;
-    private DropPoint dropPoint;
-    private RequestStatus requestStatus;
 
-    public ItemRequest(int id, String title, String description, Timestamp requestTime, Timestamp deliveryTime, Employee employee, DropPoint dropPoint, RequestStatus requestStatus) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private Item item;
+
+    @Embedded
+    private Point point;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_username", referencedColumnName = "username")
+    private Employee employee;
+
+    @Column(name = "request_time")
+    private LocalDateTime requestTime;
+
+    @OneToOne(mappedBy = "itemRequest", fetch = FetchType.LAZY)
+    private Delivery delivery;
+
+    public ItemRequest() {}
+
+    public ItemRequest(int id, Item item, Point point, Employee employee, LocalDateTime requestTime, Delivery delivery) {
         this.id = id;
-        this.title = title;
-        this.description = description;
-        this.requestTime = requestTime;
-        this.deliveryTime = deliveryTime;
+        this.item = item;
+        this.point = point;
         this.employee = employee;
-        this.dropPoint = dropPoint;
-        this.requestStatus = requestStatus;
+        this.requestTime = requestTime;
+        this.delivery = delivery;
     }
 
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
-
-    public String getTitle() {return title;}
-    public void setTitle(String title) {this.title = title;}
-
-    public String getDescription() {return description;}
-    public void setDescription(String description) {this.description = description;}
-
-    public Timestamp getRequestTime() {return requestTime;}
-    public void setRequestTime(Timestamp requestTime) {this.requestTime = requestTime;}
-
-    public Timestamp getDeliveryTime() {return deliveryTime;}
-    public void setDeliveryTime(Timestamp deliveryTime) {this.deliveryTime = deliveryTime;}
-
+    public Item getItem() {return item;}
+    public void setItem(Item item) {this.item = item;}
+    public Point getPoint() {return point;}
+    public void setPoint(Point point) {this.point = point;}
     public Employee getEmployee() {return employee;}
     public void setEmployee(Employee employee) {this.employee = employee;}
-
-    public DropPoint getDropPoint() {return dropPoint;}
-    public void setDropPoint(DropPoint dropPoint) {this.dropPoint = dropPoint;}
-
-    public RequestStatus getRequestStatus() {return requestStatus;}
-    public void setRequestStatus(RequestStatus requestStatus) {this.requestStatus = requestStatus;}
+    public LocalDateTime getRequestTime() {return requestTime;}
+    public void setRequestTime(LocalDateTime requestTime) {this.requestTime = requestTime;}
+    public Delivery getDelivery() {return delivery;}
+    public void setDelivery(Delivery delivery) {this.delivery = delivery;}
 
     @Override
     public String toString() {
         return "ItemRequest{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", requestTime=" + requestTime +
-                ", deliveryTime=" + deliveryTime +
+                ", item=" + item +
+                ", point=" + point +
                 ", employee=" + employee +
-                ", dropPoint=" + dropPoint +
-                ", requestStatus=" + requestStatus +
+                ", requestTime=" + requestTime +
+                ", delivery=" + delivery +
                 '}';
     }
 }

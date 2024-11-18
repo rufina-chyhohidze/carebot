@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ObstacleRepository extends JpaRepository<Obstacle, Integer> {
+public interface ObstacleRepository extends JpaRepository<Obstacle, Long> {
 
 }
