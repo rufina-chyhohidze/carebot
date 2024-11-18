@@ -30,4 +30,8 @@ public class MainController {
     public String warehouse() {
         return "warehouse";
     }
+    @GetMapping("/register")
+    public String register() {
+        return "register";
+    }
 }
