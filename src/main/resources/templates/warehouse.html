@@ -15,14 +15,14 @@
 <div th:replace="fragments/fragments :: navbar"></div>
 
 <div class="container mt-4">
-    <h1>Requested Items</h1>
-    <table class="table table-striped">
+    <h1 class="mb-4 text-center">Requested Items</h1>
+    <table class="table table-bordered">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Item Name</th>
-            <th>Drop Point</th>
-            <th>Requested By</th>
+            <th style="width: 25%;">ID</th>
+            <th style="width: 25%;">Item Name</th>
+            <th style="width: 25%;">Drop Point</th>
+            <th style="width: 25%;">Requested By</th>
         </tr>
         </thead>
         <tbody>
@@ -34,7 +34,9 @@
         </tr>
         </tbody>
     </table>
-    <a href="/addDelivery" class="btn btn-primary mt-3">Add New Delivery</a>
+    <form action="/addDelivery" method="post" class="mt-4">
+        <button type="submit" class="btn btn-primary w-100">Add New Delivery</button>
+    </form>
 </div>
 
 
