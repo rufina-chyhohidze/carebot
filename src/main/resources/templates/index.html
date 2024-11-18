@@ -27,14 +27,14 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
   <title>Care Bot Delivery</title>
 </head>
-<body>
+<body class="bg-black text-white">
 
 <!-- NAVBAR FRAGMENT -->
 <div th:replace="fragments/fragments :: navbar"></div>
 
 <!-- Centered Title -->
 <div class="container mt-4 text-center">
-  <h1 class="display-4">Care Bot Delivery</h1>
+  <h1 class="display-4 fw-bold">Care Bot Delivery</h1>
   <p class="lead">Reliable, efficient, and autonomous delivery for modern needs</p>
 </div>
 
@@ -73,7 +73,7 @@
 
 <!-- IMAGE GRID -->
 <div class="container mt-5">
-  <h2 class="text-center mb-4">Our Journey in Pictures</h2>
+  <h2 class="text-center mb-4 fw-bold">Our Journey in Pictures</h2>
   <div class="row g-3 image-grid">
     <div class="col-md-4 col-sm-6">
       <img th:src="@{/images/image2.jpeg}" class="img-fluid rounded shadow" alt="Image 1">
@@ -101,7 +101,7 @@
   <div class="container pb-5">
     <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
       <h4 class="text-primary">Who stands behind the CareBot?</h4>
-      <h1 class="display-5 mb-4">Our developer's team</h1>
+      <h1 class="display-5 mb-4 fw-bold">Our developer's team</h1>
       <p class="mb-0"></p>
     </div>
     <div class="row g-4">
@@ -175,8 +175,6 @@
                 <p class="mb-0">Software Engineer</p>
               </div>
               <div class="team-icon">
-                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href=""><i class="fab fa-twitter"></i></a>
                 <a class="btn btn-primary btn-sm-square rounded-circle me-3" href=""><i class="fab fa-linkedin-in"></i></a>
                 <a class="btn btn-primary btn-sm-square rounded-circle me-0" href=""><i class="fab fa-instagram"></i></a>
               </div>
@@ -193,8 +191,6 @@
                 <p class="mb-0">Software Developer, Marketing Specialist</p>
               </div>
               <div class="team-icon">
-                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href=""><i class="fab fa-twitter"></i></a>
                 <a class="btn btn-primary btn-sm-square rounded-circle me-3" href=""><i class="fab fa-linkedin-in"></i></a>
                 <a class="btn btn-primary btn-sm-square rounded-circle me-0" href=""><i class="fab fa-instagram"></i></a>
               </div>
@@ -207,9 +203,7 @@
 </div>
 <!-- Team End -->
 
-<!-- FOOTER FRAGMENT -->
+<!--Footer-->
 <div th:replace="fragments/fragments :: footer"></div>
-
-
 </body>
 </html>
