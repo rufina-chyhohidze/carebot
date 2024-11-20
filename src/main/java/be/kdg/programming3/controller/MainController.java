@@ -11,10 +11,12 @@ public class MainController {
         return "index"; // Maps to index.html
     }
 
-    @GetMapping("/requestform")
-    public String requestForm() {
-        return "request-form"; // Maps to requestform.html
-    }
+    //I COMMENTED IT BECAUSE IT WAS A MAPPING CONFLICT
+
+    //@GetMapping("/requestform")
+    //public String requestForm() {
+    //  return "request-form"; // Maps to requestform.html
+    // }
 
     @GetMapping("/sendrobot")
     public String sendRobot() {

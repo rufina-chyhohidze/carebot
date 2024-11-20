@@ -20,7 +20,7 @@
 <div th:fragment="navbar">
   <nav class="navbar navbar-expand-lg sticky-top navbar-dark" style="background-color:black;">
     <div class="container">
-      <a class="navbar-brand" href="#"><strong>CareBot</strong></a>
+      <a class="navbar-brand" href="/"><strong>CareBot</strong></a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
         <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
           <a class="nav-link" href="/" th:href="@{/}">Home</a>
-          <a class="nav-link" href="/request-form" th:href="@{/requestform}">Request an Item</a>
+          <a class="nav-link" href="/request-form" th:href="@{/request-form}">Request an Item</a>
           <a class="nav-link" href="/send-robot" th:href="@{/sendrobot}">Send Robot</a>
           <a class="nav-link" href="warehouse" th:href="@{/warehouse}">Warehouse</a>
           <a class="nav-link" href="/login" th:href="@{/login}">Log in</a>
