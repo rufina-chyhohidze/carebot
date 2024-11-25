@@ -46,13 +46,11 @@ public class ItemRequestController {
     public String showRequestForm(Model model) {
         List<Item> items = itemService.getAllItems();
         model.addAttribute("items", items);
-        model.addAttribute("path", PathName.values());
         return "item-request";
     }
 
     @PostMapping("/item-request")
     public String sendItemRequest(@RequestParam("itemId") int itemId,
-                                  @RequestParam("pathName") PathName pathName,
                                   @RequestParam("employeeUsername") String employeeUsername,
                                   Model model) {
 
@@ -64,7 +62,6 @@ public class ItemRequestController {
 
         ItemRequest itemRequest = new ItemRequest();
         itemRequest.setItem(selectedItem);
-        itemRequest.setPathName(pathName);
         itemRequest.setEmployee(employee);
         itemRequest.setRequestTime(LocalDateTime.now());
 

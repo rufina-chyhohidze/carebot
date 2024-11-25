@@ -29,20 +29,16 @@ public class ItemRequest {
     @OneToOne(mappedBy = "itemRequest", fetch = FetchType.LAZY)
     private Delivery delivery;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "path_name")
-    private PathName pathName;
 
     public ItemRequest() {}
 
-    public ItemRequest(int id, Item item, Point point, Employee employee, LocalDateTime requestTime, Delivery delivery, PathName pathName) {
+    public ItemRequest(int id, Item item, Point point, Employee employee, LocalDateTime requestTime, Delivery delivery) {
         this.id = id;
         this.item = item;
         this.point = point;
         this.employee = employee;
         this.requestTime = requestTime;
         this.delivery = delivery;
-        this.pathName = pathName;
     }
 
     public int getId() {return id;}
@@ -57,8 +53,6 @@ public class ItemRequest {
     public void setRequestTime(LocalDateTime requestTime) {this.requestTime = requestTime;}
     public Delivery getDelivery() {return delivery;}
     public void setDelivery(Delivery delivery) {this.delivery = delivery;}
-    public PathName getPathName() {return pathName;}
-    public void setPathName(PathName pathName) {this.pathName = pathName;}
 
     @Override
     public String toString() {
@@ -69,7 +63,6 @@ public class ItemRequest {
                 ", employee=" + employee +
                 ", requestTime=" + requestTime +
                 ", delivery=" + delivery +
-                ", pathName=" + pathName +
                 '}';
     }
 }
