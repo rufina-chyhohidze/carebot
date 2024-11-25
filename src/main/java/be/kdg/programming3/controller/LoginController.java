@@ -16,4 +16,7 @@ public class LoginController {
     public String handleLogin(@RequestParam String username, @RequestParam String password) {
         return "redirect:/";
     }
+
+    @GetMapping("/signup")
+    public String showSignupPage() { return "signup"; }
 }

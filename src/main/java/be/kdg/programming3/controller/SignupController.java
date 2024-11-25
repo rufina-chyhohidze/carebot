@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class RegistrationController {
+public class SignupController {
 
     @GetMapping("/registration")
     public String showRegistrationPage(Model model) {
         model.addAttribute("employee", new Employee());
-        return "registration";
+        return "signup";
     }
 
     @PostMapping("/register/save")

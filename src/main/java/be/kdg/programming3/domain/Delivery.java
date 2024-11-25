@@ -27,7 +27,7 @@ public class Delivery {
     private LocalDateTime deliveryFinished;
 
     @Column(name = "total_delivery_time")
-    private int totalDeliveryTime;
+    private Integer totalDeliveryTime;
 
     public Delivery() {} // JPA requires a no-arg constructor
 

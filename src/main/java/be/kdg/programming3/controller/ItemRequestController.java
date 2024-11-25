@@ -72,7 +72,7 @@ public class ItemRequestController {
         itemRequestService.saveItemRequest(itemRequest);
 
         model.addAttribute("message", "Item request submitted successfully.");
-        return "redirect:/request-item"; //this should redirect to the page after succesful submission but we just show the request below right?
+        return "redirect:/item-request"; //this should redirect to the page after succesful submission but we just show the request below right?
     }
 
     @GetMapping

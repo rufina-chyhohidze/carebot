@@ -4,5 +4,6 @@ public enum DeliveryStatus {
     PENDING,
     IN_PROGRESS,
     COMPLETED,
-    FAILED
+    FAILED,
+    STOPPED
 }

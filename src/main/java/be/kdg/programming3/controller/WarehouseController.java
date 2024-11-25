@@ -20,7 +20,7 @@ public class WarehouseController {
     }
 
     @GetMapping("/warehouse")
-    public String getDeliveries(Model model) {
+    public String showItemRequests(Model model) {
         List<Delivery> deliveries = deliveryService.getAllDeliveries();
         model.addAttribute("deliveries", deliveries);
         return "warehouse";

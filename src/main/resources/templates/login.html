@@ -15,7 +15,7 @@
 
 <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
-        <h2 class="text-center mb-4">Login</h2>
+        <h2 class="text-center mb-4">Welcome!</h2>
         <form>
             <div class="mb-3">
                 <label for="username" class="form-label ">Username</label>
@@ -44,10 +44,15 @@
 
             <div class="d-grid gap-2">
                 <form action="/login" method="post" class="mt-4">
-                    <button type="submit" class="btn btn-warning w-100">Login</button>
+                    <button type="submit" class="btn btn-warning w-100">Log In</button>
                 </form>
-                <form action="/registration" method="post" class="mt-4">
-                    <button type="submit" class="btn btn-secondary w-100">Registration</button>
+                <div class="d-flex align-items-center my-3">
+                    <hr class="flex-grow-1">
+                    <span class="mx-2">OR</span>
+                    <hr class="flex-grow-1">
+                </div>
+                <form action="/signup" method="post" class="mt-4">
+                    <button type="submit" class="btn btn-secondary w-100">Sign Up</button>
                 </form>
             </div>
         </form>
