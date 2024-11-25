@@ -1,9 +1,7 @@
 package be.kdg.programming3.controller;
 
-import be.kdg.programming3.domain.Item;
-import be.kdg.programming3.domain.ItemRequest;
-import be.kdg.programming3.domain.PathName;
-import be.kdg.programming3.domain.Point;
+import be.kdg.programming3.domain.*;
+import be.kdg.programming3.repository.EmployeeRepository;
 import be.kdg.programming3.service.ItemRequestService;
 import be.kdg.programming3.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,68 +15,94 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/item-request")
+//@RequestMapping("/RequestMappingitem-request")
 public class ItemRequestController {
 
     private final ItemRequestService itemRequestService;
     private final ItemService itemService;
+    private final EmployeeRepository employeeRepository;
 
-    private final List<Point> dropPoints;
+//    private List<Point> points;
 
     @Autowired
-    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService) {
+    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService, EmployeeRepository employeeRepository) {
         this.itemRequestService = itemRequestService;
         this.itemService = itemService;
+        this.employeeRepository = employeeRepository;
 
-        this.dropPoints = initializeManualPoints();
+//        this.points = initializeManualPoints();
     }
 
-    private List<Point> initializeManualPoints() {
-        List<Point> points = new ArrayList<>();
-        points.add(new Point(1, PathName.PATH1, "Location 1", false));
-        points.add(new Point(2, PathName.PATH2, "Location 2", false));
-        points.add(new Point(3, PathName.PATH3, "Location 3", false));
-
-        return points;
-    }
+//    private List<Point> initializeManualPoints() {
+//        points = new ArrayList<>();
+//        points.add(new Point(1, PathName.PATH1, "Location 1", false));
+//        points.add(new Point(2, PathName.PATH2, "Location 2", false));
+//        points.add(new Point(3, PathName.PATH3, "Location 3", false));
+//
+//        return points;
+//    }
 
     @GetMapping("/item-request")
     public String showRequestForm(Model model) {
         List<Item> items = itemService.getAllItems();
-        model.addAttribute("Item", items);
-        model.addAttribute("dropPoints", dropPoints);
+        model.addAttribute("items", items);
+        model.addAttribute("path", PathName.values());
         return "item-request";
     }
 
     @PostMapping("/item-request")
     public String sendItemRequest(@RequestParam("itemId") int itemId,
-                                  @RequestParam("dropPointId") int pointNumber,
+                                  @RequestParam("pathName") PathName pathName,
                                   @RequestParam("employeeUsername") String employeeUsername,
                                   Model model) {
 
         Item selectedItem = itemService.getItemById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + itemId));
 
-        Point selectedPoint = dropPoints.stream()
-                .filter(point -> point.getPointNumber() == pointNumber)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Invalid point number: " + pointNumber));
+        Employee employee = employeeRepository.findByUsername(employeeUsername)
+                .orElseThrow(() -> new IllegalArgumentException("Employee not found with username: " + employeeUsername));
 
         ItemRequest itemRequest = new ItemRequest();
         itemRequest.setItem(selectedItem);
-        itemRequest.setPoint(selectedPoint);
+        itemRequest.setPathName(pathName);
+        itemRequest.setEmployee(employee);
         itemRequest.setRequestTime(LocalDateTime.now());
 
         itemRequestService.saveItemRequest(itemRequest);
 
         model.addAttribute("message", "Item request submitted successfully.");
-        return "redirect:/item-request"; //this should redirect to the page after succesful submission but we just show the request below right?
+        return "redirect:/item-request";
     }
 
-    @GetMapping
-    public String viewItemRequests(Model model) {
-        List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
-        model.addAttribute("itemRequests", itemRequests);
-        return "warehouse";
-    }
+//    @PostMapping("/item-request")
+//    public String sendItemRequest(@RequestParam("itemId") int itemId,
+//                                  @RequestParam("dropPointId") int pointNumber,
+//                                  @RequestParam("employeeUsername") String employeeUsername,
+//                                  Model model) {
+//
+//        Item selectedItem = itemService.getItemById(itemId)
+//                .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + itemId));
+//
+//        Point selectedPoint = dropPoints.stream()
+//                .filter(point -> point.getPointNumber() == pointNumber)
+//                .findFirst()
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid point number: " + pointNumber));
+//
+//        ItemRequest itemRequest = new ItemRequest();
+//        itemRequest.setItem(selectedItem);
+//        itemRequest.setPoint(selectedPoint);
+//        itemRequest.setRequestTime(LocalDateTime.now());
+//
+//        itemRequestService.saveItemRequest(itemRequest);
+//
+//        model.addAttribute("message", "Item request submitted successfully.");
+//        return "redirect:/item-request"; //this should redirect to the page after succesful submission but we just show the request below right?
+//    }
+
+//    @GetMapping("/warehouse")
+//    public String viewItemRequests(Model model) {
+//        List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
+//        model.addAttribute("itemRequests", itemRequests);
+//        return "warehouse";
+//    }
 }
