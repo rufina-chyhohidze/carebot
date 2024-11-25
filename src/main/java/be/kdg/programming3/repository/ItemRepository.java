@@ -4,8 +4,10 @@ import be.kdg.programming3.domain.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ItemRepository extends JpaRepository<Item, Integer>{
-    //  The findAll() method is provided by JpaRepository
+import java.util.List;
 
+@Repository
+public interface ItemRepository extends JpaRepository<Item, Integer> {
+    List<Item> findByCategory(String category);
+    List<Item> findByNameContaining(String name);
 }

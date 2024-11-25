@@ -20,14 +20,14 @@
             <label for="item-select" class="form-label">Select Item</label>
             <select id="item-select" name="itemId" class="form-select form-select-sm" required>
                 <option value="" disabled selected>Select an item</option>
-                <option th:each="item : ${items}" th:value="${item.id} + ':' + ${item.name}" th:text="${item.name}"></option>
+                <option th:each="item : ${Item}" th:value="${Item.id}" th:text="${Item.name}"></option>
             </select>
         </div>
         <div class="mb-3">
             <label for="drop-point-select" class="form-label">Select Drop Point</label>
             <select id="drop-point-select" class="form-select form-select-sm" required>
                 <option value="" disabled selected>Select a drop point</option>
-                <option th:each="pathName : ${pathNames}" th:value="${pathName}" th:text="${pathName}"></option>
+                <option th:each="dropPoint : ${dropPoints}" th:value="${dropPoint.id}" th:text="${dropPoint.locationName}"></option>
             </select>
         </div>
         <button type="submit" class="btn btn-warning w-100">Send Request</button>
@@ -49,48 +49,34 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const requestForm = document.getElementById('request-form');
-    const itemSelect = document.getElementById('item-select'); // Assuming value format is "itemId:itemName"
+    const itemSelect = document.getElementById('item-select');
     const dropPointSelect = document.getElementById('drop-point-select');
     const statusList = document.getElementById('status-list');
 
-    requestForm.addEventListener('submit', function (event) {
+    requestForm.addEventListener('submit', function(event) {
         event.preventDefault();
-
-        // Extract selected item data
-        const selectedItemValue = itemSelect.value;
+        const selectedItem = itemSelect.value;
         const selectedDropPoint = dropPointSelect.value;
 
-        if (selectedItemValue && selectedDropPoint) {
-            const [itemId, itemName] = selectedItemValue.split(':'); // Split value into id and name
+        if (selectedItem && selectedDropPoint) {
             const timestamp = new Date().toLocaleString();
-
-            // Delivery status from enum
-            const deliveryStatus = "PENDING"; // Hardcoded as 'PENDING' for now, can be dynamic
-
-            // Create the request status item
             const statusItem = document.createElement('div');
             statusItem.className = 'list-group-item d-flex justify-content-between align-items-center';
 
             statusItem.innerHTML = `
                 <div>
-                    <strong>Item ID: </strong>${itemId}<br>
-                    <strong>Name of the Item: </strong>${itemName}<br>
-                    <strong>Delivery to: </strong>${selectedDropPoint}
+                    <strong>Requested: </strong>${selectedItem} to ${selectedDropPoint}
                 </div>
-                <div class="badge bg-warning text-dark">${deliveryStatus}</div>
+                <div class="badge bg-warning text-dark">Pending</div>
                 <small class="text-muted">${timestamp}</small>
             `;
 
-            // Append the new status item to the list
             statusList.appendChild(statusItem);
 
-            // Remove default "No requests yet" message if present
             const defaultMessage = document.querySelector('#status-list .list-group-item.text-center');
             if (defaultMessage && defaultMessage.textContent === 'No requests yet.') {
                 defaultMessage.remove();
             }
-
-            // Reset the form for new inputs
             requestForm.reset();
         } else {
             alert('Please select both an item and a drop point.');
