@@ -23,6 +23,6 @@ public class WarehouseController {
     public String showItemRequests(Model model) {
         List<Delivery> deliveries = deliveryService.getAllDeliveries();
         model.addAttribute("deliveries", deliveries);
-        return "warehouse";
+        return "send-robot";
     }
 }
