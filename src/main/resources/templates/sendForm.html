@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Send Data to ESP32</title>
+</head>
+<body>
+<h1>Send Data to ESP32</h1>
+<form action="#" th:action="@{/data/send}" method="post">
+  <label for="data">Data to Send:</label>
+  <input type="text" id="data" name="data" required>
+  <button type="submit">Send</button>
+</form>
+
+<p th:text="${message}"></p>
+</body>
+</html>
