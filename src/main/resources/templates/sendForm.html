@@ -5,11 +5,19 @@
 </head>
 <body>
 <h1>Send Data to ESP32</h1>
+
+<!-- Form to send custom data -->
 <form action="#" th:action="@{/data/send}" method="post">
   <label for="data">Data to Send:</label>
   <input type="text" id="data" name="data" required>
   <button type="submit">Send</button>
 </form>
+
+<!-- Button to send predefined mode -->
+<h2>Quick Actions</h2>
+<a th:href="@{/data/mode/model4}">
+  <button type="button">Send Mode 4</button>
+</a>
 
 <p th:text="${message}"></p>
 </body>
