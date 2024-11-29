@@ -12,7 +12,11 @@ import java.util.Map;
 public class ProcessorFactory {
     private final Map<String, DataProcessor> processorMap = new HashMap<>();
 
-    public ProcessorFactory() {
+    /**
+     * private constructor to "hide it", the part of factory pattern
+     * we avoid the creating of new instances of this class
+     */
+    private ProcessorFactory() {
         processorMap.put("sum", new SumProcessor());
         processorMap.put("average", new AverageProcessor());
         processorMap.put("maxmin", new MaxMinProcessor());
