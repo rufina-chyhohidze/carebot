@@ -18,13 +18,13 @@ public class ESP32Controller {
         return "sendForm";
     }
 
-    // Endpoint to handle the form submission and store data
-    @PostMapping("/send")
-    public String sendData(@RequestParam("data") String data, Model model) {
-        dataForEsp32 = data; // Store the data to be sent to ESP32
-        model.addAttribute("message", "Data sent successfully!");
-        return "sendForm";
-    }
+//    // Endpoint to handle the form submission and store data
+//    @PostMapping("/send")
+//    public String sendData(@RequestParam("data") String data, Model model) {
+//        dataForEsp32 = data; // Store the data to be sent to ESP32
+//        model.addAttribute("message", "Data sent successfully!");
+//        return "sendForm";
+//    }
 
     // Endpoint for ESP32 to check for data
     @GetMapping("/esp32")
@@ -38,11 +38,10 @@ public class ESP32Controller {
         return ResponseEntity.noContent().build(); // No data to send
     }
 
-    // New endpoint to handle direct mode GET request
     @GetMapping("/mode/{mode}")
-    @ResponseBody
-    public ResponseEntity<String> sendModeToEsp32(@PathVariable String mode) {
+    public String sendModeToEsp32(@PathVariable String mode) {
         dataForEsp32 = mode; // Set the mode as the data
-        return ResponseEntity.ok("Mode " + mode + " set for ESP32");
+
+        return "redirect:/item-request";//ResponseEntity.ok("Mode " + mode + " set for ESP32");
     }
 }

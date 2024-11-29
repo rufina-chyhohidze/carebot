@@ -46,30 +46,45 @@ public class ItemRequestController {
     public String showRequestForm(Model model) {
         List<Item> items = itemService.getAllItems();
         model.addAttribute("items", items);
+        model.addAttribute("paths", PathName.values());
+
         return "item-request";
     }
 
     @PostMapping("/item-request")
-    public String sendItemRequest(@RequestParam("itemId") int itemId,
-                                  @RequestParam("employeeUsername") String employeeUsername,
-                                  Model model) {
+    public String sendItemRequest(@RequestParam("path") String pathSelected, Model model) {
+        List<Item> items = itemService.getAllItems();
+        model.addAttribute("items", items);
+        model.addAttribute("paths", PathName.values());
 
-        Item selectedItem = itemService.getItemById(itemId)
-                .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + itemId));
+        System.out.println("Selected path: " + pathSelected);
 
-        Employee employee = employeeRepository.findByUsername(employeeUsername)
-                .orElseThrow(() -> new IllegalArgumentException("Employee not found with username: " + employeeUsername));
-
-        ItemRequest itemRequest = new ItemRequest();
-        itemRequest.setItem(selectedItem);
-        itemRequest.setEmployee(employee);
-        itemRequest.setRequestTime(LocalDateTime.now());
-
-        itemRequestService.saveItemRequest(itemRequest);
-
-        model.addAttribute("message", "Item request submitted successfully.");
-        return "redirect:/item-request";
+        return "redirect:/data/mode/" + pathSelected;
     }
+
+
+//    previous:
+//    @PostMapping("/item-request")
+//    public String sendItemRequest(@RequestParam("itemId") int itemId,
+//                                  @RequestParam("employeeUsername") String employeeUsername,
+//                                  Model model) {
+//
+//        Item selectedItem = itemService.getItemById(itemId)
+//                .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + itemId));
+//
+//        Employee employee = employeeRepository.findByUsername(employeeUsername)
+//                .orElseThrow(() -> new IllegalArgumentException("Employee not found with username: " + employeeUsername));
+//
+//        ItemRequest itemRequest = new ItemRequest();
+//        itemRequest.setItem(selectedItem);
+//        itemRequest.setEmployee(employee);
+//        itemRequest.setRequestTime(LocalDateTime.now());
+//
+//        itemRequestService.saveItemRequest(itemRequest);
+//
+//        model.addAttribute("message", "Item request submitted successfully.");
+//        return "redirect:/item-request";
+//    }
 
 //    @PostMapping("/item-request")
 //    public String sendItemRequest(@RequestParam("itemId") int itemId,
