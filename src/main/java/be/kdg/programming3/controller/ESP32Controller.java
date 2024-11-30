@@ -5,26 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping("/data")
 public class ESP32Controller {
 
     private String dataForEsp32 = ""; // Stores the data for the ESP32
-
-    // Endpoint to display the form in Thymeleaf
-    @GetMapping("/send")
-    public String showForm(Model model) {
-        model.addAttribute("message", ""); // Placeholder for feedback messages
-        return "sendForm";
-    }
-
-//    // Endpoint to handle the form submission and store data
-//    @PostMapping("/send")
-//    public String sendData(@RequestParam("data") String data, Model model) {
-//        dataForEsp32 = data; // Store the data to be sent to ESP32
-//        model.addAttribute("message", "Data sent successfully!");
-//        return "sendForm";
-//    }
 
     // Endpoint for ESP32 to check for data
     @GetMapping("/esp32")
@@ -42,6 +29,15 @@ public class ESP32Controller {
     public String sendModeToEsp32(@PathVariable String mode) {
         dataForEsp32 = mode; // Set the mode as the data
 
-        return "redirect:/warehouse";//ResponseEntity.ok("Mode " + mode + " set for ESP32");
+        return "redirect:/warehouse";
     }
+
+    @PostMapping("/pathInfoReceiver")
+    public ResponseEntity<String> pathInfoReceiver(@RequestBody Map<String, Object> pathInfo) {
+        int distance = (int) pathInfo.get("distance");
+        System.err.println("\n\n\n RECEIVED DATA: " + pathInfo + " \n\n\n");
+
+        return ResponseEntity.ok("Data received successfully");
+    }
+
 }

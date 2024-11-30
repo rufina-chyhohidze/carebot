@@ -36,14 +36,6 @@ public class ItemRequestController {
 //        this.points = initializeManualPoints();
     }
 
-//    private List<Point> initializeManualPoints() {
-//        points = new ArrayList<>();
-//        points.add(new Point(1, PathName.PATH1, "Location 1", false));
-//        points.add(new Point(2, PathName.PATH2, "Location 2", false));
-//        points.add(new Point(3, PathName.PATH3, "Location 3", false));
-//
-//        return points;
-//    }
 
     @GetMapping("/item-request")
     public String showRequestForm(Model model) {

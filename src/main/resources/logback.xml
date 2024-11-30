@@ -1,0 +1,22 @@
+<configuration>
+    <!--     &lt;!&ndash; Define a property for the application start time &ndash;&gt; -->
+    <!--     <property name="applicationStart" value="${APPLICATION_START:-${java.time.LocalDateTime.now()}}" /> -->
+    <!--     &lt;!&ndash; Console Appender &ndash;&gt; -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--     &lt;!&ndash; File Appender: Logs to a unique file for each runtime &ndash;&gt; -->
+    <!--     <appender name="FILE" class="ch.qos.logback.core.FileAppender"> -->
+    <!--         <file>logs/application-${applicationStart}.log</file> -->
+    <!--         <encoder> -->
+    <!--             <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern> -->
+    <!--         </encoder> -->
+    <!--     </appender> -->
+    <!--  Root Logger Configuration  -->
+    <root level="debug">
+        <appender-ref ref="CONSOLE"/>
+        <!--         <appender-ref ref="FILE" /> -->
+    </root>
+</configuration>
