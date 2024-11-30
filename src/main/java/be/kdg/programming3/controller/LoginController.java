@@ -6,6 +6,7 @@ import be.kdg.programming3.domain.Gender;
 import be.kdg.programming3.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,14 @@ public class LoginController {
     @GetMapping("/login")
     public String showLoginPage() {
         return "login";
+    }
+    @PostMapping("/login")
+    public String logInToUser(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+        System.err.println("\n\n\n RECEIVED EMAIL AND PASSWORD: " + email + " " + password + " \n\n\n" );
+
+
+
+        return null;
     }
 
     @GetMapping("/signup")
@@ -43,9 +52,10 @@ public class LoginController {
         Employee newEmployee = new Employee(firstName, lastName, Gender.valueOf(gender), EmployeeRole.valueOf(employeeType), phoneNumber, email, password);
 
         // Save the employee to the database
-        employeeService.saveEmployee(newEmployee);
+        System.err.println("\n\n EMployee without id cause not saved: " + newEmployee);
+        Employee employee = employeeService.createEmployee(newEmployee);
 
-        System.out.println("Created new employee: " + newEmployee);
+        System.out.println("Created new employee now has id: " + employee);
 
         // Redirect to the login page after successful registration
         return "redirect:/login";

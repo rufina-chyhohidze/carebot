@@ -1,5 +1,6 @@
 package be.kdg.programming3.service;
 
+import be.kdg.programming3.EmployeeDBException;
 import be.kdg.programming3.domain.Employee;
 import be.kdg.programming3.repository.EmployeeRepository;
 import org.slf4j.Logger;
@@ -20,11 +21,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getAllEmployees() {
-        return List.of();
+        return employeeRepository.getAllEmployees();
     }
 
     @Override
-    public void saveEmployee(Employee employee) {
-        employeeRepository.save(employee);
+    public Employee createEmployee(Employee employee) {
+        try {
+            return employeeRepository.createEmployee(employee);
+        } catch (EmployeeDBException e) {
+            LOG.error("Error creating employee: {}", e.getMessage());
+            return null;
+        }
     }
 }

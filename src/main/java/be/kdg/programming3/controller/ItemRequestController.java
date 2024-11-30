@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,15 +18,15 @@ public class ItemRequestController {
 
     private final ItemRequestService itemRequestService;
     private final ItemService itemService;
-    private final EmployeeRepository employeeRepository;
+//    private final EmployeeRepository employeeRepository;
 
 //    private List<Point> points;
 
     @Autowired
-    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService, EmployeeRepository employeeRepository) {
+    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService) {
         this.itemRequestService = itemRequestService;
         this.itemService = itemService;
-        this.employeeRepository = employeeRepository;
+//        this.employeeRepository = employeeRepository;
 
 //        this.points = initializeManualPoints();
     }

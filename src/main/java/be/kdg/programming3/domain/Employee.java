@@ -25,8 +25,8 @@ public class Employee {
 
     private String email;
     private String phone;
-    @Column(name = "hire_date")
-    private Date hireDate;
+//    @Column(name = "hire_date")
+//    private Date hireDate;
     @Column(name = "username", unique = true)
     private String username;
     private String password;
@@ -37,26 +37,27 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private EmployeeDepartment department;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ItemRequest> itemRequests;
+//    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private List<ItemRequest> itemRequests;
 
     public Employee() {}
 
-    public Employee(int employee_id, String firstName, String lastName, Timestamp dateOfBirth, Gender gender, String email, String phone, Date hireDate, String username, String password, EmployeeRole role, EmployeeDepartment department) {
-        this.employee_id = employee_id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
-        this.email = email;
-        this.phone = phone;
-        this.hireDate = hireDate;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.department = department;
-    }
-    public Employee(String firstName, String lastName, Gender gender, EmployeeRole role, String phoneNumber, String email, String password) {
+//    public Employee(String firstName, String lastName, Timestamp dateOfBirth, Gender gender, String email, String phone, Date hireDate, String username, String password, EmployeeRole role, EmployeeDepartment department) {
+//        this.employee_id = employee_id;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.dateOfBirth = dateOfBirth;
+//        this.gender = gender;
+//        this.email = email;
+//        this.phone = phone;
+////        this.hireDate = hireDate;
+//        this.username = username;
+//        this.password = password;
+//        this.role = role;
+//        this.department = department;
+//    }
+
+public Employee(String firstName, String lastName, Gender gender, EmployeeRole role, String phoneNumber, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -64,6 +65,7 @@ public class Employee {
         this.role = role;
         this.phone = phoneNumber;
         this.password = password;
+        this.username = firstName + lastName;
     }
 
     public int getEmployee_id() {return employee_id;}
@@ -80,16 +82,16 @@ public class Employee {
     public void setEmail(String email) {this.email = email;}
     public String getPhone() {return phone;}
     public void setPhone(String phone) {this.phone = phone;}
-    public Date getHireDate() {return hireDate;}
-    public void setHireDate(Date hireDate) {this.hireDate = hireDate;}
+//    public Date getHireDate() {return hireDate;}
+//    public void setHireDate(Date hireDate) {this.hireDate = hireDate;}
     public String getUsername() {return username;}
     public void setUsername(String username) {this.username = username;}
     public EmployeeRole getRole() {return role;}
     public void setRole(EmployeeRole role) {this.role = role;}
     public EmployeeDepartment getDepartment() {return department;}
     public void setDepartment(EmployeeDepartment department) {this.department = department;}
-    public List<ItemRequest> getItemRequests() {return itemRequests;}
-    public void setItemRequests(List<ItemRequest> itemRequests) {this.itemRequests = itemRequests;}
+//    public List<ItemRequest> getItemRequests() {return itemRequests;}
+//    public void setItemRequests(List<ItemRequest> itemRequests) {this.itemRequests = itemRequests;}
 
     @Override
     public String toString() {
@@ -101,7 +103,7 @@ public class Employee {
                 ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", hireDate=" + hireDate +
+//                ", hireDate=" + hireDate +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +

@@ -1,7 +1,6 @@
 package be.kdg.programming3.service;
 
 import be.kdg.programming3.domain.Item;
-import be.kdg.programming3.domain.ItemRequest;
 import be.kdg.programming3.repository.ItemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
