@@ -16,4 +16,6 @@ public interface ItemRequestService {
 //    void deleteItemRequest(int id);
 
     ItemRequest createItemRequest(ItemRequest itemRequest);
+
+    ItemRequest getItemRequestById(int itemRequestId);
 }

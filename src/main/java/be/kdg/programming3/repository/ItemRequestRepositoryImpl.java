@@ -28,7 +28,13 @@ public class ItemRequestRepositoryImpl implements ItemRequestRepository {
     public List<ItemRequest> getAllItemRequests() {
         return em.createQuery("SELECT IR FROM ItemRequest IR", ItemRequest.class).getResultList();
     }
-    //    @Override
+
+    @Override
+    public ItemRequest getItemRequestById(int id) {
+        return em.createQuery("SELECT IR FROM ItemRequest IR WHERE IR.id = :id", ItemRequest.class).setParameter("id", id).getSingleResult();
+    }
+
+//    @Override
 //    public List<ItemRequest> findByEmployeeUsername(String username) {
 //        return List.of();
 //    }
@@ -38,10 +44,7 @@ public class ItemRequestRepositoryImpl implements ItemRequestRepository {
 //        return List.of();
 //    }
 //
-//    @Override
-//    public Optional<ItemRequest> findById(int id) {
-//        return Optional.empty();
-//    }
+
 //
 //    @Override
 //    public List<ItemRequest> path(PathName path) {

@@ -42,6 +42,6 @@ public class ESP32Controller {
     public String sendModeToEsp32(@PathVariable String mode) {
         dataForEsp32 = mode; // Set the mode as the data
 
-        return "redirect:/item-request";//ResponseEntity.ok("Mode " + mode + " set for ESP32");
+        return "redirect:/warehouse";//ResponseEntity.ok("Mode " + mode + " set for ESP32");
     }
 }

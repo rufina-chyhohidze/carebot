@@ -29,38 +29,40 @@
 
 <div th:replace="fragments/fragments :: navbar"></div>
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-start">
-        <!-- Table Section -->
-        <div class="flex-grow-1">
-            <h1>Requested Items</h1>
-            <form method="post">
-                <table class="table table-dark table-striped">
-                    <thead>
-                    <tr>
-                        <th>Select</th>
-                        <th>Item</th>
-                        <th>Drop Point</th>
-                        <th>Time Requested</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="itemRequest : ${itemRequests}">
-                        <td>
-                            <label for="selectedItemRequest">
-                                <input th:value="${itemRequest.getId()}" type="radio" id="selectedItemRequest" name="selectedItemRequest" class="form-check-input" required>
-                            </label>
-                        </td>
-                        <td th:text="${itemRequest.getItem()}">Item Name</td>
-                        <td th:text="${itemRequest.getPath()}">Path</td>
-                        <td th:text="${itemRequest.getRequestTime()}">Time</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </form>
-        </div>
-    </div>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-start">
+                <!-- Table Section -->
+                <div class="flex-grow-1">
+                    <h1>Requested Items</h1>
+                    <form method="post" style="text-align: center">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Item</th>
+                                <th>Drop Point</th>
+                                <th>Time Requested</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="itemRequest : ${itemRequests}">
+                                <td>
+                                    <label for="selectedItemRequest">
+                                        <input th:value="${itemRequest.getId()}" type="radio" id="selectedItemRequest" name="selectedItemRequest" class="form-check-input" required>
+                                    </label>
+                                </td>
+                                <td th:text="${itemRequest.getItem()}">Item Name</td>
+                                <td th:text="${itemRequest.getPath()}">Path</td>
+                                <td th:text="${itemRequest.getRequestTime()}">Time</td>
+                            </tr>
+                            </tbody>
+                        </table>
 
+                        <button type="submit">Send Delivery</button>
+                    </form>
+                </div>
+
+        </div>
 
     <!-- Centered and sticky button -->
 <!--    <span class="sticky-bottom">-->
@@ -92,10 +94,9 @@
 <!--    <div class="alert alert-success">-->
 <!--        <strong>Congratulations!</strong> Your delivery has been completed successfully!-->
 <!--    </div>-->
-</div>
+    </div>
 
 <script>
-    console.log("websocket");
     const socket = new SockJS('/ws');  // Connect to WebSocket
     const stompClient = Stomp.over(socket);
 

@@ -43,12 +43,11 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         return itemRequests;
     }
 
-//    @Override
-//    public ItemRequest getItemRequestById(int id) {
-//        LOG.debug("Fetching ItemRequest by ID: {}", id);
-//        return itemRequestRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("No ItemRequest found with ID: " + id));
-//    }
+    @Override
+    public ItemRequest getItemRequestById(int id) {
+        LOG.debug("Fetching ItemRequest by ID: {}", id);
+        return itemRequestRepository.getItemRequestById(id);
+    }
 
 //    @Override
 //    public List<ItemRequest> getItemRequestsByEmployee(String username) {

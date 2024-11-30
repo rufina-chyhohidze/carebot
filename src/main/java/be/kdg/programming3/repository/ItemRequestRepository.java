@@ -5,6 +5,7 @@ import be.kdg.programming3.domain.PathName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+//import java.lang.ScopedValue;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +21,6 @@ public interface ItemRequestRepository {
 //    List<ItemRequest> path(PathName path);
 
     ItemRequest createItemRequest(ItemRequest itemRequest);
+
+    ItemRequest getItemRequestById(int id);
 }

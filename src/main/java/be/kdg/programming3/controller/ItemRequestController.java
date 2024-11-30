@@ -66,7 +66,7 @@ public class ItemRequestController {
         ItemRequest itemRequest = new ItemRequest(itemSelected, PathName.valueOf(pathSelected));
         itemRequest = this.itemRequestService.createItemRequest(itemRequest); // Persisted with id
 
-        // Send a WebSocket message with the itemRequest data
+        // Send a WebSocket message with the itemRequest data to reload warehouse page automatically
         messagingTemplate.convertAndSend("/topic/warehouse-updates", itemRequest);
 
         return "redirect:/item-request"; // Or you can use a custom response if needed
