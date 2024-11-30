@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller
@@ -35,9 +36,10 @@ public class ESP32Controller {
     @PostMapping("/pathInfoReceiver")
     public ResponseEntity<String> pathInfoReceiver(@RequestBody Map<String, Object> pathInfo) {
         int distance = (int) pathInfo.get("distance");
-        System.err.println("\n\n\n RECEIVED DATA: " + pathInfo + " \n\n\n");
+        System.err.println("\n\n\n RECEIVED DATA: " + pathInfo + " at time: " + LocalDateTime.now() + "\n\n\n");
 
         return ResponseEntity.ok("Data received successfully");
+        /// TODO: Redirect to warhouse (new getmapping that gets the finished path data to store the delivery in the database, then show the delivery information in a website - then test with my hotspot and host website on server - finish preparing talking points for presentation MVP)
     }
 
 }
