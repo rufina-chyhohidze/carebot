@@ -1,10 +1,12 @@
 package be.kdg.programming3.controller;
 
-import be.kdg.programming3.domain.*;
-import be.kdg.programming3.repository.EmployeeRepository;
+
+import be.kdg.programming3.domain.ItemRequest;
+import be.kdg.programming3.domain.PathName;
 import be.kdg.programming3.service.ItemRequestService;
 import be.kdg.programming3.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +21,16 @@ public class ItemRequestController {
 
     private final ItemRequestService itemRequestService;
     private final ItemService itemService;
+    private final SimpMessagingTemplate messagingTemplate;
 //    private final EmployeeRepository employeeRepository;
 
 //    private List<Point> points;
 
     @Autowired
-    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService) {
+    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService, SimpMessagingTemplate messagingTemplate) {
         this.itemRequestService = itemRequestService;
         this.itemService = itemService;
+        this.messagingTemplate = messagingTemplate;
 //        this.employeeRepository = employeeRepository;
 
 //        this.points = initializeManualPoints();
@@ -47,26 +51,27 @@ public class ItemRequestController {
         System.out.println("itemCategories: " + itemCategories);
         model.addAttribute("items", itemCategories);
         model.addAttribute("paths", PathName.values());
+        model.addAttribute("itemRequests", this.itemRequestService.getAllItemRequests());
 
         return "item-request";
     }
 
     @PostMapping("/item-request")
-    public String sendItemRequest(@RequestParam("item") String itemSelected, @RequestParam("path") String pathSelected, Model model) {
+    public String sendItemRequest(@RequestParam("item") String itemSelected,
+                                  @RequestParam("path") String pathSelected, Model model) {
         List<String> items = itemService.getItemCategories();
         model.addAttribute("items", items);
         model.addAttribute("paths", PathName.values());
 
-//        System.err.println("Item selected: " + itemSelected + " - Selected path: " + pathSelected);
-        System.out.println("Creating itemRequest");
         ItemRequest itemRequest = new ItemRequest(itemSelected, PathName.valueOf(pathSelected));
-        System.out.println("item request created (not persisted): " + itemRequest);
-        itemRequest = this.itemRequestService.createItemRequest(itemRequest); // persisted and  with id
-        System.out.println("item request created NOW PERSISTED WITH ID: " + itemRequest);
+        itemRequest = this.itemRequestService.createItemRequest(itemRequest); // Persisted with id
 
+        // Send a WebSocket message with the itemRequest data
+        messagingTemplate.convertAndSend("/topic/warehouse-updates", itemRequest);
 
-        return "redirect:/data/mode/" + pathSelected;
+        return "redirect:/item-request"; // Or you can use a custom response if needed
     }
+
 
 
 //    previous:

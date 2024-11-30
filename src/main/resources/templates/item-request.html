@@ -39,7 +39,13 @@
     <div class="status-section">
         <h3 class="mb-3">Request Status</h3>
         <div class="status-list list-group" id="status-list">
-            <div class="list-group-item text-center">No requests yet.</div>
+            <div th:if="${itemRequests.size == 0}" class="list-group-item text-center">No requests yet.</div>
+            <div th:each="itemRequest : ${itemRequests}">
+                <strong>Requested: </strong> <span th:text="${itemRequest.getItem()} + ' to ' + ${itemRequest.getPath()}">Item to Path</span>
+                <div class="badge bg-warning text-dark">Pending</div>
+                <small th:text="${itemRequest.getRequestTime()}">Timestamp</small>
+            </div>
+
         </div>
     </div>
 </div>

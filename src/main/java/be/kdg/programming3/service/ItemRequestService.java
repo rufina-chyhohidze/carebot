@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ItemRequestService {
 //    ItemRequest saveItemRequest(ItemRequest itemRequest);
-//    List<ItemRequest> getAllItemRequests();
+    List<ItemRequest> getAllItemRequests();
 //    ItemRequest getItemRequestById(int id);
 //    List<ItemRequest> getItemRequestsByEmployee(String username);
 //    List<ItemRequest> getItemRequestsByItemId(int itemId);

@@ -35,13 +35,13 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 //        return savedItemRequest;
 //    }
 //
-//    @Override
-//    public List<ItemRequest> getAllItemRequests() {
-//        LOG.debug("Fetching all ItemRequests");
-//        List<ItemRequest> itemRequests = itemRequestRepository.findAll();
-//        LOG.debug("Found {} ItemRequests", itemRequests.size());
-//        return itemRequests;
-//    }
+    @Override
+    public List<ItemRequest> getAllItemRequests() {
+        LOG.debug("Fetching all ItemRequests");
+        List<ItemRequest> itemRequests = itemRequestRepository.getAllItemRequests();
+        LOG.debug("Found {} ItemRequests", itemRequests.size());
+        return itemRequests;
+    }
 
 //    @Override
 //    public ItemRequest getItemRequestById(int id) {

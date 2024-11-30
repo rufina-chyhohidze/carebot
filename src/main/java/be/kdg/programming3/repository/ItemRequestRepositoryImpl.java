@@ -25,24 +25,28 @@ public class ItemRequestRepositoryImpl implements ItemRequestRepository {
     }
 
     @Override
-    public List<ItemRequest> findByEmployeeUsername(String username) {
-        return List.of();
+    public List<ItemRequest> getAllItemRequests() {
+        return em.createQuery("SELECT IR FROM ItemRequest IR", ItemRequest.class).getResultList();
     }
-
-    @Override
-    public List<ItemRequest> findByRequestTimeBetween(LocalDateTime startTime, LocalDateTime endTime) {
-        return List.of();
-    }
-
-    @Override
-    public Optional<ItemRequest> findById(int id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<ItemRequest> path(PathName path) {
-        return List.of();
-    }
+    //    @Override
+//    public List<ItemRequest> findByEmployeeUsername(String username) {
+//        return List.of();
+//    }
+//
+//    @Override
+//    public List<ItemRequest> findByRequestTimeBetween(LocalDateTime startTime, LocalDateTime endTime) {
+//        return List.of();
+//    }
+//
+//    @Override
+//    public Optional<ItemRequest> findById(int id) {
+//        return Optional.empty();
+//    }
+//
+//    @Override
+//    public List<ItemRequest> path(PathName path) {
+//        return List.of();
+//    }
 
 
 }
