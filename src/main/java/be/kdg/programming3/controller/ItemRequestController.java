@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -42,20 +43,27 @@ public class ItemRequestController {
 
     @GetMapping("/item-request")
     public String showRequestForm(Model model) {
-        List<Item> items = itemService.getAllItems();
-        model.addAttribute("items", items);
+        List<String> itemCategories = itemService.getItemCategories();
+        System.out.println("itemCategories: " + itemCategories);
+        model.addAttribute("items", itemCategories);
         model.addAttribute("paths", PathName.values());
 
         return "item-request";
     }
 
     @PostMapping("/item-request")
-    public String sendItemRequest(@RequestParam("path") String pathSelected, Model model) {
-        List<Item> items = itemService.getAllItems();
+    public String sendItemRequest(@RequestParam("item") String itemSelected, @RequestParam("path") String pathSelected, Model model) {
+        List<String> items = itemService.getItemCategories();
         model.addAttribute("items", items);
         model.addAttribute("paths", PathName.values());
 
-        System.out.println("Selected path: " + pathSelected);
+//        System.err.println("Item selected: " + itemSelected + " - Selected path: " + pathSelected);
+        System.out.println("Creating itemRequest");
+        ItemRequest itemRequest = new ItemRequest(itemSelected, PathName.valueOf(pathSelected));
+        System.out.println("item request created (not persisted): " + itemRequest);
+        itemRequest = this.itemRequestService.createItemRequest(itemRequest); // persisted and  with id
+        System.out.println("item request created NOW PERSISTED WITH ID: " + itemRequest);
+
 
         return "redirect:/data/mode/" + pathSelected;
     }

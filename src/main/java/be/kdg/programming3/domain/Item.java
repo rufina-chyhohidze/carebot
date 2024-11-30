@@ -20,8 +20,8 @@ public class Item {
 
     private float price;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ItemRequest> itemRequests;
+//    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private List<ItemRequest> itemRequests;
 
     public Item() {}
 
@@ -43,8 +43,8 @@ public class Item {
     public void setStockQuantity(int stockQuantity) { this.stockQuantity = stockQuantity; }
     public float getPrice() { return price; }
     public void setPrice(float price) { this.price = price; }
-    public List<ItemRequest> getItemRequests() { return itemRequests; }
-    public void setItemRequests(List<ItemRequest> itemRequests) { this.itemRequests = itemRequests; }
+//    public List<ItemRequest> getItemRequests() { return itemRequests; }
+//    public void setItemRequests(List<ItemRequest> itemRequests) { this.itemRequests = itemRequests; }
 
     @Override
     public String toString() {

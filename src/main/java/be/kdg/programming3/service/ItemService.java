@@ -8,17 +8,19 @@ import java.util.Optional;
 
 @Service
 public interface ItemService {
-    Item saveItem(Item item);
+//    Item saveItem(Item item);
 
-    List<Item> getAllItems();
+//    List<Item> getAllItems();
 
-    Optional<Item> getItemById(int id);
+//    Optional<Item> getItemById(int id);
 
-    List<Item> getItemsByCategory(String category);
+//    List<Item> getItemsByCategory(String category);
 
-    List<Item> getItemsByName(String name);
+//    List<Item> getItemsByName(String name);
 
-    void deleteItem(int id);
+//    void deleteItem(int id);
 
-    void updateStockQuantity(int itemId, int quantity);
+//    void updateStockQuantity(int itemId, int quantity);
+
+    List<String> getItemCategories();
 }

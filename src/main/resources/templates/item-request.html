@@ -18,9 +18,9 @@
     <form method="post" id="request-form" class="mb-4" style="max-width: 500px; margin: auto;">
         <div class="mb-3">
             <label for="item-select" class="form-label">Select Item</label>
-            <select id="item-select" name="itemId" class="form-select form-select-sm" required>
+            <select id="item-select" name="item" class="form-select form-select-sm" required>
                 <option value="" disabled selected>Select an item</option>
-                <option th:each="item : ${items}" th:value="${item.id}" th:text="${item.name}"></option>
+                <option th:each="item : ${items}" th:value="${item}" th:text="${item}"></option>
             </select>
         </div>
         <div class="mb-3">

@@ -1,7 +1,9 @@
 package be.kdg.programming3.domain;
 
 import jakarta.persistence.*;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 
+import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -12,57 +14,99 @@ public class ItemRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id", referencedColumnName = "id")
-    private Item item;
+    /* FOR LATER */
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "item_id", referencedColumnName = "id")
+//    private Item item;
 
-    @Embedded
-    private Point point;
+    private String itemName;
+
+//    @Embedded
+//    private Point point;
+    @Enumerated(EnumType.STRING)
+    private PathName path;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_username", referencedColumnName = "username")
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 
     @Column(name = "request_time")
     private LocalDateTime requestTime;
 
-    @OneToOne(mappedBy = "itemRequest", fetch = FetchType.LAZY)
-    private Delivery delivery;
 
+//    @OneToOne(mappedBy = "itemRequest", fetch = FetchType.LAZY)
+//    private Delivery delivery;
 
-    public ItemRequest() {}
-
-    public ItemRequest(int id, Item item, Point point, Employee employee, LocalDateTime requestTime, Delivery delivery) {
-        this.id = id;
-        this.item = item;
-        this.point = point;
-        this.employee = employee;
-        this.requestTime = requestTime;
-        this.delivery = delivery;
+    protected ItemRequest() {
     }
+
+    public ItemRequest(String itemName, PathName path) {
+        this.itemName = itemName;
+        this.path = path;
+//        this.employee = employee;
+        this.requestTime = LocalDateTime.now();
+    }
+
+
+//    public ItemRequest(int id, Item item, Point point, Employee employee, LocalDateTime requestTime, Delivery delivery) {
+//        this.id = id;
+//        this.item = item;
+
+    public String getItem() {
+        return itemName;
+    }
+
+    public void setItem(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public PathName getPath() {
+        return path;
+    }
+
+    public void setPath(PathName path) {
+        this.path = path;
+    }
+
+    ////        this.point = point;
+//        this.employee = employee;
+//        this.requestTime = requestTime;
+//        this.delivery = delivery;
+//    }
 
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
-    public Item getItem() {return item;}
-    public void setItem(Item item) {this.item = item;}
-    public Point getPoint() {return point;}
-    public void setPoint(Point point) {this.point = point;}
+//    public Item getItem() {return item;}
+//    public void setItem(Item item) {this.item = item;}
+//    public Point getPoint() {return point;}
+//    public void setPoint(Point point) {this.point = point;}
     public Employee getEmployee() {return employee;}
     public void setEmployee(Employee employee) {this.employee = employee;}
     public LocalDateTime getRequestTime() {return requestTime;}
     public void setRequestTime(LocalDateTime requestTime) {this.requestTime = requestTime;}
-    public Delivery getDelivery() {return delivery;}
-    public void setDelivery(Delivery delivery) {this.delivery = delivery;}
+//    public Delivery getDelivery() {return delivery;}
+//    public void setDelivery(Delivery delivery) {this.delivery = delivery;}
+
+//    @Override
+//    public String toString() {
+//        return "ItemRequest{" +
+//                "id=" + id +
+////                ", item=" + item +
+////                ", point=" + point +
+//                ", employee=" + employee +
+//                ", requestTime=" + requestTime +
+////                ", delivery=" + delivery +
+//                '}';
+//    }
 
     @Override
     public String toString() {
         return "ItemRequest{" +
                 "id=" + id +
-                ", item=" + item +
-                ", point=" + point +
+                ", item='" + itemName + '\'' +
+                ", path=" + path +
                 ", employee=" + employee +
                 ", requestTime=" + requestTime +
-                ", delivery=" + delivery +
                 '}';
     }
 }
