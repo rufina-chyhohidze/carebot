@@ -13,5 +13,8 @@ public interface EmployeeRepository {
       List<Employee> getAllEmployees();
       Employee findEmployeeById(int id);
       Employee findEmployeeByUsername(String username);
+      boolean checkIfEmployeeEmailExists(String email);
+      boolean checkCorrectPasswordForEmployeeWithEmail(String email, String password);
 
+      Employee getEmployeeByEmail(String email);
 }

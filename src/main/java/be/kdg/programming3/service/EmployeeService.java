@@ -7,4 +7,7 @@ import java.util.List;
 public interface EmployeeService {
     List<Employee> getAllEmployees();
     Employee createEmployee(Employee employee);
+    boolean checkIfEmployeeEmailExists(String email);
+    boolean checkCorrectPasswordForEmployeeWithEmail(String email, String password);
+    Employee getEmployeeByEmail(String email);
 }

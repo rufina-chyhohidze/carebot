@@ -42,4 +42,20 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     public Employee findEmployeeByUsername(String username) {
         return em.createQuery("SELECT e FROM Employee e WHERE e.username = :username", Employee.class).setParameter("username", username).getSingleResult();
     }
+
+    @Override
+    public boolean checkIfEmployeeEmailExists(String email) {
+        return em.createQuery("SELECT LOWER(e.email) FROM Employee e").getResultList().contains(email.toLowerCase());
+    }
+
+    @Override
+    public boolean checkCorrectPasswordForEmployeeWithEmail(String email, String password) {
+        return em.createQuery("SELECT e.password FROM Employee e WHERE e.email = :email", String.class).setParameter("email", email).getSingleResult().equals(password);
+    }
+
+    @Override
+    public Employee getEmployeeByEmail(String email) {
+        return em.createQuery("SELECT e FROM Employee e WHERE e.email = :email", Employee.class).setParameter("email", email).getSingleResult();
+    }
+
 }

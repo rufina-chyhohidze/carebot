@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private static final Logger LOG = LoggerFactory.getLogger(DeliveryServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EmployeeServiceImpl.class);
     private final EmployeeRepository employeeRepository;
 
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
@@ -32,5 +32,20 @@ public class EmployeeServiceImpl implements EmployeeService {
             LOG.error("Error creating employee: {}", e.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public boolean checkIfEmployeeEmailExists(String email) {
+        return this.employeeRepository.checkIfEmployeeEmailExists(email);
+    }
+
+    @Override
+    public boolean checkCorrectPasswordForEmployeeWithEmail(String email, String password) {
+        return this.employeeRepository.checkCorrectPasswordForEmployeeWithEmail(email, password);
+    }
+
+    @Override
+    public Employee getEmployeeByEmail(String email) {
+        return this.employeeRepository.getEmployeeByEmail(email);
     }
 }

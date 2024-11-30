@@ -4,6 +4,8 @@ import be.kdg.programming3.domain.Employee;
 import be.kdg.programming3.domain.EmployeeRole;
 import be.kdg.programming3.domain.Gender;
 import be.kdg.programming3.service.EmployeeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
+    private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
     private final EmployeeService employeeService;
 
@@ -26,12 +29,24 @@ public class LoginController {
         return "login";
     }
     @PostMapping("/login")
-    public String logInToUser(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-        System.err.println("\n\n\n RECEIVED EMAIL AND PASSWORD: " + email + " " + password + " \n\n\n" );
+    public String logInToUser(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("options") String option, Model model) {
+        LOG.debug("Received login request for employee with email: {}",email);
 
+        if (this.employeeService.checkIfEmployeeEmailExists(email) && this.employeeService.checkCorrectPasswordForEmployeeWithEmail(email, password)) {
+            LOG.debug("Login successful for employee with email: {}", email);
+            Employee employeeLoggedIn = this.employeeService.getEmployeeByEmail(email);
+            if (option.equalsIgnoreCase("warehouse")) {
+                model.addAttribute("employee", employeeLoggedIn);
+                return "redirect:/warehouse";
+            }
+            else {
+                model.addAttribute("employee", employeeLoggedIn);
+                return "redirect:/item-request";
+            }
+        }
 
-
-        return null;
+        LOG.debug("Login unsuccessful for employee with email: {} - Please create an account.", email);
+        return "redirect:/signup";
     }
 
     @GetMapping("/signup")
