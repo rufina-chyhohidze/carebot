@@ -23,4 +23,8 @@ public interface ItemRequestRepository {
     ItemRequest createItemRequest(ItemRequest itemRequest);
 
     ItemRequest getItemRequestById(int id);
+
+    void updateItemRequest(ItemRequest itemRequest);
+
+    List<ItemRequest> getAwaitingItemRequests();
 }

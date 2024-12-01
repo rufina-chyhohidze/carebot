@@ -34,6 +34,17 @@ public class ItemRequestRepositoryImpl implements ItemRequestRepository {
         return em.createQuery("SELECT IR FROM ItemRequest IR WHERE IR.id = :id", ItemRequest.class).setParameter("id", id).getSingleResult();
     }
 
+    @Override
+    @Transactional
+    public void updateItemRequest(ItemRequest itemRequest) {
+        em.merge(itemRequest);
+    }
+
+    @Override
+    public List<ItemRequest> getAwaitingItemRequests() {
+        return em.createQuery("SELECT IR FROM ItemRequest IR WHERE UPPER(IR.status) = 'AWAITING'", ItemRequest.class).getResultList();
+    }
+
 //    @Override
 //    public List<ItemRequest> findByEmployeeUsername(String username) {
 //        return List.of();

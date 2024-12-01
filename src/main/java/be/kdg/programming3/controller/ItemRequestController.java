@@ -2,6 +2,7 @@ package be.kdg.programming3.controller;
 
 
 import be.kdg.programming3.domain.ItemRequest;
+import be.kdg.programming3.domain.ItemRequestStatus;
 import be.kdg.programming3.domain.PathName;
 import be.kdg.programming3.service.ItemRequestService;
 import be.kdg.programming3.service.ItemService;
@@ -55,7 +56,7 @@ public class ItemRequestController {
         model.addAttribute("items", items);
         model.addAttribute("paths", PathName.values());
 
-        ItemRequest itemRequest = new ItemRequest(itemSelected, PathName.valueOf(pathSelected));
+        ItemRequest itemRequest = new ItemRequest(itemSelected, PathName.valueOf(pathSelected), ItemRequestStatus.AWAITING);
         itemRequest = this.itemRequestService.createItemRequest(itemRequest); // Persisted with id
 
         // Send a WebSocket message with the itemRequest data to reload warehouse page automatically

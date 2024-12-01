@@ -27,7 +27,17 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         return this.itemRequestRepository.createItemRequest(itemRequest);
     }
 
-//    @Override
+    @Override
+    public List<ItemRequest> getAwaitingItemRequests() {
+        return this.itemRequestRepository.getAwaitingItemRequests();
+    }
+
+    @Override
+    public void updateItemRequest(ItemRequest itemRequest) {
+        this.itemRequestRepository.updateItemRequest(itemRequest);
+    }
+
+    //    @Override
 //    public ItemRequest saveItemRequest(ItemRequest itemRequest) {
 //        LOG.debug("Saving ItemRequest: {}", itemRequest);
 //        ItemRequest savedItemRequest = itemRequestRepository.save(itemRequest);

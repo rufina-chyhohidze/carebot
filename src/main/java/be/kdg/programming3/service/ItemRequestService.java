@@ -18,4 +18,8 @@ public interface ItemRequestService {
     ItemRequest createItemRequest(ItemRequest itemRequest);
 
     ItemRequest getItemRequestById(int itemRequestId);
+
+    void updateItemRequest(ItemRequest itemRequest);
+
+    List<ItemRequest> getAwaitingItemRequests();
 }

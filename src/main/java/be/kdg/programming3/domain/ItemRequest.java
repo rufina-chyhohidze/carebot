@@ -33,6 +33,8 @@ public class ItemRequest {
     @Column(name = "request_time")
     private LocalDateTime requestTime;
 
+    @Enumerated(EnumType.STRING)
+    private ItemRequestStatus status;
 
 //    @OneToOne(mappedBy = "itemRequest", fetch = FetchType.LAZY)
 //    private Delivery delivery;
@@ -40,9 +42,10 @@ public class ItemRequest {
     protected ItemRequest() {
     }
 
-    public ItemRequest(String itemName, PathName path) {
+    public ItemRequest(String itemName, PathName path, ItemRequestStatus status) {
         this.itemName = itemName;
         this.path = path;
+        this.status = status;
 //        this.employee = employee;
         this.requestTime = LocalDateTime.now();
     }
@@ -51,6 +54,15 @@ public class ItemRequest {
 //    public ItemRequest(int id, Item item, Point point, Employee employee, LocalDateTime requestTime, Delivery delivery) {
 //        this.id = id;
 //        this.item = item;
+
+
+    public ItemRequestStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ItemRequestStatus status) {
+        this.status = status;
+    }
 
     public String getItem() {
         return itemName;
