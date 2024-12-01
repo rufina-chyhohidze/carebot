@@ -4,6 +4,7 @@ import be.kdg.programming3.domain.Employee;
 import be.kdg.programming3.domain.EmployeeRole;
 import be.kdg.programming3.domain.Gender;
 import be.kdg.programming3.service.EmployeeService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,23 @@ public class LoginController {
         return "login";
     }
     @PostMapping("/login")
-    public String logInToUser(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("options") String option, Model model) {
+    public String logInToUser(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("options") String option, Model model, HttpSession session) {
         LOG.debug("Received login request for employee with email: {}",email);
 
-        if (this.employeeService.checkIfEmployeeEmailExists(email) && this.employeeService.checkCorrectPasswordForEmployeeWithEmail(email, password)) {
+        if (employeeLoginDetailsCorrect(email, password)) {
             LOG.debug("Login successful for employee with email: {}", email);
+
             Employee employeeLoggedIn = this.employeeService.getEmployeeByEmail(email);
+
+            Employee checkingExistingEmployeeInSession = (Employee) session.getAttribute("userLoggedIn");
+            if (checkingExistingEmployeeInSession != null) {
+                LOG.warn("User already logged in, please log out to change users");
+                return "redirect:/login";
+            } else {
+                LOG.debug("Adding user to session since no user is currently logged in");
+                session.setAttribute("userLoggedIn", employeeLoggedIn);
+            }
+
             if (option.equalsIgnoreCase("warehouse")) {
                 model.addAttribute("employee", employeeLoggedIn);
                 return "redirect:/warehouse";
@@ -47,6 +59,25 @@ public class LoginController {
 
         LOG.debug("Login unsuccessful for employee with email: {} - Please create an account.", email);
         return "redirect:/signup";
+    }
+
+    private boolean employeeLoginDetailsCorrect(String email, String password) {
+        return this.employeeService.checkIfEmployeeEmailExists(email) && this.employeeService.checkCorrectPasswordForEmployeeWithEmail(email, password);
+    }
+
+    @GetMapping("/logOut")
+    public String logOut(HttpSession session) {
+        Employee checkingExistingEmployeeInSession = (Employee) session.getAttribute("userLoggedIn");
+        if (checkingExistingEmployeeInSession != null) {
+            LOG.warn("Logging out");
+            session.invalidate();  // closes the session for the user
+
+
+        } else {
+            LOG.debug("No user logged in so cannot log out");
+        }
+
+        return "redirect:/";
     }
 
     @GetMapping("/signup")

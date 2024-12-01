@@ -21,6 +21,7 @@
   <nav class="navbar navbar-expand-lg sticky-top navbar-dark" style="background-color:black;">
     <div class="container">
       <a class="navbar-brand" href="/"><strong>CareBot</strong></a>
+      <a style="color: white !important;" th:text="${session.userLoggedIn == null ? 'Not Logged In' : session.userLoggedIn.getFirstName()}"></a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
         <span class="navbar-toggler-icon"></span>
@@ -29,9 +30,10 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
           <a class="nav-link" th:href="@{/}">Home</a>
+          <a class="nav-link" th:href="@{/logOut}" th:if="${session.userLoggedIn != null}">Log Out</a>
 <!--          <a class="nav-link" th:href="@{/item-request}">Request an Item</a>-->
 <!--          <a class="nav-link" th:href="@{/warehouse}">Warehouse</a>-->
-          <a class="nav-link" th:href="@{/login}">Log in</a>
+          <a class="nav-link" th:href="@{/login}" th:if="${session.userLoggedIn == null}">Log in</a>
         </div>
       </div>
     </div>
