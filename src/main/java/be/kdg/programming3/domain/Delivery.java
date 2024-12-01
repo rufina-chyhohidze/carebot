@@ -2,7 +2,6 @@ package be.kdg.programming3.domain;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -13,7 +12,7 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int deliveryId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_request_id", referencedColumnName = "id")
     private ItemRequest itemRequest;
 
@@ -27,16 +26,13 @@ public class Delivery {
     private LocalDateTime deliveryFinished;
 
     @Column(name = "total_delivery_time")
-    private Integer totalDeliveryTime;
+    private Long totalDeliveryTime;
 
-    public Delivery() {} // JPA requires a no-arg constructor
+    protected Delivery() {} // JPA requires a no-arg constructor
 
-    public Delivery(int deliveryId, DeliveryStatus status, LocalDateTime deliveryStarted, LocalDateTime deliveryFinished, int totalDeliveryTime, ItemRequest itemRequest) {
-        this.deliveryId = deliveryId;
+    public Delivery(ItemRequest itemRequest, LocalDateTime deliveryStarted, DeliveryStatus status) {
         this.status = status;
         this.deliveryStarted = deliveryStarted;
-        this.deliveryFinished = deliveryFinished;
-        this.totalDeliveryTime = totalDeliveryTime;
         this.itemRequest = itemRequest;
     }
 
@@ -49,9 +45,12 @@ public class Delivery {
     public LocalDateTime getDeliveryStarted() { return deliveryStarted; }
     public void setDeliveryStarted(LocalDateTime deliveryStarted) { this.deliveryStarted = deliveryStarted; }
     public LocalDateTime getDeliveryFinished() { return deliveryFinished; }
-    public void setDeliveryFinished(LocalDateTime deliveryFinished) { this.deliveryFinished = deliveryFinished; }
-    public int getTotalDeliveryTime() { return totalDeliveryTime; }
-    public void setTotalDeliveryTime(int totalDeliveryTime) { this.totalDeliveryTime = totalDeliveryTime; }
+    public void setDeliveryFinished(LocalDateTime deliveryFinished) {
+        this.deliveryFinished = deliveryFinished;
+        this.totalDeliveryTime = Duration.between(deliveryStarted, deliveryFinished).toSeconds();
+    }
+    public Long getTotalDeliveryTime() { return totalDeliveryTime; }
+    public void setTotalDeliveryTime(Long totalDeliveryTime) { this.totalDeliveryTime = totalDeliveryTime; }
 
     @Override
     public String toString() {
@@ -65,12 +64,12 @@ public class Delivery {
                 '}';
     }
 
-    public void calculateTotalDeliveryTime() {
-        if (deliveryStarted != null && deliveryFinished != null) {
-            Duration duration = Duration.between(deliveryStarted, deliveryFinished);
-            this.totalDeliveryTime = (int) duration.toMinutes();
-        } else {
-            this.totalDeliveryTime = 0;
-        }
-    }
+//    public void calculateTotalDeliveryTime() {
+//        if (deliveryStarted != null && deliveryFinished != null) {
+//            Duration duration = Duration.between(deliveryStarted, deliveryFinished);
+//            this.totalDeliveryTime = (int) duration.toMinutes();
+//        } else {
+//            this.totalDeliveryTime = 0;
+//        }
+//    }
 }

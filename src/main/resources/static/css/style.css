@@ -1,0 +1,8 @@
+.processingStatus {
+    background-color: orange;
+    color: black;
+}
+.completedStatus {
+    background-color: green;
+    color: white;;
+}

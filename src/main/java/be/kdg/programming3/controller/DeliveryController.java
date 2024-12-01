@@ -22,34 +22,35 @@ public class DeliveryController {
 
     public DeliveryController(DeliveryService deliveryService) {this.deliveryService = deliveryService;}
 
-    @GetMapping
-    public ResponseEntity<List<Delivery>> getAllDeliveries() {
-        List<Delivery> deliveries = deliveryService.getAllDeliveries();
-        return ResponseEntity.ok(deliveries);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<Delivery>> getAllDeliveries() {
+//        List<Delivery> deliveries = deliveryService.getAllDeliveries();
+//        return ResponseEntity.ok(deliveries);
+//    }
 
 //    getting a specific delivery by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Delivery> getDeliveryById(@PathVariable int id) {
-        Delivery delivery = deliveryService.getDeliveryById(id);
-        if (delivery != null) {
-            return ResponseEntity.ok(delivery);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Delivery> getDeliveryById(@PathVariable int id) {
+//        Delivery delivery = deliveryService.getDeliveryById(id);
+//        if (delivery != null) {
+//            return ResponseEntity.ok(delivery);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
-    @PostMapping
-    public ResponseEntity<Delivery> addDelivery(@RequestBody Delivery delivery) {
-        deliveryService.addDelivery(delivery);
-        return ResponseEntity.ok(delivery);
-    }
+//    @PostMapping
+//    public ResponseEntity<Delivery> addDelivery(@RequestBody Delivery delivery) {
+//        deliveryService.addDelivery(delivery);
+//        return ResponseEntity.ok(delivery);
+//    }
 
-    @PutMapping("/{id}/finish")
-    public ResponseEntity<Void> finishDelivery(@PathVariable int id, @RequestParam LocalDateTime deliveryFinished) {
-        deliveryService.updateDelivery(id, deliveryFinished);
-        return ResponseEntity.ok().build();
-    }
+//    @PutMapping("/{id}/finish")
+//    public ResponseEntity<Void> finishDelivery(@PathVariable int id, @RequestParam LocalDateTime deliveryFinished) {
+//        deliveryService.updateDelivery(id, deliveryFinished);
+//        return ResponseEntity.ok().build();
+//    }
+
 //    @GetMapping("/deliveries")
 //    public String showDeliveries(Model model) {
 //        List<List<String>> deliveries = deliveryService.getAllDeliveries();

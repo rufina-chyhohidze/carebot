@@ -23,39 +23,35 @@ public class DeliveryServiceImpl implements DeliveryService {
         LOG.debug("DeliveryServiceImpl instantiated with repository {}", deliveryRepository.getClass().getSimpleName());
     }
 
-//    @Override
-//    public List<List<String>> getAllDeliveries() {
-//        LOG.info("Retrieving all deliveries");
-//
-//        List<Delivery> deliveries = deliveryRepository.findAll();  // JPA method
-//
-//        return deliveries.stream()
-//                .map(delivery -> List.of(
-//                        String.valueOf(delivery.getDeliveryId()),
-//                        String.valueOf(delivery.getTotalDeliveryTime()),
-//                        String.valueOf(delivery.getEmployeeId())
-//                ))
-//                .collect(Collectors.toList());
-//    }
+    @Override
+    public Delivery createDelivery(Delivery delivery) {
+        return this.deliveryRepository.createDelivery(delivery);
+    }
+
     @Override
     public List<Delivery> getAllDeliveries() {
         LOG.info("Retrieving all deliveries");
-        return deliveryRepository.findAll();
+        return deliveryRepository.getAllDeliveries();
     }
 
     @Override
     public Delivery getDeliveryById(int deliveryId) {
         LOG.info("Fetching delivery with ID: {}", deliveryId);
-        Optional<Delivery> delivery = deliveryRepository.findById(deliveryId);
-        return deliveryRepository.findById(deliveryId).orElse(null);
+        return deliveryRepository.getDeliveryById(deliveryId);
     }
 
     @Override
-    public void addDelivery(Delivery delivery) {
-        LOG.debug("Adding new delivery: {}", delivery);
-        deliveryRepository.save(delivery);
-        LOG.info("Delivery added: {}", delivery);
+    public void setDeliveryInProcessStatusToFinished(LocalDateTime timeFinished) {
+        this.deliveryRepository.setDeliveryInProcessStatusToFinished(timeFinished);
     }
+
+
+//    @Override
+//    public void addDelivery(Delivery delivery) {
+//        LOG.debug("Adding new delivery: {}", delivery);
+//        deliveryRepository.save(delivery);
+//        LOG.info("Delivery added: {}", delivery);
+//    }
 
 //    @Override
 //    public void addDelivery(int employeeId, Timestamp deliveryTime) {
@@ -69,20 +65,20 @@ public class DeliveryServiceImpl implements DeliveryService {
 //        LOG.info("Delivery added: {}", delivery);
 //    }
 
-    @Override
-    public void updateDelivery(int deliveryId, LocalDateTime deliveryFinished) {
-        LOG.info("Updating delivery with ID: {}", deliveryId);
-
-        Optional<Delivery> optionalDelivery = deliveryRepository.findById(deliveryId);
-        if (optionalDelivery.isPresent()) {
-            Delivery delivery = optionalDelivery.get();
-            delivery.setDeliveryFinished(deliveryFinished);
-            delivery.calculateTotalDeliveryTime();
-            deliveryRepository.save(delivery);
-            LOG.info("Delivery updated: {}", delivery);
-        } else {
-            LOG.warn("Delivery with ID: {} not found", deliveryId);
-        }
-    }
+//    @Override
+//    public void updateDelivery(int deliveryId, LocalDateTime deliveryFinished) {
+//        LOG.info("Updating delivery with ID: {}", deliveryId);
+//
+//        Optional<Delivery> optionalDelivery = deliveryRepository.findById(deliveryId);
+//        if (optionalDelivery.isPresent()) {
+//            Delivery delivery = optionalDelivery.get();
+//            delivery.setDeliveryFinished(deliveryFinished);
+//            delivery.calculateTotalDeliveryTime();
+//            deliveryRepository.save(delivery);
+//            LOG.info("Delivery updated: {}", delivery);
+//        } else {
+//            LOG.warn("Delivery with ID: {} not found", deliveryId);
+//        }
+//    }
 
 }

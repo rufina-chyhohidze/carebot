@@ -1,6 +1,9 @@
 package be.kdg.programming3.controller;
 
+import be.kdg.programming3.service.DeliveryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +15,15 @@ import java.util.Map;
 @RequestMapping("/data")
 public class ESP32Controller {
 
+    private final DeliveryService deliveryService;
+    private final SimpMessagingTemplate messagingTemplate;
     private String dataForEsp32 = ""; // Stores the data for the ESP32
+
+    @Autowired
+    public ESP32Controller(DeliveryService deliveryService, SimpMessagingTemplate messagingTemplate) {
+        this.deliveryService = deliveryService;
+        this.messagingTemplate = messagingTemplate;
+    }
 
     // Endpoint for ESP32 to check for data
     @GetMapping("/esp32")
@@ -34,11 +45,17 @@ public class ESP32Controller {
     }
 
     @PostMapping("/pathInfoReceiver")
-    public ResponseEntity<String> pathInfoReceiver(@RequestBody Map<String, Object> pathInfo) {
+    public ResponseEntity<String>  pathInfoReceiver(@RequestBody Map<String, Object> pathInfo) {
         int distance = (int) pathInfo.get("distance");
         System.err.println("\n\n\n RECEIVED DATA: " + pathInfo + " at time: " + LocalDateTime.now() + "\n\n\n");
 
+        this.deliveryService.setDeliveryInProcessStatusToFinished(LocalDateTime.now());
+        messagingTemplate.convertAndSend("/topic/warehouse-updates", "message");
+
+
         return ResponseEntity.ok("Data received successfully");
+//        return "redirect:/warehouse";
+
         /// TODO: Redirect to warhouse (new getmapping that gets the finished path data to store the delivery in the database, then show the delivery information in a website - then test with my hotspot and host website on server - finish preparing talking points for presentation MVP)
     }
 
