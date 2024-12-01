@@ -6,6 +6,7 @@ import be.kdg.programming3.domain.ItemRequestStatus;
 import be.kdg.programming3.domain.PathName;
 import be.kdg.programming3.service.ItemRequestService;
 import be.kdg.programming3.service.ItemService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,9 @@ public class ItemRequestController {
 
 
     @GetMapping("/item-request")
-    public String showRequestForm(Model model) {
+    public String showRequestForm(Model model, HttpSession session) {
+        if (session.getAttribute("userLoggedIn") == null) return "redirect:/";
+
         List<String> itemCategories = itemService.getItemCategories();
         System.out.println("itemCategories: " + itemCategories);
         model.addAttribute("items", itemCategories);

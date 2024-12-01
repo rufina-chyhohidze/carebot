@@ -3,6 +3,7 @@ package be.kdg.programming3.controller;
 import be.kdg.programming3.domain.*;
 import be.kdg.programming3.service.DeliveryService;
 import be.kdg.programming3.service.ItemRequestService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +27,11 @@ public class WarehouseController {
     }
 
     @GetMapping("/warehouse")
-    public String showItemRequests(Model model) {
-        System.err.println("entered warehouse");
+    public String showItemRequests(Model model, HttpSession session) {
+        if (session.getAttribute("userLoggedIn") == null) return "redirect:/";
+
+
+        System.out.println("entered warehouse");
 
         List<ItemRequest> itemRequests = this.itemRequestService.getAwaitingItemRequests();
         model.addAttribute("itemRequests", itemRequests);
