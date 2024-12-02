@@ -94,3 +94,7 @@ INSERT INTO item_table  (id, category, name, price, stock_quantity) VALUES
     (50, 'Laptop', 'Dell Latitude 7410', 456, 449);
 
 SELECT id, category, name, CONCAT(price, '€') AS price, stock_quantity FROM item_table;
+
+
+
+DELETE FROM delivery_table WHERE status = 'PROCESSING';
