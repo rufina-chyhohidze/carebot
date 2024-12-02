@@ -36,6 +36,8 @@ public class ItemRequest {
     @Enumerated(EnumType.STRING)
     private ItemRequestStatus status;
 
+    private Integer obstacles;
+
 //    @OneToOne(mappedBy = "itemRequest", fetch = FetchType.LAZY)
 //    private Delivery delivery;
 
