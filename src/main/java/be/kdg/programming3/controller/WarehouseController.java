@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -19,11 +20,13 @@ public class WarehouseController {
 
     private final DeliveryService deliveryService;
     private final ItemRequestService itemRequestService;
+    public static List<String> deliveryLOG;
 
     @Autowired
     public WarehouseController(ItemRequestService itemRequestService, DeliveryService deliveryService) {
         this.deliveryService = deliveryService;
         this.itemRequestService = itemRequestService;
+        deliveryLOG = new ArrayList<>();
     }
 
     @GetMapping("/warehouse")
@@ -37,14 +40,20 @@ public class WarehouseController {
         model.addAttribute("itemRequests", itemRequests);
         List<Delivery> deliveries = deliveryService.getAllDeliveries();
         model.addAttribute("deliveries", deliveries);
+        model.addAttribute("deliveryLOG", deliveryLOG);
 
         return "warehouse";
     }
 
     @PostMapping("/warehouse")
     public String processItemRequest(@RequestParam("selectedItemRequest") int itemRequestId, Model model) {
+        deliveryLOG = new ArrayList<>(); // emptying previous delivery logs
+
 
         ItemRequest itemRequestSelected = this.itemRequestService.getItemRequestById(itemRequestId);
+
+        deliveryLOG.add("Delivery started at : " + LocalDateTime.now());
+        deliveryLOG.add("Delivering item: " + itemRequestSelected.getItem() + " to path: " + itemRequestSelected.getPath().toString());
 
         itemRequestSelected.setStatus(ItemRequestStatus.FULFILLED);
         this.itemRequestService.updateItemRequest(itemRequestSelected);
@@ -56,6 +65,8 @@ public class WarehouseController {
         model.addAttribute("deliveries", deliveries);
 
         System.err.println("ITEM REQUEST SELECTED: " + itemRequestSelected + " with path: " + pathSelected);
+
+
 
         return "redirect:/data/mode/" + pathSelected;
     }

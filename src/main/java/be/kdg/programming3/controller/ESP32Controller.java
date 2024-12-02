@@ -46,15 +46,29 @@ public class ESP32Controller {
 
     @PostMapping("/pathInfoReceiver")
     public ResponseEntity<String>  pathInfoReceiver(@RequestBody Map<String, Object> pathInfo) {
-        int distance = (int) pathInfo.get("distance");
+        Integer obstacle = (Integer) pathInfo.get("obstacle");
         System.err.println("\n\n\n RECEIVED DATA: " + pathInfo + " at time: " + LocalDateTime.now() + "\n\n\n");
 
+        if (obstacle == 12341234) {
+            System.err.println("\n\nOBSTACLE\n\n");
+            WarehouseController.deliveryLOG.add("Robot STOPPED -> Obstacle found at: " + LocalDateTime.now());
+            messagingTemplate.convertAndSend("/topic/warehouse-updates", "message");
+
+            return ResponseEntity.ok("Data received successfully");
+        }
+        if (obstacle == 43214321) {
+            WarehouseController.deliveryLOG.add("Obstacle CLEARED  - Robot continues at: " + LocalDateTime.now());
+            messagingTemplate.convertAndSend("/topic/warehouse-updates", "message");
+
+            return ResponseEntity.ok("Data received successfully");
+        }
         this.deliveryService.setDeliveryInProcessStatusToFinished(LocalDateTime.now());
+        WarehouseController.deliveryLOG.add("Delivery COMPLETED at: " + LocalDateTime.now() + " - Number of Obstacles Found: " + obstacle);
+
         messagingTemplate.convertAndSend("/topic/warehouse-updates", "message");
 
 
         return ResponseEntity.ok("Data received successfully");
-//        return "redirect:/warehouse";
 
         /// TODO: Redirect to warhouse (new getmapping that gets the finished path data to store the delivery in the database, then show the delivery information in a website - then test with my hotspot and host website on server - finish preparing talking points for presentation MVP)
     }
