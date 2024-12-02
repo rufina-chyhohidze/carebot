@@ -7,17 +7,14 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "employee_table")
+@Table(name = "EMPLOYEES")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int employee_id;
 
-    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "date_of_birth")
     private Timestamp dateOfBirth;
 
     @Enumerated(EnumType.STRING)
@@ -27,7 +24,7 @@ public class Employee {
     private String phone;
 //    @Column(name = "hire_date")
 //    private Date hireDate;
-    @Column(name = "username", unique = true)
+    @Column(unique = true)
     private String username;
     private String password;
 
@@ -86,6 +83,8 @@ public Employee(String firstName, String lastName, Gender gender, EmployeeRole r
 //    public void setHireDate(Date hireDate) {this.hireDate = hireDate;}
     public String getUsername() {return username;}
     public void setUsername(String username) {this.username = username;}
+    public String getPassword() {return password;}
+    public void setPassword(String password) {this.password = password;}
     public EmployeeRole getRole() {return role;}
     public void setRole(EmployeeRole role) {this.role = role;}
     public EmployeeDepartment getDepartment() {return department;}

@@ -7,15 +7,13 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "item_table")
+@Table(name = "ITEMS")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String category;
-
-    @Column(name = "stock_quantity")
     private int stockQuantity;
 
     private float price;

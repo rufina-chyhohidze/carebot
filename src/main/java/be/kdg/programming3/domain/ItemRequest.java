@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "item_request_table")
+@Table(name = "ITEM_REQUESTS")
 public class ItemRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +30,12 @@ public class ItemRequest {
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 
-    @Column(name = "request_time")
     private LocalDateTime requestTime;
 
     @Enumerated(EnumType.STRING)
     private ItemRequestStatus status;
+
+    private int numberOfObstacles;
 
 //    @OneToOne(mappedBy = "itemRequest", fetch = FetchType.LAZY)
 //    private Delivery delivery;

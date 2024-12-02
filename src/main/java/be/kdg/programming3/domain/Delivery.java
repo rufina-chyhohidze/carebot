@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "delivery_table")
+@Table(name = "DELIVERIES")
 public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,13 +19,10 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
-    @Column(name = "delivery_started")
     private LocalDateTime deliveryStarted;
 
-    @Column(name = "delivery_finished")
     private LocalDateTime deliveryFinished;
 
-    @Column(name = "total_delivery_time")
     private Long totalDeliveryTime;
 
     protected Delivery() {} // JPA requires a no-arg constructor
