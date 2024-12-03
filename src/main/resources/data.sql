@@ -9,6 +9,9 @@ DROP TABLE IF EXISTS new CASCADE;
 ALTER TABLE new
 ALTER COLUMN price TYPE FLOAT;
 
+
+INSERT INTO employees(date_of_birth, department, email, first_name, gender, last_name, password, phone, role, username) VALUES(NOW(), NULL, 'user@gmail.com', 'user', 'FEMALE', 'lastname', 'user', '1', NULL, 'username');
+
 -- \COPY item_requests(id,item_name,path,request_time,status,employee_id,number_of_obstacles)
 -- FROM '/home/anir333/Downloads/item_request_data.csv'
 -- WITH (FORMAT csv, HEADER true);

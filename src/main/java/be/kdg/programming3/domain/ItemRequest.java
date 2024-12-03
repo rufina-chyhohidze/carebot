@@ -32,8 +32,8 @@ public class ItemRequest {
 
     private LocalDateTime requestTime;
 
-    @Enumerated(EnumType.STRING)
-    private ItemRequestStatus status;
+//    @Enumerated(EnumType.STRING)
+    private String status;
 
     private int numberOfObstacles;
 
@@ -43,7 +43,7 @@ public class ItemRequest {
     protected ItemRequest() {
     }
 
-    public ItemRequest(String itemName, PathName path, ItemRequestStatus status) {
+    public ItemRequest(String itemName, PathName path, String status) {
         this.itemName = itemName;
         this.path = path;
         this.status = status;
@@ -57,11 +57,11 @@ public class ItemRequest {
 //        this.item = item;
 
 
-    public ItemRequestStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(ItemRequestStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

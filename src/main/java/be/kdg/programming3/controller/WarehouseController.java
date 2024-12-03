@@ -55,7 +55,7 @@ public class WarehouseController {
         deliveryLOG.add("Delivery started at : " + LocalDateTime.now());
         deliveryLOG.add("Delivering item: " + itemRequestSelected.getItem() + " to path: " + itemRequestSelected.getPath().toString());
 
-        itemRequestSelected.setStatus(ItemRequestStatus.FULFILLED);
+        itemRequestSelected.setStatus("FULFILLED");
         this.itemRequestService.updateItemRequest(itemRequestSelected);
         PathName pathSelected = itemRequestSelected.getPath();
 
