@@ -59,7 +59,7 @@ public class ItemRequestController {
         model.addAttribute("items", items);
         model.addAttribute("paths", PathName.values());
 
-        ItemRequest itemRequest = new ItemRequest(itemSelected, PathName.valueOf(pathSelected), ItemRequestStatus.AWAITING);
+        ItemRequest itemRequest = new ItemRequest(itemSelected, PathName.valueOf(pathSelected), ItemRequestStatus.PENDING);
         itemRequest = this.itemRequestService.createItemRequest(itemRequest); // Persisted with id
 
         // Send a WebSocket message with the itemRequest data to reload warehouse page automatically

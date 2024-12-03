@@ -9,6 +9,21 @@ DROP TABLE IF EXISTS new CASCADE;
 ALTER TABLE new
 ALTER COLUMN price TYPE FLOAT;
 
--- \COPY new(id, category, name, price, stock_quantity)
--- FROM '/home/anir333/Desktop/KDG/Subjects/Year_2/Semester_1/Integration_3/Integration-WebApp/carebot_integration3_team17/src/main/resources/laptop_and_tablets.csv'
+-- \COPY item_requests(id,item_name,path,request_time,status,employee_id,number_of_obstacles)
+-- FROM '/home/anir333/Downloads/item_request_data.csv'
 -- WITH (FORMAT csv, HEADER true);
+
+
+
+-- CREATE TABLE IF NOT EXISTS item_request_table(
+--     id INTEGER,
+--     item_name VARCHAR(100),
+--     path VARCHAR(50),
+--     request_time TIMESTAMP,
+--     status VARCHAR,
+--     employee_id INTEGER,
+--     number_of_obstacles INTEGER
+-- );
+
+-- INSERT INTO item_requests(id,item_name,path,request_time,status,employee_id,number_of_obstacles)
+-- VALUES(1, 'Printer', 'PATH1', now(), 'PENDING', 1, 1);
