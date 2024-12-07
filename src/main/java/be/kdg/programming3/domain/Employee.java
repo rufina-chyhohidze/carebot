@@ -27,6 +27,7 @@ public class Employee {
     @Column(unique = true)
     private String username;
     private String password;
+    private String salt;
 
     @Enumerated(EnumType.STRING)
     private EmployeeRole role;
@@ -91,6 +92,8 @@ public Employee(String firstName, String lastName, Gender gender, EmployeeRole r
     public void setDepartment(EmployeeDepartment department) {this.department = department;}
 //    public List<ItemRequest> getItemRequests() {return itemRequests;}
 //    public void setItemRequests(List<ItemRequest> itemRequests) {this.itemRequests = itemRequests;}
+    public String getSalt() {return salt;}
+    public void setSalt(String salt) {this.salt = salt;}
 
     @Override
     public String toString() {

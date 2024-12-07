@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -68,7 +70,16 @@ public class ItemRequestController {
         return "redirect:/item-request"; // Or you can use a custom response if needed
     }
 
-
+    /**
+     * for retrieving item-requests from database
+     */
+    @GetMapping("/item-request/stats")
+    @ResponseBody
+    public Map<String, Long> getItemRequestStats() {
+        List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
+        return itemRequests.stream()
+                .collect(Collectors.groupingBy(ItemRequest::getItem, Collectors.counting()));
+    }
 
 //    previous:
 //    @PostMapping("/item-request")
