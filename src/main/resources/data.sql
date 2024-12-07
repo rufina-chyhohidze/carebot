@@ -12,8 +12,14 @@ ALTER COLUMN price TYPE FLOAT;
 
 INSERT INTO employees(date_of_birth, department, email, first_name, gender, last_name, password, phone, role, username) VALUES(NOW(), NULL, 'user@gmail.com', 'user', 'FEMALE', 'lastname', 'user', '1', NULL, 'username');
 
+-- -- FOR ITEM_REQUESTS table
 -- \COPY item_requests(id,item_name,path,request_time,status,employee_id,number_of_obstacles)
--- FROM '/home/anir333/Downloads/item_request_data.csv'
+-- FROM '/home/AnirSaddik/Desktop/KdG/Subjects/Year_2/Semester_1/Integration_3/Integration-WebApp/carebot_integration3_team17/src/main/resources/item_request_data.csv'
+-- WITH (FORMAT csv, HEADER true);
+
+-- -- FOR ITEMS table
+-- \COPY items(id,category,name,price,stock_quantity)
+-- FROM '/home/AnirSaddik/Desktop/KdG/Subjects/Year_2/Semester_1/Integration_3/Integration-WebApp/carebot_integration3_team17/src/main/resources/laptop_and_tablets.csv'
 -- WITH (FORMAT csv, HEADER true);
 
 
