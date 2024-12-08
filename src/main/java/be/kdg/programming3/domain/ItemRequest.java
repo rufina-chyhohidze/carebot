@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class ItemRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "item_request_seq", sequenceName = "item_requests_id_seq", allocationSize = 1)
     private int id;
 
     /* FOR LATER */
@@ -99,6 +100,8 @@ public class ItemRequest {
     public void setRequestTime(LocalDateTime requestTime) {this.requestTime = requestTime;}
 //    public Delivery getDelivery() {return delivery;}
 //    public void setDelivery(Delivery delivery) {this.delivery = delivery;}
+    public int getNumberOfObstacles() {return numberOfObstacles;}
+    public void setNumberOfObstacles(int numberOfObstacles) {}
 
 //    @Override
 //    public String toString() {

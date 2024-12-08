@@ -18,9 +18,9 @@ public class ItemRequestRepositoryImpl implements ItemRequestRepository {
     private EntityManager em;
 
     @Override
-    @Transactional
     public ItemRequest createItemRequest(ItemRequest itemRequest) {
         em.persist(itemRequest);
+        em.flush();
         return itemRequest;
     }
 

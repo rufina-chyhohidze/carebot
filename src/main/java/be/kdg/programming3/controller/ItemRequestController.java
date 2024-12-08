@@ -70,17 +70,6 @@ public class ItemRequestController {
         return "redirect:/item-request"; // Or you can use a custom response if needed
     }
 
-    /**
-     * for retrieving item-requests from database
-     */
-    @GetMapping("/item-request/stats")
-    @ResponseBody
-    public Map<String, Long> getItemRequestStats() {
-        List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
-        return itemRequests.stream()
-                .collect(Collectors.groupingBy(ItemRequest::getItem, Collectors.counting()));
-    }
-
 //    previous:
 //    @PostMapping("/item-request")
 //    public String sendItemRequest(@RequestParam("itemId") int itemId,

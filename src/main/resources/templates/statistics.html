@@ -1,10 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistics Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}">
+  <script src="../static/js/scripts.js" th:src="@{/js/scripts.js}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
+
 <body>
+<h1>Delivery Statistics Dashboard</h1>
+
+<!-- Descriptive Data Section -->
+<div class="section-title">Descriptive Data</div>
+<div class="container">
+
+  <div class="graph-card">
+    <h2>Most Frequent Path</h2>
+    <canvas id="graph1"></canvas>
+  </div>
+
+  <div class="graph-card">
+    <h2>Time Taken Per Delivery</h2>
+    <canvas id="graph2"></canvas>
+  </div>
+
+  <div class="graph-card">
+    <h2>Number of Obstacles Per Path</h2>
+    <canvas id="graph3"></canvas>
+  </div>
+
+  <div class="graph-card">
+    <h2>Most Requested Item</h2>
+    <canvas id="graph4"></canvas>
+  </div>
+
+  <div class="graph-card">
+    <h2>Number of Requests Per Month</h2>
+    <canvas id="graph5"></canvas>
+  </div>
+</div>
+
+
+
+<!-- Explorative Data Section -->
+<div class="section-title">Explorative Data</div>
+<div class="container">
+  <div class="graph-card">
+    <h2>Item Popularity Trends</h2>
+    <canvas id="graph6"></canvas>
+  </div>
+</div>
+
+
+<!-- Predictive Data Section -->
+<div class="section-title">Predictive Data</div>
+<div class="container">
+  <div class="graph-card">
+    <h2>Delivery Time Estimates</h2>
+    <canvas id="graph7"></canvas>
+  </div>
+</div>
 
 </body>
 </html>
