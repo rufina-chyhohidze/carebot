@@ -9,6 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
             borderColor: '#ffcc00'
         },
         {
+            id: 'graph2',
+            url: '/statistics/graph2',
+            type: 'bar', // Change type as needed (e.g., 'bar', 'scatter')
+            label: 'Time Taken Per Delivery (minutes)',
+            backgroundColor: 'rgba(255, 204, 0, 0.5)',
+            borderColor: '#ffcc00'
+        },
+        {
             id: 'graph3',
             url: '/statistics/graph3',
             type: 'pie',
@@ -40,8 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
+
                 const labels = Object.keys(data);
                 const values = Object.values(data);
+
 
                 const ctx = document.getElementById(id).getContext('2d');
                 const config = {
@@ -96,6 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     graphConfigs.forEach(fetchAndRenderChart);
+
+
 
     // Graph 6
     fetch('/statistics/graph6')
@@ -193,6 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error('Error refreshing data for graph6:', error));
     }, 3000);  // refresh every 3 seconds
 });
+
 
 
 

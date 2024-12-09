@@ -1,6 +1,8 @@
 package be.kdg.programming3.controller;
 
+import be.kdg.programming3.domain.Delivery;
 import be.kdg.programming3.domain.ItemRequest;
+import be.kdg.programming3.service.DeliveryService;
 import be.kdg.programming3.service.ItemRequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,11 @@ import java.util.stream.Collectors;
 @Controller
 public class StatisticsController {
     private final ItemRequestService itemRequestService;
+    private final DeliveryService deliveryService;
 //
-    public StatisticsController(ItemRequestService itemRequestService) {
+    public StatisticsController(ItemRequestService itemRequestService, DeliveryService deliveryService) {
         this.itemRequestService = itemRequestService;
+        this.deliveryService = deliveryService;
     }
 
     @GetMapping("/statistics")
@@ -97,4 +101,26 @@ public class StatisticsController {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
+    @GetMapping("/statistics/graph2")
+    @ResponseBody
+    public Map<Integer, Double> getTimeTakenPerDelivery() {
+        List<Delivery> deliveries = deliveryService.getAllDeliveries();
+        return deliveries.stream()
+                .collect(Collectors.toMap(
+                        Delivery::getDeliveryId,
+                        delivery -> {
+                            if (delivery.getTotalDeliveryTime() != null) {
+                                // Return total_delivery_time as it is (in minutes)
+                                return (double) delivery.getTotalDeliveryTime(); // it's a Double
+                            } else if (delivery.getDeliveryFinished() != null && delivery.getDeliveryStarted() != null) {
+                                // Calculate time if not pre-computed
+                                long timeTakenMillis =
+                                        java.time.Duration.between(delivery.getDeliveryStarted(), delivery.getDeliveryFinished()).toMillis();
+                                return timeTakenMillis / (60.0 * 1000.0); // converts milliseconds to minutes
+                            } else {
+                                return 0.0; // If data is incomplete
+                            }
+                        }
+                ));
+    }
 }
