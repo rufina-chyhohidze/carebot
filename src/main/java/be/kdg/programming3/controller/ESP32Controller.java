@@ -78,5 +78,10 @@ public class ESP32Controller {
         return "controlCar";
     }
 
+    @GetMapping("/camera")
+    public String camera() {
+        return "seeCamera";
+    }
+
 
 }

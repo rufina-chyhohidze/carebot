@@ -34,7 +34,7 @@
           <a class="nav-link" th:href="@{/logOut}" th:if="${session.userLoggedIn != null}">Log Out</a>
           <a class="nav-link" th:href="@{/item-request}" th:if="${session.userLoggedIn != null}">Request an Item</a>
           <a class="nav-link" th:href="@{/warehouse}" th:if="${session.userLoggedIn != null}">Warehouse</a>
-          <!--          <a class="nav-link" th:href="@{/item-request}">Request an Item</a>-->
+          <a class="nav-link" th:href="@{/data/control}">Control Car</a>
 <!--          <a class="nav-link" th:href="@{/warehouse}">Warehouse</a>-->
           <a class="nav-link" th:href="@{/login}" th:if="${session.userLoggedIn == null}">Log in</a>
         </div>
