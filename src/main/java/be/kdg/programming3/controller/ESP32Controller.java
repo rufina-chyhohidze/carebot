@@ -73,4 +73,10 @@ public class ESP32Controller {
         /// TODO: Redirect to warhouse (new getmapping that gets the finished path data to store the delivery in the database, then show the delivery information in a website - then test with my hotspot and host website on server - finish preparing talking points for presentation MVP)
     }
 
+    @GetMapping("/control")
+    public String control() {
+        return "controlCar";
+    }
+
+
 }
