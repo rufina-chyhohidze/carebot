@@ -41,8 +41,8 @@ public class ItemRequestRepositoryImpl implements ItemRequestRepository {
     }
 
     @Override
-    public List<ItemRequest> getAwaitingItemRequests() {
-        return em.createQuery("SELECT IR FROM ItemRequest IR WHERE UPPER(IR.status) = 'AWAITING'", ItemRequest.class).getResultList();
+    public List<ItemRequest> getPendingItemRequests() {
+        return em.createQuery("SELECT IR FROM ItemRequest IR WHERE UPPER(IR.status) = 'PENDING'", ItemRequest.class).getResultList();
     }
 
 //    @Override

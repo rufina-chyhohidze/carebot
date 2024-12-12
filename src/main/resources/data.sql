@@ -42,3 +42,7 @@
 
 -- INSERT INTO item_requests(id,item_name,path,request_time,status,employee_id,number_of_obstacles)
 -- VALUES(1, 'Printer', 'PATH1', now(), 'PENDING', 1, 1);
+
+UPDATE deliveries
+SET status = 'COMPLETED'
+WHERE status = 'PROCESSING';

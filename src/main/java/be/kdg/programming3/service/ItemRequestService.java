@@ -1,9 +1,7 @@
 package be.kdg.programming3.service;
 
 import be.kdg.programming3.domain.ItemRequest;
-import be.kdg.programming3.domain.PathName;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ItemRequestService {
@@ -21,5 +19,5 @@ public interface ItemRequestService {
 
     void updateItemRequest(ItemRequest itemRequest);
 
-    List<ItemRequest> getAwaitingItemRequests();
+    List<ItemRequest> getPendingItemRequests();
 }

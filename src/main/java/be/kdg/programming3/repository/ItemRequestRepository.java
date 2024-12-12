@@ -1,14 +1,10 @@
 package be.kdg.programming3.repository;
 
 import be.kdg.programming3.domain.ItemRequest;
-import be.kdg.programming3.domain.PathName;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 //import java.lang.ScopedValue;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ItemRequestRepository {
@@ -26,5 +22,5 @@ public interface ItemRequestRepository {
 
     void updateItemRequest(ItemRequest itemRequest);
 
-    List<ItemRequest> getAwaitingItemRequests();
+    List<ItemRequest> getPendingItemRequests();
 }

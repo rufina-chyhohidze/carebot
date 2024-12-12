@@ -36,7 +36,7 @@ public class WarehouseController {
 
         System.out.println("entered warehouse");
 
-        List<ItemRequest> itemRequests = this.itemRequestService.getAwaitingItemRequests();
+        List<ItemRequest> itemRequests = this.itemRequestService.getPendingItemRequests();
         model.addAttribute("itemRequests", itemRequests);
         List<Delivery> deliveries = deliveryService.getAllDeliveries();
         model.addAttribute("deliveries", deliveries);
