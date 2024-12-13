@@ -4,7 +4,7 @@ import pandas as pd
 
 def make_prediction():
     # Load the trained model
-    model = joblib.load('src/main/resources/static/python/best_model.pkl')
+    model = joblib.load('predictor/ModelforCareBot/best_model.pkl')
 
     # Create 3 hardcoded test cases
     test_data = pd.DataFrame({
