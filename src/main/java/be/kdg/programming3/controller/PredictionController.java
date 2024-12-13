@@ -15,7 +15,7 @@ public class PredictionController {
     public String getPredictions(Model model) {
         try {
             // Run the Python script
-            ProcessBuilder pb = new ProcessBuilder("predictor/venv/Scripts/python.exe", "predictor/ModelforCareBot/prediction.py");
+            ProcessBuilder pb = new ProcessBuilder("venv/Scripts/python.exe", "predictor/ModelforCareBot/prediction.py");
             Process process = pb.start();
 
             // Capture standard output
