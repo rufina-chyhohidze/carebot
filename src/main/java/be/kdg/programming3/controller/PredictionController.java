@@ -14,9 +14,9 @@ public class PredictionController {
     @GetMapping("/prediction")
     public String getPredictions(Model model) {
         try {
-            // Run the Python script
-            ProcessBuilder pb = new ProcessBuilder("venv/Scripts/python.exe", "predictor/ModelforCareBot/prediction.py");
-            Process process = pb.start();
+            String pythonScript = "/home/AnirSaddik/Desktop/Integration_3_Y2_SMS1/Integration-WebApp/carebot_integration3_team17/predictor/ModelforCareBot/prediction.py";
+            ProcessBuilder processBuilder = new ProcessBuilder("/home/AnirSaddik/Desktop/Integration_3_Y2_SMS1/Integration-WebApp/carebot_integration3_team17/venv/bin/python3.12", pythonScript);
+            Process process = processBuilder.start();
 
             // Capture standard output
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));

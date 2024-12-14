@@ -32,3 +32,14 @@ def make_prediction():
 
 if __name__ == "__main__":
     make_prediction()
+
+# import pandas as pd
+#
+# df = pd.read_csv('deliveries_fixed.csv')
+# # print(df.sort_values(by='item_request_id')['item_request_id'].tolist())
+#
+# df['item_request_id'] = range(1, len(df) + 1)
+#
+# print(df['item_request_id'])
+#
+# df.to_csv('deliveries_fixed.csv', index=False)

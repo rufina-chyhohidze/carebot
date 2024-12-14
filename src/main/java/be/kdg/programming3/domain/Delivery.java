@@ -25,6 +25,9 @@ public class Delivery {
 
     private Long totalDeliveryTime;
 
+    @Column(name = "number_of_obstacles")
+    private int numberOfObstacles;
+
     protected Delivery() {} // JPA requires a no-arg constructor
 
     public Delivery(ItemRequest itemRequest, LocalDateTime deliveryStarted, DeliveryStatus status) {
