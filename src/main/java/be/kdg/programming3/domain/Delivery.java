@@ -28,6 +28,14 @@ public class Delivery {
     @Column(name = "number_of_obstacles")
     private int numberOfObstacles;
 
+    public int getNumberOfObstacles() {
+        return numberOfObstacles;
+    }
+
+    public void setNumberOfObstacles(int numberOfObstacles) {
+        this.numberOfObstacles = numberOfObstacles;
+    }
+
     protected Delivery() {} // JPA requires a no-arg constructor
 
     public Delivery(ItemRequest itemRequest, LocalDateTime deliveryStarted, DeliveryStatus status) {

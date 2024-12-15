@@ -24,9 +24,9 @@
 -- WITH (FORMAT csv, HEADER true);
 
 -- -- FOR ITEMS table
-\COPY items(id,category,name,price,stock_quantity)
-FROM '//home/AnirSaddik/Desktop/Integration_3_Y2_SMS1/Integration-WebApp/carebot_integration3_team17/src/main/resources/laptop_and_tablets.csv'
-WITH (FORMAT csv, HEADER true);
+-- \COPY items(id,category,name,price,stock_quantity)
+-- FROM '//home/AnirSaddik/Desktop/Integration_3_Y2_SMS1/Integration-WebApp/carebot_integration3_team17/src/main/resources/laptop_and_tablets.csv'
+-- WITH (FORMAT csv, HEADER true);
 
     -- -- For delivery table:
 -- \COPY deliveries(delivery_finished,delivery_started,total_delivery_time,status,number_of_obstacles, item_request_id)
@@ -47,9 +47,25 @@ WITH (FORMAT csv, HEADER true);
 
 -- INSERT INTO item_requests(id,item_name,path,request_time,status,employee_id,number_of_obstacles)
 -- VALUES(1, 'Printer', 'PATH1', now(), 'PENDING', 1, 1);
-
+--
 -- UPDATE deliveries
 -- SET status = 'COMPLETED'
 -- WHERE status = 'PROCESSING';
 --
 -- INSERT INTO deliveries(item_request_id, delivery_finished, delivery_started, total_delivery_time, status, number_of_obstacles) VALUES(1, '2024-12-05 16:00:00','2024-12-05 15:55:00',5,'COMPLETED',0)
+
+-- SELECT AVG(d.number_of_obstacles)
+-- FROM deliveries d
+-- JOIN item_requests ir ON (d.item_request_id = ir.id)
+-- WHERE ir.path = 'PATH1';
+-- -- -- WHERE
+--
+-- SELECT d.number_of_obstacles
+-- FROM deliveries d
+--          JOIN item_requests ir ON (d.item_request_id = ir.id)
+-- WHERE ir.path = 'PATH1';
+--
+-- UPDATE deliveries d
+-- SET number_of_obstacles = 12
+-- FROM item_requests ir
+-- WHERE ir.path = 'PATH1' AND d.number_of_obstacles <= 5;

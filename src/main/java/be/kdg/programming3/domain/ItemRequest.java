@@ -36,7 +36,7 @@ public class ItemRequest {
     @Enumerated(EnumType.STRING)
     private ItemRequestStatus status;
 
-    private int numberOfObstacles;
+//    private int numberOfObstacles;
 
 //    @OneToOne(mappedBy = "itemRequest", fetch = FetchType.LAZY)
 //    private Delivery delivery;
@@ -100,8 +100,8 @@ public class ItemRequest {
     public void setRequestTime(LocalDateTime requestTime) {this.requestTime = requestTime;}
 //    public Delivery getDelivery() {return delivery;}
 //    public void setDelivery(Delivery delivery) {this.delivery = delivery;}
-    public int getNumberOfObstacles() {return numberOfObstacles;}
-    public void setNumberOfObstacles(int numberOfObstacles) {}
+//    public int getNumberOfObstacles() {return numberOfObstacles;}
+//    public void setNumberOfObstacles(int numberOfObstacles) {}
 
 //    @Override
 //    public String toString() {

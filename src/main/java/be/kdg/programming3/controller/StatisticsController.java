@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class StatisticsController {
     private final ItemRequestService itemRequestService;
     private final DeliveryService deliveryService;
+    private boolean chartsLoaded = false;
 //
     public StatisticsController(ItemRequestService itemRequestService, DeliveryService deliveryService) {
         this.itemRequestService = itemRequestService;
@@ -24,6 +25,7 @@ public class StatisticsController {
 
     @GetMapping("/statistics")
     public String showStatistics() {
+        chartsLoaded = false;
 
         return "statistics";
     }
@@ -31,9 +33,11 @@ public class StatisticsController {
     @GetMapping("/statistics/graph1")
     @ResponseBody
     public Map<String, Long> getMostFrequentPath() {
-        List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
-        return itemRequests.stream()
-                .collect(Collectors.groupingBy(itemRequest -> itemRequest.getPath().toString(), Collectors.counting()));
+        if (!chartsLoaded) {
+            List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
+            return itemRequests.stream()
+                    .collect(Collectors.groupingBy(itemRequest -> itemRequest.getPath().toString(), Collectors.counting()));
+        } else return null;
     }
 
 //    MAPPING FOR GRAPH2
@@ -41,86 +45,98 @@ public class StatisticsController {
     @GetMapping("/statistics/graph3")
     @ResponseBody
     public Map<String, Integer> getObstaclesPerPath() {
-        List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
-        return itemRequests.stream()
-                .collect(Collectors.groupingBy(
-                        itemRequest -> itemRequest.getPath().toString(),
-                        Collectors.summingInt(ItemRequest::getNumberOfObstacles)
-                ));
+        if (!chartsLoaded) {
+            List<Delivery> deliveries = deliveryService.getAllDeliveries();
+            return deliveries.stream()
+                    .collect(Collectors.groupingBy(
+                            delivery -> delivery.getItemRequest().getPath().toString(),
+                            Collectors.summingInt(Delivery::getNumberOfObstacles)
+                    ));
+        } else return null;
     }
 
     @GetMapping("/statistics/graph4")
     @ResponseBody
     public Map<String, Long> getMostRequestedItem() {
-        List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
-        return itemRequests.stream()
-                .collect(Collectors.groupingBy(ItemRequest::getItem, Collectors.counting()));
+        if (!chartsLoaded) {
+            List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
+            return itemRequests.stream()
+                    .collect(Collectors.groupingBy(ItemRequest::getItem, Collectors.counting()));
+        } else return null;
     }
 
     @GetMapping("/statistics/graph5")
     @ResponseBody
     public Map<String, Long> getRequestsPerMonth() {
-        List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
+        if (!chartsLoaded) {
+            List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
 
-        return itemRequests.stream()
-                .collect(Collectors.groupingBy(
-                        itemRequest -> itemRequest.getRequestTime().getYear() + "-" + itemRequest.getRequestTime().getMonthValue(),
-                        Collectors.counting()
-                ));
+            return itemRequests.stream()
+                    .collect(Collectors.groupingBy(
+                            itemRequest -> itemRequest.getRequestTime().getYear() + "-" + itemRequest.getRequestTime().getMonthValue(),
+                            Collectors.counting()
+                    ));
+        } else return null;
     }
 
 //    EXPLORATIVE
     @GetMapping("/statistics/graph6")
     @ResponseBody
     public Map<String, Map<String, Long>> getItemPopularityTrends() {
-        List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
+        if (!chartsLoaded) {
+            List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
 
-        Map<String, Map<String, Long>> result = itemRequests.stream()
-                .collect(Collectors.groupingBy(
-                        itemRequest -> itemRequest.getItem(),
-                        Collectors.groupingBy(
-                                itemRequest -> itemRequest.getRequestTime().getYear() + "-" + itemRequest.getRequestTime().getMonthValue(),
-                                Collectors.counting()
-                        )
-                ));
+            Map<String, Map<String, Long>> result = itemRequests.stream()
+                    .collect(Collectors.groupingBy(
+                            itemRequest -> itemRequest.getItem(),
+                            Collectors.groupingBy(
+                                    itemRequest -> itemRequest.getRequestTime().getYear() + "-" + itemRequest.getRequestTime().getMonthValue(),
+                                    Collectors.counting()
+                            )
+                    ));
 
-        Map<String, Long> totalCounts = itemRequests.stream()
-                .collect(Collectors.groupingBy(
-                        itemRequest -> itemRequest.getItem(),
-                        Collectors.counting()
-                ));
+            Map<String, Long> totalCounts = itemRequests.stream()
+                    .collect(Collectors.groupingBy(
+                            itemRequest -> itemRequest.getItem(),
+                            Collectors.counting()
+                    ));
 
-        List<String> topItems = totalCounts.entrySet().stream()
-                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
-                .limit(5)
-                .map(Map.Entry::getKey)
-                .toList();
+            List<String> topItems = totalCounts.entrySet().stream()
+                    .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
+                    .limit(5)
+                    .map(Map.Entry::getKey)
+                    .toList();
 
-        return result.entrySet().stream()
-                .filter(entry -> topItems.contains(entry.getKey()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            chartsLoaded = true;
+
+            return result.entrySet().stream()
+                    .filter(entry -> topItems.contains(entry.getKey()))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        } else return null;
     }
 
     @GetMapping("/statistics/graph2")
     @ResponseBody
     public Map<Integer, Double> getTimeTakenPerDelivery() {
-        List<Delivery> deliveries = deliveryService.getAllDeliveries();
-        return deliveries.stream()
-                .collect(Collectors.toMap(
-                        Delivery::getDeliveryId,
-                        delivery -> {
-                            if (delivery.getTotalDeliveryTime() != null) {
-                                // Return total_delivery_time as it is (in minutes)
-                                return (double) delivery.getTotalDeliveryTime(); // it's a Double
-                            } else if (delivery.getDeliveryFinished() != null && delivery.getDeliveryStarted() != null) {
-                                // Calculate time if not pre-computed
-                                long timeTakenMillis =
-                                        java.time.Duration.between(delivery.getDeliveryStarted(), delivery.getDeliveryFinished()).toMillis();
-                                return timeTakenMillis / (60.0 * 1000.0); // converts milliseconds to minutes
-                            } else {
-                                return 0.0; // If data is incomplete
+        if (!chartsLoaded) {
+            List<Delivery> deliveries = deliveryService.getAllDeliveries();
+            return deliveries.stream()
+                    .collect(Collectors.toMap(
+                            Delivery::getDeliveryId,
+                            delivery -> {
+                                if (delivery.getTotalDeliveryTime() != null) {
+                                    // Return total_delivery_time as it is (in minutes)
+                                    return (double) delivery.getTotalDeliveryTime(); // it's a Double
+                                } else if (delivery.getDeliveryFinished() != null && delivery.getDeliveryStarted() != null) {
+                                    // Calculate time if not pre-computed
+                                    long timeTakenMillis =
+                                            java.time.Duration.between(delivery.getDeliveryStarted(), delivery.getDeliveryFinished()).toMillis();
+                                    return timeTakenMillis / (60.0 * 1000.0); // converts milliseconds to minutes
+                                } else {
+                                    return 0.0; // If data is incomplete
+                                }
                             }
-                        }
-                ));
+                    ));
+        } else return null;
     }
 }

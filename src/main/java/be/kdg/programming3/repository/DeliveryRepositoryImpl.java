@@ -35,6 +35,7 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
     }
 
     @Transactional
+    @Override
     public boolean noDeliveriesInProcess() {
         return em.createQuery("SELECT COUNT(d) FROM Delivery d WHERE UPPER(d.status) = 'PROCESSING'", Long.class).getSingleResult() == 0;
     }
@@ -52,5 +53,10 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
         deliveryInProgress.setStatus(DeliveryStatus.COMPLETED);
         deliveryInProgress.setDeliveryFinished(timeFinished);
         em.merge(deliveryInProgress);
+    }
+
+    @Override
+    public List<Delivery> getPendingDelivery() {
+        return em.createQuery("SELECT dr FROM Delivery dr where dr.status = 'PROCESSING'", Delivery.class).getResultList();
     }
 }

@@ -1,6 +1,7 @@
 package be.kdg.programming3.controller;
 
 
+import be.kdg.programming3.domain.Employee;
 import be.kdg.programming3.domain.ItemRequest;
 import be.kdg.programming3.domain.ItemRequestStatus;
 import be.kdg.programming3.domain.PathName;
@@ -55,13 +56,13 @@ public class ItemRequestController {
     }
 
     @PostMapping("/item-request")
-    public String sendItemRequest(@RequestParam("item") String itemSelected,
-                                  @RequestParam("path") String pathSelected, Model model) {
+    public String sendItemRequest(@RequestParam("item") String itemSelected, @RequestParam("path") String pathSelected, Model model, HttpSession session) {
         List<String> items = itemService.getItemCategories();
         model.addAttribute("items", items);
         model.addAttribute("paths", PathName.values());
 
         ItemRequest itemRequest = new ItemRequest(itemSelected, PathName.valueOf(pathSelected), ItemRequestStatus.PENDING);
+        itemRequest.setEmployee((Employee) session.getAttribute("userLoggedIn"));
         itemRequest = this.itemRequestService.createItemRequest(itemRequest); // Persisted with id
 
         // Send a WebSocket message with the itemRequest data to reload warehouse page automatically

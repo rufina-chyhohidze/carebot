@@ -38,8 +38,7 @@ public class WarehouseController {
 
         List<ItemRequest> itemRequests = this.itemRequestService.getPendingItemRequests();
         model.addAttribute("itemRequests", itemRequests);
-        List<Delivery> deliveries = deliveryService.getAllDeliveries();
-        System.err.println("\n\n\n ALL DELIVERIES: " + deliveries + " \n\n\n");
+        List<Delivery> deliveries = deliveryService.getPendingDelivery();
         model.addAttribute("deliveries", deliveries);
         model.addAttribute("deliveryLOG", deliveryLOG);
 
@@ -48,8 +47,9 @@ public class WarehouseController {
 
     @PostMapping("/warehouse")
     public String processItemRequest(@RequestParam("selectedItemRequest") int itemRequestId, Model model) {
-        deliveryLOG = new ArrayList<>(); // emptying previous delivery logs
+        if (!this.deliveryService.noDeliveriesInProcess()) return "redirect:/warehouse";
 
+        deliveryLOG = new ArrayList<>(); // emptying previous delivery logs
 
         ItemRequest itemRequestSelected = this.itemRequestService.getItemRequestById(itemRequestId);
 
@@ -64,7 +64,8 @@ public class WarehouseController {
 
         deliveryService.createDelivery(new Delivery(itemRequestSelected, LocalDateTime.now(), DeliveryStatus.PROCESSING));
 
-        List<Delivery> deliveries = deliveryService.getAllDeliveries();
+//        List<Delivery> deliveries = deliveryService.getAllDeliveries();
+        List<Delivery> deliveries = deliveryService.getPendingDelivery();
         model.addAttribute("deliveries", deliveries);
 
         System.err.println("ITEM REQUEST SELECTED: " + itemRequestSelected + " with path: " + pathSelected);

@@ -1,11 +1,11 @@
 id,category,name,price,stock_quantity
 1,Tablet,Apple iPad Air,278,195
-2,Laptop,Dell XPS 13,2900,448
-3,Tablet,HP Spectre x360,185,395
-4,Laptop,MacBook Pro 16,648,360
-5,Laptop,Lenovo Yoga 7i,872,158
-6,Laptop,Acer Swift 3,2900,241
-7,Tablet,Samsung Galaxy Tab S7,775,208
+2,Headphones,Dell XPS 13,2900,448
+3,Laptop,HP Spectre x360,185,395
+4,Mouse,MacBook Pro 16,648,360
+5,Monitor,Lenovo Yoga 7i,872,158
+6,Speaker,Acer Swift 3,2900,241
+7,Printer,Samsung Galaxy Tab S7,775,208
 8,Laptop,Apple MacBook Air,544,312
 9,Tablet,Lenovo Tab P11,8202,243
 10,Tablet,Acer Iconia Tab 10,2900,302

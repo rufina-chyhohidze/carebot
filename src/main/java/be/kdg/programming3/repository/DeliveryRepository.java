@@ -12,6 +12,8 @@ public interface DeliveryRepository {
     List<Delivery> getAllDeliveries();
     Delivery createDelivery(Delivery delivery);
     Delivery getDeliveryById(int id);
-
+    public boolean noDeliveriesInProcess();
     void setDeliveryInProcessStatusToFinished(LocalDateTime timeFinished);
+
+    List<Delivery> getPendingDelivery();
 }

@@ -39,14 +39,11 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         this.itemRequestRepository.updateItemRequest(itemRequest);
     }
 
-    //    @Override
-//    public ItemRequest saveItemRequest(ItemRequest itemRequest) {
-//        LOG.debug("Saving ItemRequest: {}", itemRequest);
-//        ItemRequest savedItemRequest = itemRequestRepository.save(itemRequest);
-//        LOG.debug("Saved ItemRequest: {}", savedItemRequest);
-//        return savedItemRequest;
-//    }
-//
+    @Override
+    public List<ItemRequest> getAllItemRequestsOfEmployee(int userId) {
+        return this.itemRequestRepository.getAllItemRequestsOfEmployee(userId);
+    }
+
     @Override
     public List<ItemRequest> getAllItemRequests() {
         LOG.debug("Fetching all ItemRequests");
@@ -65,34 +62,5 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     public void setItemRequestToCompleted(int itemRequestId) {
         this.itemRequestRepository.setItemRequestToCompleted(itemRequestId);
     }
-    //    @Override
-//    public List<ItemRequest> getItemRequestsByEmployee(String username) {
-//        LOG.debug("Fetching ItemRequests for employee with username: {}", username);
-//        List<ItemRequest> itemRequests = itemRequestRepository.findByEmployeeUsername(username);
-//        LOG.debug("Found {} ItemRequests for employee: {}", itemRequests.size(), username);
-//        return itemRequests;
-//    }
 
-//    @Override
-//    public List<ItemRequest> getItemRequestsByItemId(int itemId) {
-//        LOG.debug("Fetching ItemRequests for item with ID: {}", itemId);
-//        List<ItemRequest> itemRequests = itemRequestRepository.findByItemId(itemId);
-//        LOG.debug("Found {} ItemRequests for item ID: {}", itemRequests.size(), itemId);
-//        return itemRequests;
-//    }
-
-//    @Override
-//    public List<ItemRequest> getItemRequestsByRequestTime(LocalDateTime startTime, LocalDateTime endTime) {
-//        LOG.debug("Fetching ItemRequests between {} and {}", startTime, endTime);
-//        List<ItemRequest> itemRequests = itemRequestRepository.findByRequestTimeBetween(startTime, endTime);
-//        LOG.debug("Found {} ItemRequests between {} and {}", itemRequests.size(), startTime, endTime);
-//        return itemRequests;
-//    }
-
-//    @Override
-//    public void deleteItemRequest(int id) {
-//        LOG.debug("Deleting ItemRequest with ID: {}", id);
-//        itemRequestRepository.deleteById(id);
-//        LOG.debug("Deleted ItemRequest with ID: {}", id);
-//    }
 }

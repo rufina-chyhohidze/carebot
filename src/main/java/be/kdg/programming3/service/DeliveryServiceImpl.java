@@ -45,8 +45,17 @@ public class DeliveryServiceImpl implements DeliveryService {
         this.deliveryRepository.setDeliveryInProcessStatusToFinished(timeFinished);
     }
 
+    @Override
+    public List<Delivery> getPendingDelivery() {
+        return this.deliveryRepository.getPendingDelivery();
+    }
 
-//    @Override
+    @Override
+    public boolean noDeliveriesInProcess() {
+        return this.deliveryRepository.noDeliveriesInProcess();
+    }
+
+    //    @Override
 //    public void addDelivery(Delivery delivery) {
 //        LOG.debug("Adding new delivery: {}", delivery);
 //        deliveryRepository.save(delivery);

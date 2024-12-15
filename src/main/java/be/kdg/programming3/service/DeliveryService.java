@@ -11,6 +11,8 @@ public interface DeliveryService {
     Delivery getDeliveryById(int deliveryId);
 
     void setDeliveryInProcessStatusToFinished(LocalDateTime timeFinished);
+    public boolean noDeliveriesInProcess();
+    List<Delivery> getPendingDelivery();
 //    void addDelivery(Delivery delivery);
 //    void updateDelivery(int deliveryId, LocalDateTime deliveryFinished);
 
