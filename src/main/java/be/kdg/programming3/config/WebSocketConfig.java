@@ -8,7 +8,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 /**
- * THIS CLASS MALLOWS THE WAREHOUSE PAGE TO BE AUTOMATICALLY RELOADED WHEN AN ITEM REQUEST HAD BEEN CREATED
+ * THIS CLASS ALLOWS THE WAREHOUSE PAGE TO BE AUTOMATICALLY RELOADED WHEN AN ITEM REQUEST HAD BEEN CREATED
  */
 
 @Configuration

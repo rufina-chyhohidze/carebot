@@ -1,8 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => {
+{
     const graphConfigs = [
         {
             id: 'graph1',
-            url: '/statistics/graph1',
+            url: '/statistics/graph/1',
             type: 'bar',
             label: 'Number of Requests',
             backgroundColor: 'rgba(255, 204, 0, 0.5)',
@@ -10,15 +10,15 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: 'graph2',
-            url: '/statistics/graph2',
-            type: 'bar', // Change type as needed (e.g., 'bar', 'scatter')
+            url: '/statistics/graph/2',
+            type: 'bar',
             label: 'Time Taken Per Delivery (minutes)',
             backgroundColor: 'rgba(255, 204, 0, 0.5)',
             borderColor: '#ffcc00'
         },
         {
             id: 'graph3',
-            url: '/statistics/graph3',
+            url: '/statistics/graph/3',
             type: 'pie',
             label: 'Number of Obstacles',
             backgroundColor: 'rgba(255, 204, 0, 0.5)',
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: 'graph4',
-            url: '/statistics/graph4',
+            url: '/statistics/graph/4',
             type: 'doughnut',
             label: 'Most Requested Item',
             backgroundColor: 'rgba(255, 204, 0, 0.5)',
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: 'graph5',
-            url: '/statistics/graph5',
+            url: '/statistics/graph/5',
             type: 'bar',
             label: 'Number of Requests Per Month',
             backgroundColor: 'rgba(255, 204, 0, 0.5)',
@@ -44,14 +44,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     ];
 
+    // // Function to fetch and render individual charts
     function fetchAndRenderChart({ id, url, type, label, backgroundColor, borderColor, showLabelsOnPieces }) {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-
                 const labels = Object.keys(data);
                 const values = Object.values(data);
-
 
                 const ctx = document.getElementById(id).getContext('2d');
                 const config = {
@@ -70,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         responsive: true,
                         plugins: {
                             legend: {
-                                display: !showLabelsOnPieces, // hide legend if labels are shown on the chart
+                                display: !showLabelsOnPieces, // Hide legend if labels are shown on the chart
                                 position: 'top',
                                 labels: {
                                     color: '#ffffff'
@@ -105,60 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error(`Error fetching data for ${id}:`, error));
     }
 
-    graphConfigs.forEach(fetchAndRenderChart);
-
-
-
-    // Graph 6
-    fetch('/statistics/graph6')
-        .then(response => response.json())
-        .then(data => {
-            const labels = [...new Set(Object.values(data).flatMap(itemData => Object.keys(itemData)))];
-            const datasets = Object.entries(data).map(([itemName, monthlyData], index) => ({
-                label: itemName,
-                data: labels.map(month => monthlyData[month] || 0),
-                borderColor: ['#4bc0c0', '#ff6384', '#9966ff', '#ff9f40', '#36a2eb'][index % 5],
-                backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)', 'rgba(54, 162, 235, 0.2)'][index % 5],
-                borderWidth: 1
-            }));
-
-            const ctx = document.getElementById('graph6').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: datasets
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                            labels: {
-                                color: '#ffffff'
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: { color: '#ffffff' },
-                            grid: { color: '#444444' }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            ticks: { color: '#ffffff' },
-                            grid: { color: '#444444' }
-                        }
-                    }
-                }
-            });
-        })
-        .catch(error => console.error('Error fetching data for graph6:', error));
-
-    setInterval(() => {
-        graphConfigs.forEach(fetchAndRenderChart); // refresh all descriptive charts
-        fetch('/statistics/graph6') // refresh graph6
+    // Function to render Graph 6
+    function fetchAndRenderGraph6() {
+        fetch('/statistics/graph/6')
             .then(response => response.json())
             .then(data => {
                 const labels = [...new Set(Object.values(data).flatMap(itemData => Object.keys(itemData)))];
@@ -202,10 +150,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 });
             })
-            .catch(error => console.error('Error refreshing data for graph6:', error));
-    }, 3000);  // refresh every 3 seconds
-});
+            .catch(error => console.error('Error fetching data for graph6:', error));
+    }
 
+//     // Render all charts on page load
+
+    graphConfigs.forEach(fetchAndRenderChart);
+    fetchAndRenderGraph6();
+}
 
 
 
@@ -244,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // });
 
 /*!
- 
+
 // Scripts
 // */
 

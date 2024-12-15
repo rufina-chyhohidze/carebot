@@ -24,6 +24,7 @@ public class DashboardController {
 
     @GetMapping("/{userId}")
     public String userDashboard(@PathVariable(value = "userId") int userId, Model model, HttpSession session) {
+//        StatisticsController.chartsLoaded = false;
         Employee employeeLoggedIn = (Employee) session.getAttribute("userLoggedIn");
 //        if (employeeLoggedIn == null) return "redirect:/login";
 
