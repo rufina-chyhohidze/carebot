@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ItemRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @SequenceGenerator(name = "item_request_seq", sequenceName = "item_requests_id_seq", allocationSize = 1)
+//    @SequenceGenerator(name = "item_request_seq", sequenceName = "item_requests_id_seq", allocationSize = 1)
     private int id;
 
     /* FOR LATER */
@@ -33,8 +33,8 @@ public class ItemRequest {
 
     private LocalDateTime requestTime;
 
-//    @Enumerated(EnumType.STRING)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ItemRequestStatus status;
 
     private int numberOfObstacles;
 
@@ -44,7 +44,7 @@ public class ItemRequest {
     protected ItemRequest() {
     }
 
-    public ItemRequest(String itemName, PathName path, String status) {
+    public ItemRequest(String itemName, PathName path, ItemRequestStatus status) {
         this.itemName = itemName;
         this.path = path;
         this.status = status;
@@ -58,11 +58,11 @@ public class ItemRequest {
 //        this.item = item;
 
 
-    public String getStatus() {
+    public ItemRequestStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ItemRequestStatus status) {
         this.status = status;
     }
 

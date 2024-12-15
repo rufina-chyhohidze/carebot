@@ -39,6 +39,7 @@ public class WarehouseController {
         List<ItemRequest> itemRequests = this.itemRequestService.getPendingItemRequests();
         model.addAttribute("itemRequests", itemRequests);
         List<Delivery> deliveries = deliveryService.getAllDeliveries();
+        System.err.println("\n\n\n ALL DELIVERIES: " + deliveries + " \n\n\n");
         model.addAttribute("deliveries", deliveries);
         model.addAttribute("deliveryLOG", deliveryLOG);
 
@@ -52,10 +53,12 @@ public class WarehouseController {
 
         ItemRequest itemRequestSelected = this.itemRequestService.getItemRequestById(itemRequestId);
 
+        this.itemRequestService.setItemRequestToCompleted(itemRequestId);
+
         deliveryLOG.add("Delivery started at : " + LocalDateTime.now());
         deliveryLOG.add("Delivering item: " + itemRequestSelected.getItem() + " to path: " + itemRequestSelected.getPath().toString());
 
-        itemRequestSelected.setStatus("FULFILLED");
+        itemRequestSelected.setStatus(ItemRequestStatus.FULFILLED);
         this.itemRequestService.updateItemRequest(itemRequestSelected);
         PathName pathSelected = itemRequestSelected.getPath();
 

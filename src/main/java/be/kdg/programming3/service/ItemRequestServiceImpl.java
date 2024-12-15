@@ -61,7 +61,11 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         return itemRequestRepository.getItemRequestById(id);
     }
 
-//    @Override
+    @Override
+    public void setItemRequestToCompleted(int itemRequestId) {
+        this.itemRequestRepository.setItemRequestToCompleted(itemRequestId);
+    }
+    //    @Override
 //    public List<ItemRequest> getItemRequestsByEmployee(String username) {
 //        LOG.debug("Fetching ItemRequests for employee with username: {}", username);
 //        List<ItemRequest> itemRequests = itemRequestRepository.findByEmployeeUsername(username);

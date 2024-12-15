@@ -20,4 +20,6 @@ public interface ItemRequestService {
     void updateItemRequest(ItemRequest itemRequest);
 
     List<ItemRequest> getPendingItemRequests();
+
+    void setItemRequestToCompleted(int itemRequestId);
 }

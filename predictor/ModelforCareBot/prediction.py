@@ -31,14 +31,44 @@ def make_prediction():
 
 
 if __name__ == "__main__":
-    make_prediction()
+#     make_prediction()
 
+
+
+
+
+
+
+### Stuff used to fix issues with csv files and database (ignore)
 # import pandas as pd
 #
+# df = pd.read_csv('item_request_data.csv')
+# print(df.iloc[0])
+# df.drop('Unnamed: 0', inplace=True)
+# df = df.drop(df.columns[6], axis=1)
+# print(df)
+
+# print(df.head())
+
+# df.drop('id', axis=1, inplace=True)
+# df.to_csv('item_request_data.csv', index=False)
+# df['status'] = 'FULFILLED'
+
 # df = pd.read_csv('deliveries_fixed.csv')
+# print(df['status'])
+# exit(0)
+# df.to_csv('item_request_data.csv', index=False)
+
+# df.drop('delivery_id', axis=1, inplace=True)
+# df.drop('item_request_id', axis=1, inplace=True)
+# print(df.head())
 # # print(df.sort_values(by='item_request_id')['item_request_id'].tolist())
 #
-# df['item_request_id'] = range(1, len(df) + 1)
+#
+# df['item_request_id'] = range(1000, len(df) + 1)
+# df['item_request_id'] = 1
+# df['item_request_id'] = range(1, 1 + len(df))
+
 #
 # print(df['item_request_id'])
 #

@@ -23,4 +23,6 @@ public interface ItemRequestRepository {
     void updateItemRequest(ItemRequest itemRequest);
 
     List<ItemRequest> getPendingItemRequests();
+
+    void setItemRequestToCompleted(int itemRequestId);
 }

@@ -34,7 +34,8 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
         return delivery;
     }
 
-    private boolean noDeliveriesInProcess() {
+    @Transactional
+    public boolean noDeliveriesInProcess() {
         return em.createQuery("SELECT COUNT(d) FROM Delivery d WHERE UPPER(d.status) = 'PROCESSING'", Long.class).getSingleResult() == 0;
     }
 

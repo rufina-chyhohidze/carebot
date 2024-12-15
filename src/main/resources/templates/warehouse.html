@@ -86,7 +86,7 @@
                 <thead>
                 <tr>
                     <th>Delivery</th>
-                    <th>Item Request ID</th>
+<!--                    <th>Item Request ID</th>-->
                     <th>Drop Point</th>
                     <th>Status</th>
                 </tr>
@@ -94,7 +94,7 @@
                 <tbody>
                 <tr th:each="delivery : ${deliveries}">
                     <td th:text="${delivery.getDeliveryId()}">ID</td>
-                    <td th:text="${delivery.getItemRequest().getId()}">Item Request ID</td>
+<!--                    <td th:text="${delivery.getItemRequest().getId() == null ? 'NO ID' : delivery.getItemRequest().getId()}">Item Request ID</td>-->
                     <td th:text="${delivery.getItemRequest().getPath()}">Path</td>
                     <td><span th:class="${delivery.getStatus().toString().equalsIgnoreCase('PROCESSING')} ? 'processingStatus' : 'completedStatus'" style="text-align: center; border-radius: 20px; padding: 10px 20px;" th:text="${delivery.getStatus()}">Status</span></td>
 <!--                    <td><span th:if="${delivery.getStatus().toString().equalsIgnoreCase('COMPLETED')}" style="text-align: center; border-radius: 20px; padding: 10px 20px; background-color: green; color: white;" th:text="${delivery.getStatus()}">Status</span></td>-->
