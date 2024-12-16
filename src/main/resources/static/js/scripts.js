@@ -217,3 +217,6 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+// let progressBarFill = document.getElementById("fill-progress-bar");
+// progressBarFill.style.width = '10%';
