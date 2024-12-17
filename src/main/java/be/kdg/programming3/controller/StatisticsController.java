@@ -45,29 +45,34 @@ public class StatisticsController {
     }
 
 //    MAPPING FOR GRAPH2
-    @GetMapping("/graph/2")
-    @ResponseBody
-    public Map<Integer, Double> getTimeTakenPerDelivery() {
-        System.err.println("\n\n GENERATING GRAPH 2\n\n\n");
-    //        if (!chartsLoaded) {
-        List<Delivery> deliveries = deliveryService.getAllDeliveries();
-        return deliveries.stream()
-                .collect(Collectors.toMap(
-                        Delivery::getDeliveryId,
-                        delivery -> {
-                            if (delivery.getTotalDeliveryTime() != null) {
-                                // Return total_delivery_time as it is (in minutes)
-                                return (double) delivery.getTotalDeliveryTime(); // it's a Double
-                            } else if (delivery.getDeliveryFinished() != null && delivery.getDeliveryStarted() != null) {
-                                // Calculate time if not pre-computed
-                                long timeTakenMillis =
-                                        java.time.Duration.between(delivery.getDeliveryStarted(), delivery.getDeliveryFinished()).toMillis();
-                                return timeTakenMillis / (60.0 * 1000.0); // converts milliseconds to minutes
-                            } else {
-                                return 0.0; // If data is incomplete
-                            }
-                        }
-                ));
+@GetMapping("/graph/2")
+@ResponseBody
+public Map<String, Long> getTimeTakenPerDelivery() {
+    System.err.println("\n\n GENERATING GRAPH 2\n\n\n");
+    List<Delivery> deliveries = deliveryService.getAllDeliveries();
+
+    return deliveries.stream()
+            .map(delivery -> {
+                double timeTaken = 0.0;
+                if (delivery.getTotalDeliveryTime() != null) {
+                    timeTaken = delivery.getTotalDeliveryTime();
+                } else if (delivery.getDeliveryFinished() != null && delivery.getDeliveryStarted() != null) {
+                    long timeTakenMillis =
+                            java.time.Duration.between(delivery.getDeliveryStarted(), delivery.getDeliveryFinished()).toMillis();
+                    timeTaken = timeTakenMillis / (60.0 * 1000.0);
+                }
+                return timeTaken;
+            })
+            .collect(Collectors.groupingBy(
+                    time -> {
+                        if (time <= 2) return "0-2 mins";
+                        else if (time <= 5) return "2-5 mins";
+                        else if (time <= 10) return "5-10 mins";
+                        else if (time <= 15) return "10-15 mins";
+                        else return "15+ mins";
+                    },
+                    Collectors.counting()
+            ));
     //        } else return null;
     }
 

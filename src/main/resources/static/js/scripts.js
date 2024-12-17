@@ -12,7 +12,7 @@
             id: 'graph2',
             url: '/statistics/graph/2',
             type: 'bar',
-            label: 'Time Taken Per Delivery (minutes)',
+            label: 'Number of deliveries within the range: ',
             backgroundColor: 'rgba(255, 204, 0, 0.5)',
             borderColor: '#ffcc00'
         },
