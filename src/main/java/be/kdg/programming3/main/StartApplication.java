@@ -31,6 +31,7 @@ public class StartApplication {
         DataProcessor averageProcessor = new AverageProcessor();
         DataProcessor maxMinProcessor = new MaxMinProcessor();
 
+
         CompositeProcessor compositeProcessor = new CompositeProcessor();
         compositeProcessor.addProcessor(sumProcessor);
         compositeProcessor.addProcessor(averageProcessor);

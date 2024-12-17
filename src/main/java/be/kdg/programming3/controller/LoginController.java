@@ -27,7 +27,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLoginPage() {
-        return "login";
+        return "log-in";
     }
     @PostMapping("/login")
     public String logInToUser(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("options") String option, Model model, HttpSession session) {
@@ -82,7 +82,7 @@ public class LoginController {
 
     @GetMapping("/signup")
     public String showSignupPage() {
-        return "signup";
+        return "sign-up";
     }
 
     @PostMapping("/signup")
