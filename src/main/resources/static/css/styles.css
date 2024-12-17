@@ -102,3 +102,6 @@ canvas {
     border-radius: 10px;
     background-color: green;
 }
+.bg-img {
+    object-fit: cover;
+}

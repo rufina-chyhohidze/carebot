@@ -18,7 +18,7 @@
 <div class="container">
   <div class="form-section">
     <h2>Sign Up</h2>
-    <form action="/sign-up" method="POST">
+    <form method="POST">
       <div class="row">
         <!-- LEFT COLUMN -->
         <div class="col-left">
@@ -35,17 +35,17 @@
           <div class="mb-3">
             <label for="gender" class="form-label text-white">Gender:</label>
             <select id="gender" class="form-select" name="gender" required>
-              <option value="" disabled selected>Select Gender</option>
+              <option style="color: black" value="" disabled selected>Select Gender</option>
               <option th:each="g : ${T(be.kdg.programming3.domain.Gender).values()}"
-                      th:value="${g}" th:text="${g.name()}">
+                      th:value="${g}" th:text="${g.name()}">Value 1
               </option>
             </select>
             <div class="invalid-feedback">Please select a gender.</div>
           </div>
 
           <div class="form-group mb-3">
-            <label class="form-label text-white">Date of Birth</label>
-            <input class="form-control" id="dob" name="dob" type="date" required />
+            <label for="date" class="form-label text-white">Date of Birth</label>
+            <input class="form-control" id="date" name="date" type="date" required />
           </div>
 
           <div class="form-group mb-3">

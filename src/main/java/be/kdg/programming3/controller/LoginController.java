@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
+
 @Controller
 public class LoginController {
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
@@ -30,7 +32,7 @@ public class LoginController {
         return "log-in";
     }
     @PostMapping("/login")
-    public String logInToUser(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("options") String option, Model model, HttpSession session) {
+    public String logInToUser(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession session) {
         LOG.debug("Received login request for employee with email: {}",email);
 
         if (employeeLoginDetailsCorrect(email, password)) {
@@ -47,14 +49,8 @@ public class LoginController {
                 session.setAttribute("userLoggedIn", employeeLoggedIn);
             }
 
-            if (option.equalsIgnoreCase("warehouse")) {
-                model.addAttribute("employee", employeeLoggedIn);
-                return "redirect:/warehouse";
-            }
-            else {
-                model.addAttribute("employee", employeeLoggedIn);
-                return "redirect:/item-request";
-            }
+            model.addAttribute("employee", employeeLoggedIn);
+            return "redirect:/item-request";
         }
 
         LOG.debug("Login unsuccessful for employee with email: {} - Please create an account.", email);
@@ -92,13 +88,14 @@ public class LoginController {
                                  @RequestParam("employeeType") String employeeType,
                                  @RequestParam("phoneNumber") String phoneNumber,
                                  @RequestParam("email") String email,
-                                 @RequestParam("password") String password) {
-
+                                 @RequestParam("password") String password,
+                                 @RequestParam("date") Date date) {
+        LOG.debug("Requested a sign up with values: {}, {}, {}, {}, {}, {}, {}", firstName, lastName, gender, employeeType, phoneNumber, email, password);
         // Create the employee object
         Employee newEmployee = new Employee(firstName, lastName, Gender.valueOf(gender), EmployeeRole.valueOf(employeeType), phoneNumber, email, password);
 
         // Save the employee to the database
-        System.err.println("\n\n EMployee without id cause not saved: " + newEmployee);
+        System.err.println("\n\n Employee without id cause not saved: " + newEmployee);
         Employee employee = employeeService.createEmployee(newEmployee);
 
         System.out.println("Created new employee now has id: " + employee);

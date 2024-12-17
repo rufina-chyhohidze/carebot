@@ -69,3 +69,8 @@
 -- SET number_of_obstacles = 12
 -- FROM item_requests ir
 -- WHERE ir.path = 'PATH1' AND d.number_of_obstacles <= 5;
+
+
+UPDATE item_requests
+SET item_name = 'Headphones'
+WHERE item_name = 'Headphone';
