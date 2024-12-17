@@ -48,8 +48,20 @@ body::before {
     z-index: 1;
 }
 
-.form-section {
-    width: 100%;
+.form-select {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white; border: 1px solid #ccc;
+}
+.form-select:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.form-select option {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
 }
 
 .form-section h2 {
@@ -111,6 +123,7 @@ body::before {
 
 
 .form-section {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
