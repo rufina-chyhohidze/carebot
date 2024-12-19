@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Request an Item</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
@@ -130,8 +134,9 @@
                             <p><strong>Employee:</strong> <p th:text="${itemRequest.getEmployee().getFirstName()}">John Doe</p></p>
                             <p><strong>Path:</strong> <p th:text="${itemRequest.getPath()}">Path A</p></p>
                         </div>
-                        <div class="progress-bar">
-                            <span class="fill-progress-bar"></span>
+                        <button onclick="startProgressBarForDelivery()">Activate Path</button>
+                        <div class="progress-bar" id="progress-bar">
+                            <span class="fill-progress-bar" id="fill-progress-bar"></span>
                         </div>
                     </div>
                 </li>
@@ -169,6 +174,20 @@
         </div>
     </div>
 </div>
+
+<!--<script>-->
+<!--    const socket = new SockJS('/ws');  // Connect to WebSocket-->
+<!--    const stompClient = Stomp.over(socket);-->
+
+<!--    stompClient.connect({}, function (frame) {-->
+<!--        console.log('Connected to WebSocket:', frame);-->
+<!--        stompClient.subscribe('/topic/start-delivery-progress', function (message) {-->
+<!--            console.log('Message received:', message.body);-->
+<!--            location.reload();-->
+<!--            // startProgressBarForDelivery();-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 
 
 <!-- FOOTER -->

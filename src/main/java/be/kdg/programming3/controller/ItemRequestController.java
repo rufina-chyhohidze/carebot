@@ -70,6 +70,8 @@ public class ItemRequestController {
         // Send a WebSocket message with the itemRequest data to reload warehouse page automatically
         messagingTemplate.convertAndSend("/topic/warehouse-updates", itemRequest);
 
+
+
         return "redirect:/item-request"; // Or you can use a custom response if needed
     }
 

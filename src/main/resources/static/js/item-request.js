@@ -51,3 +51,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+
+
+// let progressBar = document.getElementById("progress-bar");
+let fillProgressBar = document.getElementById("fill-progress-bar");
+fillProgressBar.style.width = "0%";
+    
+
+
+
+const socket = new SockJS('/ws');  // Connect to WebSocket
+const stompClient = Stomp.over(socket);
+
+stompClient.connect({}, function (frame) {
+    console.log('Connected to WebSocket:', frame);
+    stompClient.subscribe('/topic/start-delivery-progress', function (message) {
+        console.log('Message received:', message.body);
+        // location.reload();
+        startProgressBarForDelivery();
+    });
+});
+
+
+function startProgressBarForDelivery() {
+    let fillProgressBar = document.getElementById("fill-progress-bar");
+    fillProgressBar.style.width = "0%";
+ 
+    let progress = 0;
+
+    const intervalId = setInterval(() => {
+        progress += 0.1;
+        fillProgressBar.style.width = progress + "%";
+
+        if (progress >= 100) {
+            clearInterval(intervalId); // Stop the interval
+            console.log("Finished incrementing!");
+        }
+    }, 10);
+}

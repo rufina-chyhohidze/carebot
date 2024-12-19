@@ -5,6 +5,7 @@ import be.kdg.programming3.service.DeliveryService;
 import be.kdg.programming3.service.ItemRequestService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +22,15 @@ public class WarehouseController {
     private final DeliveryService deliveryService;
     private final ItemRequestService itemRequestService;
     public static List<String> deliveryLOG;
+    private final SimpMessagingTemplate messagingTemplate;
+
 
     @Autowired
-    public WarehouseController(ItemRequestService itemRequestService, DeliveryService deliveryService) {
+    public WarehouseController(ItemRequestService itemRequestService, DeliveryService deliveryService, SimpMessagingTemplate messagingTemplate) {
         this.deliveryService = deliveryService;
         this.itemRequestService = itemRequestService;
         deliveryLOG = new ArrayList<>();
+        this.messagingTemplate = messagingTemplate;
     }
 
     @GetMapping("/warehouse")
@@ -47,6 +51,8 @@ public class WarehouseController {
 
     @PostMapping("/warehouse")
     public String processItemRequest(@RequestParam("selectedItemRequest") int itemRequestId, Model model) {
+        messagingTemplate.convertAndSend("/topic/start-delivery-progress", "itemRequestId: " + itemRequestId);
+
         if (!this.deliveryService.noDeliveriesInProcess()) return "redirect:/warehouse";
 
         deliveryLOG = new ArrayList<>(); // emptying previous delivery logs
@@ -69,7 +75,6 @@ public class WarehouseController {
         model.addAttribute("deliveries", deliveries);
 
         System.err.println("ITEM REQUEST SELECTED: " + itemRequestSelected + " with path: " + pathSelected);
-
 
 
         return "redirect:/data/mode/" + pathSelected;
