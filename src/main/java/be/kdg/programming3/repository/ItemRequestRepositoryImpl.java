@@ -23,6 +23,12 @@ public class ItemRequestRepositoryImpl implements ItemRequestRepository {
 
     @Override
     @Transactional
+    public List<ItemRequest> getLast5ItemRequests() {
+        return em.createQuery("SELECT ir FROM ItemRequest ir WHERE ir.status = 'PENDING' ORDER BY ir.id DESC FETCH NEXT 5 ROWS ONLY", ItemRequest.class).getResultList();
+    }
+
+    @Override
+    @Transactional
     public List<ItemRequest> getAllItemRequests() {
         return em.createQuery("SELECT IR FROM ItemRequest IR", ItemRequest.class).getResultList();
     }

@@ -51,6 +51,8 @@ public class ItemRequestController {
         model.addAttribute("items", itemCategories);
         model.addAttribute("paths", PathName.values());
         model.addAttribute("itemRequests", this.itemRequestService.getAllItemRequests());
+        model.addAttribute("last5ITemRequests", this.itemRequestService.getLast5ItemRequests());
+
 
         return "item-request";
     }

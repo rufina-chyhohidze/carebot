@@ -24,4 +24,6 @@ public interface ItemRequestService {
     void setItemRequestToCompleted(int itemRequestId);
 
     List<ItemRequest> getAllItemRequestsOfEmployee(int userId);
+
+    List<ItemRequest> getLast5ItemRequests();
 }

@@ -45,6 +45,11 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     }
 
     @Override
+    public List<ItemRequest> getLast5ItemRequests() {
+        return this.itemRequestRepository.getLast5ItemRequests();
+    }
+
+    @Override
     public List<ItemRequest> getAllItemRequests() {
         LOG.debug("Fetching all ItemRequests");
         List<ItemRequest> itemRequests = itemRequestRepository.getAllItemRequests();

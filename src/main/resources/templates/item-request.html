@@ -7,55 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-  <style>
-      .card.selected {
-          border: 2px solid #ffc107;
-          background-color: #343a40;
-      }
-      .form-section {
-          max-width: 400px;
-          margin: 0 auto;
-      }
-      .request-form-container {
-          border: 2px solid #ffc107;
-          padding: 20px;
-          border-radius: 8px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-      .request-item {
-          cursor: pointer;
-          padding: 15px;
-          margin-bottom: 10px;
-          border-radius: 8px;
-          background-color: #f8f9fa;
-          transition: background-color 0.3s;
-      }
-      .request-item:hover {
-          background-color: #e9ecef;
-      }
-      .request-item .item-name {
-          color: #343a40;
-          font-weight: bold;
-      }
-      #request-list {
-          margin-top: 20px;
-      }
-      .details {
-          display: none;
-          padding: 10px;
-          background-color: #f1f1f1;
-          border-radius: 5px;
-          margin-top: 10px;
-      }
-      #showRequestsBtn {
-          padding: 15px 30px;
-          font-size: 20px;
-          width: 100%;
-          max-width: 300px;
-          margin: 0 auto;
-          display: block;
-      }
-  </style>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" href="/static/css/dashboard.css">
 </head>
 <body class="bg-black text-white">
 
@@ -164,78 +116,23 @@
         <div id="request-list">
             <!-- Hardcoded item requests for preview -->
             <ul class="list-group">
-                <li class="list-group-item request-item">
+                <li th:each="itemRequest : ${last5ITemRequests}" class="list-group-item request-item">
                     <div class="d-flex justify-content-between">
-                        <span class="item-name">Item A</span>
-                        <span class="badge bg-secondary">PENDING</span>
+                        <span th:text="${itemRequest.getItem()}" class="item-name">Item A</span>
+                        <span th:text="${itemRequest.getStatus()}" class="badge bg-secondary">PENDING</span>
                     </div>
-                    <small class="text-muted">2024-12-17 12:30</small>
+                    <small th:text="${itemRequest.getRequestTime()}" class="text-muted">2024-12-17 12:30</small>
 
                     <!-- Hidden Details -->
                     <div class="details mt-3">
-                        <p><strong>Request ID:</strong> 1</p>
-                        <p><strong>Employee:</strong> John Doe</p>
-                        <p><strong>Path:</strong> Path A</p>
-                    </div>
-                </li>
-
-                <li class="list-group-item request-item">
-                    <div class="d-flex justify-content-between">
-                        <span class="item-name">Item B</span>
-                        <span class="badge bg-success">APPROVED</span>
-                    </div>
-                    <small class="text-muted">2024-12-17 11:00</small>
-
-                    <!-- Hidden Details -->
-                    <div class="details mt-3">
-                        <p><strong>Request ID:</strong> 2</p>
-                        <p><strong>Employee:</strong> Jane Smith</p>
-                        <p><strong>Path:</strong> Path B</p>
-                    </div>
-                </li>
-
-                <li class="list-group-item request-item">
-                    <div class="d-flex justify-content-between">
-                        <span class="item-name">Item C</span>
-                        <span class="badge bg-warning">PENDING</span>
-                    </div>
-                    <small class="text-muted">2024-12-16 09:15</small>
-
-                    <!-- Hidden Details -->
-                    <div class="details mt-3">
-                        <p><strong>Request ID:</strong> 3</p>
-                        <p><strong>Employee:</strong> Alice Brown</p>
-                        <p><strong>Path:</strong> Path C</p>
-                    </div>
-                </li>
-
-                <li class="list-group-item request-item">
-                    <div class="d-flex justify-content-between">
-                        <span class="item-name">Item D</span>
-                        <span class="badge bg-danger">REJECTED</span>
-                    </div>
-                    <small class="text-muted">2024-12-15 14:20</small>
-
-                    <!-- Hidden Details -->
-                    <div class="details mt-3">
-                        <p><strong>Request ID:</strong> 4</p>
-                        <p><strong>Employee:</strong> Bob White</p>
-                        <p><strong>Path:</strong> Path D</p>
-                    </div>
-                </li>
-
-                <li class="list-group-item request-item">
-                    <div class="d-flex justify-content-between">
-                        <span class="item-name">Item E</span>
-                        <span class="badge bg-primary">PENDING</span>
-                    </div>
-                    <small class="text-muted">2024-12-14 08:45</small>
-
-                    <!-- Hidden Details -->
-                    <div class="details mt-3">
-                        <p><strong>Request ID:</strong> 5</p>
-                        <p><strong>Employee:</strong> Charlie Green</p>
-                        <p><strong>Path:</strong> Path E</p>
+                        <div class="details-item-request">
+                            <p><strong>Request ID:</strong> <p th:text="${itemRequest.getId()}">1</p></p>
+                            <p><strong>Employee:</strong> <p th:text="${itemRequest.getEmployee().getFirstName()}">John Doe</p></p>
+                            <p><strong>Path:</strong> <p th:text="${itemRequest.getPath()}">Path A</p></p>
+                        </div>
+                        <div class="progress-bar">
+                            <span class="fill-progress-bar"></span>
+                        </div>
                     </div>
                 </li>
             </ul>
