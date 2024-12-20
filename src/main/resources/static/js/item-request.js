@@ -78,7 +78,7 @@ stompClient.connect({}, function (frame) {
 function startProgressBarForDelivery() {
     let fillProgressBar = document.getElementById("fill-progress-bar");
     fillProgressBar.style.width = "0%";
- 
+
     let progress = 0;
 
     const intervalId = setInterval(() => {
