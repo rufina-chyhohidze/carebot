@@ -5,6 +5,7 @@ import be.kdg.programming3.domain.Employee;
 import be.kdg.programming3.domain.ItemRequest;
 import be.kdg.programming3.domain.ItemRequestStatus;
 import be.kdg.programming3.domain.PathName;
+import be.kdg.programming3.service.EmployeeService;
 import be.kdg.programming3.service.ItemRequestService;
 import be.kdg.programming3.service.ItemService;
 import jakarta.servlet.http.HttpSession;
@@ -27,18 +28,16 @@ public class ItemRequestController {
     private final ItemRequestService itemRequestService;
     private final ItemService itemService;
     private final SimpMessagingTemplate messagingTemplate;
-//    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
 //    private List<Point> points;
 
     @Autowired
-    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService, SimpMessagingTemplate messagingTemplate) {
+    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService, SimpMessagingTemplate messagingTemplate, EmployeeService employeeService) {
         this.itemRequestService = itemRequestService;
         this.itemService = itemService;
         this.messagingTemplate = messagingTemplate;
-//        this.employeeRepository = employeeRepository;
-
-//        this.points = initializeManualPoints();
+        this.employeeService = employeeService;
     }
 
 
@@ -73,6 +72,14 @@ public class ItemRequestController {
 
 
         return "redirect:/item-request"; // Or you can use a custom response if needed
+    }
+
+    @GetMapping("/1")
+    public String logInAuto(HttpSession session) {
+        Employee employee = this.employeeService.getEmployeeByEmail("user@gmail.com");
+        session.setAttribute("userLoggedIn", employee);
+//
+        return "redirect:/item-request";
     }
 
 //    previous:

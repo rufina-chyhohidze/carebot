@@ -15,7 +15,7 @@ public class Employee {
 
     private String firstName;
     private String lastName;
-    private Timestamp dateOfBirth;
+    private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -72,8 +72,8 @@ public Employee(String firstName, String lastName, Gender gender, EmployeeRole r
     public void setFirstName(String firstName) {this.firstName = firstName;}
     public String getLastName() {return lastName;}
     public void setLastName(String lastName) {this.lastName = lastName;}
-    public Timestamp getDateOfBirth() {return dateOfBirth;}
-    public void setDateOfBirth(Timestamp dateOfBirth) {this.dateOfBirth = dateOfBirth;}
+    public Date getDateOfBirth() {return dateOfBirth;}
+    public void setDateOfBirth(Date dateOfBirth) {this.dateOfBirth = dateOfBirth;}
     public Gender getGender() {return gender;}
     public void setGender(Gender gender) {this.gender = gender;}
     public String getEmail() {return email;}

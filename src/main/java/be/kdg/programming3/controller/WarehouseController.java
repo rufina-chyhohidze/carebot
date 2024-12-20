@@ -1,5 +1,6 @@
 package be.kdg.programming3.controller;
 
+import be.kdg.programming3.config.DeliveryDto;
 import be.kdg.programming3.domain.*;
 import be.kdg.programming3.service.DeliveryService;
 import be.kdg.programming3.service.ItemRequestService;
@@ -11,10 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class WarehouseController {
@@ -44,6 +48,8 @@ public class WarehouseController {
         model.addAttribute("itemRequests", itemRequests);
         List<Delivery> deliveries = deliveryService.getPendingDelivery();
         model.addAttribute("deliveries", deliveries);
+//        List<Delivery> allCompletedDeliveries = deliveryService.getAllDeliveries().stream().filter(delivery -> delivery.getStatus() == DeliveryStatus.COMPLETED).collect(Collectors.toList());
+//        model.addAttribute("allCompletedDeliveries", allCompletedDeliveries);
         model.addAttribute("deliveryLOG", deliveryLOG);
 
         return "warehouse";
@@ -70,7 +76,6 @@ public class WarehouseController {
 
         deliveryService.createDelivery(new Delivery(itemRequestSelected, LocalDateTime.now(), DeliveryStatus.PROCESSING));
 
-//        List<Delivery> deliveries = deliveryService.getAllDeliveries();
         List<Delivery> deliveries = deliveryService.getPendingDelivery();
         model.addAttribute("deliveries", deliveries);
 
@@ -79,4 +84,21 @@ public class WarehouseController {
 
         return "redirect:/data/mode/" + pathSelected;
     }
+
+    @GetMapping("/warehouse/api/completed-deliveries")
+    @ResponseBody
+    public List<DeliveryDto> getCompletedDeliveries() {
+        // Fetch all completed deliveries from the service
+        return deliveryService.getAllDeliveries()
+                .stream()
+                .filter(delivery -> delivery.getStatus() == DeliveryStatus.COMPLETED)
+                .map(delivery -> new DeliveryDto(
+                        delivery.getDeliveryId(),
+                        delivery.getDeliveryStarted().toString(),
+                        delivery.getDeliveryFinished().toString(),
+                        delivery.getNumberOfObstacles(),
+                        delivery.getItemRequest().getPath().toString()))
+                .collect(Collectors.toList());
+    }
+
 }

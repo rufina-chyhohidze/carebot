@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
@@ -89,16 +90,29 @@ public class LoginController {
                                  @RequestParam("phoneNumber") String phoneNumber,
                                  @RequestParam("email") String email,
                                  @RequestParam("password") String password,
-                                 @RequestParam("date") Date date) {
+                                 @RequestParam("date") String date) {
         LOG.debug("Requested a sign up with values: {}, {}, {}, {}, {}, {}, {}", firstName, lastName, gender, employeeType, phoneNumber, email, password);
         // Create the employee object
         Employee newEmployee = new Employee(firstName, lastName, Gender.valueOf(gender), EmployeeRole.valueOf(employeeType), phoneNumber, email, password);
 
-        // Save the employee to the database
-        System.err.println("\n\n Employee without id cause not saved: " + newEmployee);
-        Employee employee = employeeService.createEmployee(newEmployee);
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date newDate = formatter.parse(date);
+            newEmployee.setDateOfBirth(newDate);
+        } catch (Exception e) {
+            LOG.error("Couldn't set birth date for employee, cast exception: " + e.getMessage());
+        }
 
-        System.out.println("Created new employee now has id: " + employee);
+        Employee employee = null;
+        try {
+            employee = employeeService.createEmployee(newEmployee);
+            System.out.println("Created new employee now has id: " + employee);
+        } catch (Exception e)
+        {
+            LOG.debug("Couldn't create employee: ", e.getMessage());
+        }
+
+        if (employee == null) return "redirect:/signup";
 
         // Redirect to the login page after successful registration
         return "redirect:/login";
