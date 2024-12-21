@@ -28,60 +28,63 @@
   </style>
 </head>
 
-  <body>
-  <nav th:replace="fragments/fragments :: navbar"></nav>
-  <h1>Delivery Statistics Dashboard</h1>
+<body>
+<nav th:replace="fragments/fragments :: navbar"></nav>
+<h1>Delivery Statistics Dashboard</h1>
 
-  <!-- Descriptive Data Section -->
-  <div class="section-title">Descriptive Data</div>
-  <div class="container">
+<!-- Descriptive Data Section -->
+<div class="section-title">Descriptive Data</div>
+<div class="container">
 
-    <div class="graph-card">
-      <h2>Most Frequent Path</h2>
-      <canvas id="graph1"></canvas>
-    </div>
-
-    <div class="graph-card">
-      <h2>Time Taken Per Delivery</h2>
-      <canvas id="graph2"></canvas>
-    </div>
-
-    <div class="graph-card">
-      <h2>Number of Obstacles Per Path</h2>
-      <canvas id="graph3"></canvas>
-    </div>
-
-    <div class="graph-card">
-      <h2>Most Requested Item</h2>
-      <canvas id="graph4"></canvas>
-    </div>
-
-    <div class="graph-card">
-      <h2>Number of Requests Per Month</h2>
-      <canvas id="graph5"></canvas>
-    </div>
+  <div class="graph-card">
+    <h2>Most Frequent Path</h2>
+    <canvas id="graph1"></canvas>
   </div>
 
-
-
-  <!-- Explorative Data Section -->
-  <div class="section-title">Explorative Data</div>
-  <div class="container">
-    <div class="graph-card">
-      <h2>Item Popularity Trends</h2>
-      <canvas id="graph6"></canvas>
-    </div>
+  <div class="graph-card">
+    <h2>Time Taken Per Delivery</h2>
+    <canvas id="graph2"></canvas>
   </div>
 
+  <div class="graph-card">
+    <h2>Number of Obstacles Per Path</h2>
+    <canvas id="graph3"></canvas>
+  </div>
 
-  <!-- Predictive Data Section -->
-  <div class="section-title">Predictive Data</div>
-  <div class="container">
-    <div class="graph-card">
-      <h2>Delivery Time Estimates</h2>
-      <canvas id="graph7"></canvas>
+  <div class="graph-card">
+    <h2>Most Requested Item</h2>
+    <canvas id="graph4"></canvas>
+  </div>
+
+  <div class="graph-card">
+    <h2>Number of Requests Per Month</h2>
+    <canvas id="graph5"></canvas>
+  </div>
+</div>
+
+
+
+<!-- Explorative Data Section -->
+<div class="section-title">Explorative Data</div>
+<div class="container">
+  <div class="graph-card">
+    <h2>Item Popularity Trends</h2>
+    <canvas id="graph6"></canvas>
+  </div>
+</div>
+
+
+<!-- Predictive Data Section -->
+<div class="section-title">Predictive Data</div>
+<div class="container">
+  <div class="graph-card">
+    <h2>Predictions</h2>
+    <div id="prediction-container">
+      <ul>
+        <th:block th:each="prediction : ${predictions}">
+          <li th:text="${prediction}"></li>
+        </th:block>
+      </ul>
     </div>
   </div>
-  <footer th:replace="fragments/fragments :: footer"></footer>
-  </body>
-</html>
+</div>

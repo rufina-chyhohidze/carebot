@@ -1,3 +1,4 @@
+/*
 package be.kdg.programming3.controller;
 
 import org.springframework.stereotype.Controller;
@@ -48,4 +49,4 @@ public class PredictionController {
 
         return "prediction";
     }
-}
+}*/
