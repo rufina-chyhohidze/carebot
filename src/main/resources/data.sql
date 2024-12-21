@@ -47,11 +47,20 @@
 
 -- INSERT INTO item_requests(id,item_name,path,request_time,status,employee_id,number_of_obstacles)
 -- VALUES(1, 'Printer', 'PATH1', now(), 'PENDING', 1, 1);
+
+-- UPDATE deliveries
+-- SET status = 'COMPLETED'
+-- WHERE status = 'PROCESSING';
 --
-UPDATE deliveries
-SET status = 'COMPLETED'
+UPDATE item_requests
+SET status = 'FULFILLED'
+WHERE status = 'PENDING';
+
+
+UPDATE item_requests
+SET status = 'FULFILLED'
 WHERE status = 'PROCESSING';
---
+
 -- INSERT INTO deliveries(item_request_id, delivery_finished, delivery_started, total_delivery_time, status, number_of_obstacles) VALUES(1, '2024-12-05 16:00:00','2024-12-05 15:55:00',5,'COMPLETED',0)
 
 -- SELECT AVG(d.number_of_obstacles)

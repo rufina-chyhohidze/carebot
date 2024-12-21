@@ -29,6 +29,14 @@ public class ItemRequestRepositoryImpl implements ItemRequestRepository {
 
     @Override
     @Transactional
+    public ItemRequest getDeliveryInProgress() {
+        List<ItemRequest> itemRequests = em.createQuery("SELECT ir FROM ItemRequest ir WHERE ir.status = 'PROCESSING'", ItemRequest.class).getResultList();
+        return itemRequests.isEmpty() ? null : itemRequests.getFirst();
+    }
+
+
+    @Override
+    @Transactional
     public List<ItemRequest> getAllItemRequests() {
         return em.createQuery("SELECT IR FROM ItemRequest IR", ItemRequest.class).getResultList();
     }

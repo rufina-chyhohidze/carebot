@@ -1,10 +1,8 @@
 package be.kdg.programming3.controller;
 
 
-import be.kdg.programming3.domain.Employee;
-import be.kdg.programming3.domain.ItemRequest;
-import be.kdg.programming3.domain.ItemRequestStatus;
-import be.kdg.programming3.domain.PathName;
+import be.kdg.programming3.domain.*;
+import be.kdg.programming3.service.DeliveryService;
 import be.kdg.programming3.service.EmployeeService;
 import be.kdg.programming3.service.ItemRequestService;
 import be.kdg.programming3.service.ItemService;
@@ -28,16 +26,18 @@ public class ItemRequestController {
     private final ItemRequestService itemRequestService;
     private final ItemService itemService;
     private final SimpMessagingTemplate messagingTemplate;
+    private final DeliveryService deliveryService;
     private final EmployeeService employeeService;
 
 //    private List<Point> points;
 
     @Autowired
-    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService, SimpMessagingTemplate messagingTemplate, EmployeeService employeeService) {
+    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService, SimpMessagingTemplate messagingTemplate, EmployeeService employeeService, DeliveryService deliveryService) {
         this.itemRequestService = itemRequestService;
         this.itemService = itemService;
         this.messagingTemplate = messagingTemplate;
         this.employeeService = employeeService;
+        this.deliveryService = deliveryService;
     }
 
 
@@ -50,14 +50,27 @@ public class ItemRequestController {
         model.addAttribute("items", itemCategories);
         model.addAttribute("paths", PathName.values());
         model.addAttribute("itemRequests", this.itemRequestService.getAllItemRequests());
-        model.addAttribute("last5ITemRequests", this.itemRequestService.getLast5ItemRequests());
 
+        List<ItemRequest> last5ItemRequests = this.itemRequestService.getLast5ItemRequests().stream().sorted().toList();
+        int counter = 0;
+        for (ItemRequest itemRequest : last5ItemRequests) {
+            itemRequest.setOrderInLast5ItemRequests(++counter);
+        }
+
+        ItemRequest itemRequestInProgress = this.itemRequestService.getDeliveryInProgress();
+        model.addAttribute("itemRequestInProgress", itemRequestInProgress);
+
+
+        model.addAttribute("last5ITemRequests", this.itemRequestService.getLast5ItemRequests());
 
         return "item-request";
     }
 
     @PostMapping("/item-request")
     public String sendItemRequest(@RequestParam("item") String itemSelected, @RequestParam("path") String pathSelected, Model model, HttpSession session) {
+        List<ItemRequest> last5ItemRequests = this.itemRequestService.getLast5ItemRequests();
+        if (last5ItemRequests.size() >= 5) return "redirect:/item-request";
+
         List<String> items = itemService.getItemCategories();
         model.addAttribute("items", items);
         model.addAttribute("paths", PathName.values());
@@ -70,7 +83,6 @@ public class ItemRequestController {
         messagingTemplate.convertAndSend("/topic/warehouse-updates", itemRequest);
 
 
-
         return "redirect:/item-request"; // Or you can use a custom response if needed
     }
 
@@ -79,6 +91,18 @@ public class ItemRequestController {
         Employee employee = this.employeeService.getEmployeeByEmail("user@gmail.com");
         session.setAttribute("userLoggedIn", employee);
 //
+        return "redirect:/item-request";
+    }
+    @GetMapping("/item-request/confirm-delivery/{id}")
+    public String confirmDelivery(@PathVariable("id") int id, HttpSession session, Model model) {
+        ItemRequest itemRequest = this.itemRequestService.getItemRequestById(id);
+        itemRequest.setStatus(ItemRequestStatus.FULFILLED);
+        this.itemRequestService.updateItemRequest(itemRequest);
+
+
+        this.deliveryService.setDeliveryInProcessStatusToFinished(LocalDateTime.now());
+        messagingTemplate.convertAndSend("/topic/warehouse-updates", "message");
+
         return "redirect:/item-request";
     }
 

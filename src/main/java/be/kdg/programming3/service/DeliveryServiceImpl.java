@@ -51,6 +51,11 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
+    public Delivery getLastDelivery() {
+        return this.deliveryRepository.getLastDelivery();
+    }
+
+    @Override
     public boolean noDeliveriesInProcess() {
         return this.deliveryRepository.noDeliveriesInProcess();
     }

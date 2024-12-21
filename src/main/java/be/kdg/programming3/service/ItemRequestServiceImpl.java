@@ -50,6 +50,11 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     }
 
     @Override
+    public ItemRequest getDeliveryInProgress() {
+        return this.itemRequestRepository.getDeliveryInProgress();
+    }
+
+    @Override
     public List<ItemRequest> getAllItemRequests() {
         LOG.debug("Fetching all ItemRequests");
         List<ItemRequest> itemRequests = itemRequestRepository.getAllItemRequests();

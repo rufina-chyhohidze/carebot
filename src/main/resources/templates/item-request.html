@@ -118,24 +118,22 @@
     <div class="container my-5">
         <button id="showRequestsBtn" class="btn btn-secondary mt-3">Show Last Requests</button>
         <div id="request-list">
-            <!-- Hardcoded item requests for preview -->
             <ul class="list-group">
                 <li th:each="itemRequest : ${last5ITemRequests}" class="list-group-item request-item">
-                    <div class="d-flex justify-content-between">
-                        <span th:text="${itemRequest.getItem()}" class="item-name">Item A</span>
-                        <span th:text="${itemRequest.getStatus()}" class="badge bg-secondary">PENDING</span>
+                    <div class="top-item-request">
+                        <div class="d-flex justify-content-between">
+                            <span th:text="${itemRequest.getItem()}" class="item-name">Item A</span>
+                            <span th:text="${itemRequest.getStatus()}" th:class="${itemRequest.getStatus().toString().equalsIgnoreCase('PENDING') ? 'badge bg-secondary' : (itemRequest.getStatus().toString().equalsIgnoreCase('PROCESSING') ? 'badge bg-warning' : 'badge bg-success')}" class="badge bg-secondary">PENDING</span>
+                        </div>
+                        <small th:text="${itemRequest.getRequestTime()}" class="text-muted">2024-12-17 12:30</small>
                     </div>
-                    <small th:text="${itemRequest.getRequestTime()}" class="text-muted">2024-12-17 12:30</small>
 
                     <!-- Hidden Details -->
-                    <div class="details mt-3">
+                    <div class="details mt-3" th:id="${'details' + itemRequest.getOrderInLast5ItemRequests()}">
                         <div class="details-item-request">
                             <p><strong>Request ID:</strong> <p th:text="${itemRequest.getId()}">1</p></p>
                             <p><strong>Employee:</strong> <p th:text="${itemRequest.getEmployee().getFirstName()}">John Doe</p></p>
                             <p><strong>Path:</strong> <p th:text="${itemRequest.getPath()}">Path A</p></p>
-                        </div>
-                        <div class="progress-bar" id="progress-bar">
-                            <span class="fill-progress-bar" id="fill-progress-bar"></span>
                         </div>
                     </div>
                 </li>
@@ -144,35 +142,57 @@
     </div>
 
 
-
-    <!-- PREVIOUS ITEM REQUESTS -->
-    <div class="card mb-4 bg-dark text-white">
-        <div class="card-header bg-secondary">
-            <i class="fas fa-table me-1"></i>
-            Previous Item Requests
-        </div>
-        <div class="card-body">
-            <table id="datatablesSimple" class="table table-dark table-striped">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Time Requested</th>
-                    <th>Item</th>
-                    <th>Path</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="itemRequest : ${itemRequests}">
-                    <td th:text="${itemRequest.getId()}">REQUEST ID</td>
-                    <td th:text="${itemRequest.getRequestTime()}">REQUEST TIME</td>
-                    <td th:text="${itemRequest.getItem()}">ITEM</td>
-                    <td th:text="${itemRequest.getPath()}">PATH</td>
-                </tr>
-                </tbody>
-            </table>
+    <h1 th:if="${itemRequestInProgress != null}">Delivery In Progress</h1>
+    <div th:if="${itemRequestInProgress != null}" style="height: auto; border: 1px solid white; margin-bottom: 35px; padding: 20px;">
+        <div>
+            <ul class="list-group">
+                <!--                    <label th:for="${itemRequest.getId()}" for="request">-->
+                <li class="list-group-item request-item">
+                    <div class="d-flex justify-content-between">
+                        <span th:text="${itemRequestInProgress.getItem()}" class="item-name">Item A</span>
+                        <span th:text="${itemRequestInProgress.getStatus()}" class="badge bg-warning">PROCESSING</span>
+                    </div>
+                    <div class="item-request-bottom">
+                        <small th:text="${itemRequestInProgress.getPath()}">PATH</small>
+                        <small th:text="${itemRequestInProgress.getRequestTime()}" class="text-muted">2024-12-17 12:30</small>
+                        <a th:href="@{/item-request/confirm-delivery/{id}(id=${itemRequestInProgress.getId()})}" class="confirm-delivery" style="margin-top: 4px; padding-bottom: 5px">Confirm Delivery</a>
+                    </div>
+                </li>
+                <!--                    </label>-->
+            </ul>
         </div>
     </div>
-</div>
+
+
+
+    <!-- PREVIOUS ITEM REQUESTS -->
+<!--    <div class="card mb-4 bg-dark text-white">-->
+<!--        <div class="card-header bg-secondary">-->
+<!--            <i class="fas fa-table me-1"></i>-->
+<!--            Previous Item Requests-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--            <table id="datatablesSimple" class="table table-dark table-striped">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>ID</th>-->
+<!--                    <th>Time Requested</th>-->
+<!--                    <th>Item</th>-->
+<!--                    <th>Path</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr th:each="itemRequest : ${itemRequests}">-->
+<!--                    <td th:text="${itemRequest.getId()}">REQUEST ID</td>-->
+<!--                    <td th:text="${itemRequest.getRequestTime()}">REQUEST TIME</td>-->
+<!--                    <td th:text="${itemRequest.getItem()}">ITEM</td>-->
+<!--                    <td th:text="${itemRequest.getPath()}">PATH</td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <!--<script>-->
 <!--    const socket = new SockJS('/ws');  // Connect to WebSocket-->

@@ -1,6 +1,7 @@
 package be.kdg.programming3.domain;
 
 import jakarta.persistence.*;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 
 import java.nio.file.Path;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ITEM_REQUESTS")
-public class ItemRequest {
+public class ItemRequest implements Comparable<ItemRequest> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @SequenceGenerator(name = "item_request_seq", sequenceName = "item_requests_id_seq", allocationSize = 1)
@@ -40,6 +41,25 @@ public class ItemRequest {
 
 //    @OneToOne(mappedBy = "itemRequest", fetch = FetchType.LAZY)
 //    private Delivery delivery;
+
+    @Transient
+    private int orderInLast5ItemRequests;
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public int getOrderInLast5ItemRequests() {
+        return orderInLast5ItemRequests;
+    }
+
+    public void setOrderInLast5ItemRequests(int orderInLast5ItemRequests) {
+        this.orderInLast5ItemRequests = orderInLast5ItemRequests;
+    }
 
     protected ItemRequest() {
     }
@@ -124,5 +144,9 @@ public class ItemRequest {
                 ", employee=" + employee +
                 ", requestTime=" + requestTime +
                 '}';
+    }
+    @Override
+    public int compareTo(@NotNull ItemRequest o) {
+        return this.getId() - o.getId();
     }
 }

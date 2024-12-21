@@ -48,29 +48,40 @@ public class WarehouseController {
         model.addAttribute("itemRequests", itemRequests);
         List<Delivery> deliveries = deliveryService.getPendingDelivery();
         model.addAttribute("deliveries", deliveries);
-//        List<Delivery> allCompletedDeliveries = deliveryService.getAllDeliveries().stream().filter(delivery -> delivery.getStatus() == DeliveryStatus.COMPLETED).collect(Collectors.toList());
-//        model.addAttribute("allCompletedDeliveries", allCompletedDeliveries);
+
+        List<ItemRequest> last5ItemRequests = this.itemRequestService.getLast5ItemRequests().stream().sorted().toList();
+        int counter = 0;
+        for (ItemRequest itemRequest : last5ItemRequests) {
+            itemRequest.setOrderInLast5ItemRequests(++counter);
+        }
+
+        ItemRequest itemRequestInProgress = this.itemRequestService.getDeliveryInProgress();
+
+        model.addAttribute("last5ITemRequests", last5ItemRequests);
         model.addAttribute("deliveryLOG", deliveryLOG);
+        model.addAttribute("itemRequestInProgress", itemRequestInProgress);
+
+        Delivery lastDelivery = this.deliveryService.getLastDelivery();
+        model.addAttribute("lastDelivery", lastDelivery);
+
 
         return "warehouse";
     }
 
     @PostMapping("/warehouse")
     public String processItemRequest(@RequestParam("selectedItemRequest") int itemRequestId, Model model) {
-        messagingTemplate.convertAndSend("/topic/start-delivery-progress", "itemRequestId: " + itemRequestId);
-
         if (!this.deliveryService.noDeliveriesInProcess()) return "redirect:/warehouse";
 
         deliveryLOG = new ArrayList<>(); // emptying previous delivery logs
 
         ItemRequest itemRequestSelected = this.itemRequestService.getItemRequestById(itemRequestId);
 
-        this.itemRequestService.setItemRequestToCompleted(itemRequestId);
+//        this.itemRequestService.setItemRequestToCompleted(itemRequestId);
 
         deliveryLOG.add("Delivery started at : " + LocalDateTime.now());
         deliveryLOG.add("Delivering item: " + itemRequestSelected.getItem() + " to path: " + itemRequestSelected.getPath().toString());
 
-        itemRequestSelected.setStatus(ItemRequestStatus.FULFILLED);
+        itemRequestSelected.setStatus(ItemRequestStatus.PROCESSING);
         this.itemRequestService.updateItemRequest(itemRequestSelected);
         PathName pathSelected = itemRequestSelected.getPath();
 
@@ -80,6 +91,14 @@ public class WarehouseController {
         model.addAttribute("deliveries", deliveries);
 
         System.err.println("ITEM REQUEST SELECTED: " + itemRequestSelected + " with path: " + pathSelected);
+
+//        List<ItemRequest> last5ItemRequests = this.itemRequestService.getLast5ItemRequests().stream().sorted().toList();
+//        int counter = 0;
+//        for (ItemRequest itemRequest : last5ItemRequests) {
+//            itemRequest.setOrderInLast5ItemRequests(++counter);
+//        }
+
+        messagingTemplate.convertAndSend("/topic/start-delivery-progress", "reload item request page");
 
 
         return "redirect:/data/mode/" + pathSelected;

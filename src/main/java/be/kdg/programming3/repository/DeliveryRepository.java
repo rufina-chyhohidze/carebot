@@ -16,4 +16,6 @@ public interface DeliveryRepository {
     void setDeliveryInProcessStatusToFinished(LocalDateTime timeFinished);
 
     List<Delivery> getPendingDelivery();
+
+    Delivery getLastDelivery();
 }

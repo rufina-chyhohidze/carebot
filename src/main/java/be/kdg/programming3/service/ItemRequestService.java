@@ -26,4 +26,6 @@ public interface ItemRequestService {
     List<ItemRequest> getAllItemRequestsOfEmployee(int userId);
 
     List<ItemRequest> getLast5ItemRequests();
+
+    ItemRequest getDeliveryInProgress();
 }

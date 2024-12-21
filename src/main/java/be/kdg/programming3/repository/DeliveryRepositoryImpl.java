@@ -21,6 +21,11 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
+    public Delivery getLastDelivery() {
+        return em.createQuery("SELECT d FROM Delivery d WHERE d.status = 'COMPLETED' ORDER BY d.id DESC FETCH NEXT 1 ROW ONLY", Delivery.class).getSingleResult();
+    }
+
+    @Override
     @Transactional
     public List<Delivery> getAllDeliveries() {
         return em.createQuery("SELECT d FROM Delivery d", Delivery.class).getResultList();
