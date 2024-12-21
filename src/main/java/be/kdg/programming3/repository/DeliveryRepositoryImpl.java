@@ -21,8 +21,21 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public Delivery getLastDelivery() {
+    @Transactional
+    public Delivery getLastCompletedDelivery() {
         return em.createQuery("SELECT d FROM Delivery d WHERE d.status = 'COMPLETED' ORDER BY d.id DESC FETCH NEXT 1 ROW ONLY", Delivery.class).getSingleResult();
+    }
+
+    @Override
+    @Transactional
+    public Delivery getLastDeliveryLogged() {
+        return em.createQuery("SELECT dr FROM Delivery dr ORDER BY dr.id DESC FETCH NEXT 1 ROW ONLY", Delivery.class).getSingleResult();
+    }
+
+    @Override
+    @Transactional
+    public void setNumberOfObstaclesOfLastDelivery(int numberOfObstacles) {
+        em.createQuery("UPDATE Delivery d SET d.numberOfObstacles = :numberOfObstacles WHERE d.id = (SELECT dr.id FROM Delivery dr ORDER BY dr.id DESC FETCH NEXT 1 ROW ONLY)").setParameter("numberOfObstacles", numberOfObstacles).executeUpdate();
     }
 
     @Override

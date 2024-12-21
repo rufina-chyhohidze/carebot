@@ -1,5 +1,6 @@
 package be.kdg.programming3.controller;
 
+import be.kdg.programming3.domain.Delivery;
 import be.kdg.programming3.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -61,8 +62,12 @@ public class ESP32Controller {
 
             return ResponseEntity.ok("Data received successfully");
         }
-        this.deliveryService.setDeliveryInProcessStatusToFinished(LocalDateTime.now());
+//        this.deliveryService.setDeliveryInProcessStatusToFinished(LocalDateTime.now());
+//        Delivery lastDeliveryLogged = this.deliveryService.getLastDeliveryLogged();
+        this.deliveryService.setNumberOfObstaclesOfLastDelivery(obstacle);
+
         WarehouseController.deliveryLOG.add("Delivery COMPLETED at: " + LocalDateTime.now() + " - Number of Obstacles Found: " + obstacle);
+
 
         messagingTemplate.convertAndSend("/topic/warehouse-updates", "message");
 

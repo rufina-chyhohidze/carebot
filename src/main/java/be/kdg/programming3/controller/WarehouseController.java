@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -61,7 +60,7 @@ public class WarehouseController {
         model.addAttribute("deliveryLOG", deliveryLOG);
         model.addAttribute("itemRequestInProgress", itemRequestInProgress);
 
-        Delivery lastDelivery = this.deliveryService.getLastDelivery();
+        Delivery lastDelivery = this.deliveryService.getLastCompletedDelivery();
         model.addAttribute("lastDelivery", lastDelivery);
 
 

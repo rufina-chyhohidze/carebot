@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
@@ -21,6 +20,16 @@ public class DeliveryServiceImpl implements DeliveryService {
     public DeliveryServiceImpl(DeliveryRepository deliveryRepository) {
         this.deliveryRepository = deliveryRepository;
         LOG.debug("DeliveryServiceImpl instantiated with repository {}", deliveryRepository.getClass().getSimpleName());
+    }
+
+    @Override
+    public Delivery getLastDeliveryLogged() {
+        return this.deliveryRepository.getLastDeliveryLogged();
+    }
+
+    @Override
+    public void setNumberOfObstaclesOfLastDelivery(Integer obstacle) {
+        this.deliveryRepository.setNumberOfObstaclesOfLastDelivery(obstacle);
     }
 
     @Override
@@ -51,8 +60,8 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public Delivery getLastDelivery() {
-        return this.deliveryRepository.getLastDelivery();
+    public Delivery getLastCompletedDelivery() {
+        return this.deliveryRepository.getLastCompletedDelivery();
     }
 
     @Override

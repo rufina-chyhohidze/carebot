@@ -1,7 +1,6 @@
 package be.kdg.programming3.repository;
 
 import be.kdg.programming3.domain.Delivery;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -17,5 +16,9 @@ public interface DeliveryRepository {
 
     List<Delivery> getPendingDelivery();
 
-    Delivery getLastDelivery();
+    Delivery getLastCompletedDelivery();
+
+    Delivery getLastDeliveryLogged();
+
+    void setNumberOfObstaclesOfLastDelivery(int numberOfObstacles);
 }

@@ -31,7 +31,7 @@ public class StatisticsController {
         List<String> predictions = new ArrayList<>();
         try {
             String pythonScript = "predictor/new_model/new_prediction.py"; //place of the python script
-            ProcessBuilder processBuilder = new ProcessBuilder("venv/Scripts/python.exe", pythonScript); //place of the python.exe in the project
+            ProcessBuilder processBuilder = new ProcessBuilder("venv/bin/python3.12", pythonScript); //place of the python.exe in the project
             Process process = processBuilder.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
