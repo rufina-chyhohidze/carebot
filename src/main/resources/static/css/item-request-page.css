@@ -1,0 +1,88 @@
+input[name="path"]:checked ~ label, input[name="item"]:checked ~ label {
+    border: 3px solid yellow;
+    opacity: 80%;
+}
+.order-item {
+    margin: auto;
+    /* border: 3px solid red; */
+    height: 600px;
+}
+.item-to-select {
+    /*border: 1px solid red;*/
+    width: 15rem;
+    height: 7rem;
+    /*3px solid red;*/
+}
+.card-body {
+    /*margin-top: -15px;*/
+}
+.order-title {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+.path-element {
+    /*border: 1px solid red;*/
+    width: 15rem;
+    height: 7rem;
+}
+.send-request:hover {
+    background-color: gray;
+}
+.delivery-title {
+    margin: auto;
+    width: 15rem;
+    text-align: center;
+}
+.delivery {
+    min-height: 390px;
+    height: 390px;
+    max-height: 390px;
+}
+
+.car-moving {
+    width: 200px;
+    /* bottom: 0%; */
+    margin-top: 105px;
+    margin-left: -5%;
+    height: auto;
+    position: absolute;
+}
+.no-delivery-in-progress {
+    text-align: center;
+    margin-top: 120px;
+    font-size: 44px;
+    position: absolute;
+    right: 13%;
+}
+.confirm-delivery {
+    right: 5%;
+}
+
+.previous-item-requests {
+    /* margin-top: -200px !important; */
+}
+
+@media (max-width: 1150px){
+    .item-to-select h5 .card-title {
+        font-size: 24px !important;
+    }
+}
+@media (max-width: 1000px) {
+    .order-item {
+        height: 730px;
+    }
+    .previous-item-requests {
+        margin-top: 0px !important;
+    }
+}
+@media (max-width: 780px) {
+    .order-item {
+        height: 1000px;
+    }
+}
+@media (max-width: 580px) {
+    .order-item {
+        height: 1550px;
+    }
+}

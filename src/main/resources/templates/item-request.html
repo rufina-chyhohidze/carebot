@@ -166,33 +166,33 @@
 
 
     <!-- PREVIOUS ITEM REQUESTS -->
-<!--    <div class="card mb-4 bg-dark text-white">-->
-<!--        <div class="card-header bg-secondary">-->
-<!--            <i class="fas fa-table me-1"></i>-->
-<!--            Previous Item Requests-->
-<!--        </div>-->
-<!--        <div class="card-body">-->
-<!--            <table id="datatablesSimple" class="table table-dark table-striped">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>ID</th>-->
-<!--                    <th>Time Requested</th>-->
-<!--                    <th>Item</th>-->
-<!--                    <th>Path</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr th:each="itemRequest : ${itemRequests}">-->
-<!--                    <td th:text="${itemRequest.getId()}">REQUEST ID</td>-->
-<!--                    <td th:text="${itemRequest.getRequestTime()}">REQUEST TIME</td>-->
-<!--                    <td th:text="${itemRequest.getItem()}">ITEM</td>-->
-<!--                    <td th:text="${itemRequest.getPath()}">PATH</td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+   <div class="card mb-4 bg-dark text-white">
+       <div class="card-header bg-secondary">
+           <i class="fas fa-table me-1"></i>
+           Previous Item Requests
+       </div>
+       <div class="card-body">
+        <table id="datatablesSimple" class="table table-dark table-striped">
+               <thead>
+                 <tr>
+                   <th>ID</th>
+                   <th>Time Requested</th>
+                   <th>Item</th>
+                   <th>Path</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr th:each="itemRequest : ${itemRequests}">
+                   <td th:text="${itemRequest.getId()}">REQUEST ID</td>
+                   <td th:text="${itemRequest.getRequestTime()}">REQUEST TIME</td>
+                   <td th:text="${itemRequest.getItem()}">ITEM</td>
+                   <td th:text="${itemRequest.getPath()}">PATH</td>
+               </tr>
+               </tbody>
+           </table>
+       </div>
+   </div>
+<!-- </div> -->
 
 <!--<script>-->
 <!--    const socket = new SockJS('/ws');  // Connect to WebSocket-->
@@ -206,7 +206,7 @@
 <!--            // startProgressBarForDelivery();-->
 <!--        });-->
 <!--    });-->
-<!--</script>-->
+<!--</script> -->
 </div>
 
 
