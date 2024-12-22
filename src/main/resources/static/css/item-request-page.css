@@ -43,26 +43,53 @@ input[name="path"]:checked ~ label, input[name="item"]:checked ~ label {
 .car-moving {
     width: 200px;
     /* bottom: 0%; */
-    margin-top: 105px;
-    margin-left: -5%;
+    margin-top: 35px;
+    margin-left: -73%;
     height: auto;
     position: absolute;
+    z-index: 1000;
 }
 .no-delivery-in-progress {
     text-align: center;
-    margin-top: 120px;
-    font-size: 44px;
-    position: absolute;
-    right: 13%;
+    margin-top: 15px;
+    border-top: 1px solid gray;
+    padding: 10px;
 }
 .confirm-delivery {
     right: 5%;
 }
-
-.previous-item-requests {
-    /* margin-top: -200px !important; */
+.delivery {
+    text-align: center;
 }
-
+.pending-irs{
+    position: absolute;
+    width: 100%;
+}
+.process {
+    text-align: center;
+    margin: auto;
+    width: auto;
+    height: auto;
+    font-size: 44px !important;
+    margin-bottom: 20px;
+    background-color: green;
+}
+.confirm-delivery {
+    border: 1px solid black;
+    padding-top: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px black;
+    margin-top: 10px !important;
+    position: relative;
+}
+.confirm-delivery:hover {
+    box-shadow: none;
+}
 @media (max-width: 1150px){
     .item-to-select h5 .card-title {
         font-size: 24px !important;
@@ -72,8 +99,9 @@ input[name="path"]:checked ~ label, input[name="item"]:checked ~ label {
     .order-item {
         height: 730px;
     }
-    .previous-item-requests {
-        margin-top: 0px !important;
+    .pending-irs{
+        position: relative;
+        width: 100%;
     }
 }
 @media (max-width: 780px) {

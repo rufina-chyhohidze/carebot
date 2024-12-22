@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 
 @Controller
-//@RequestMapping("/RequestMappingitem-request")
 public class ItemRequestController {
 
     private final ItemRequestService itemRequestService;
@@ -45,35 +44,18 @@ public class ItemRequestController {
     public String showRequestForm(Model model, HttpSession session) {
         if (session.getAttribute("userLoggedIn") == null) return "redirect:/";
 
-        List<String> itemCategories = itemService.getItemCategories();
-        System.out.println("itemCategories: " + itemCategories);
-        model.addAttribute("items", itemCategories);
-        model.addAttribute("paths", PathName.values());
+        model.addAttribute("deliveryInProgress", this.itemRequestService.getDeliveryInProgress());
+        model.addAttribute("lastDelivery", this.deliveryService.getLastCompletedDelivery());
         model.addAttribute("itemRequests", this.itemRequestService.getAllItemRequests());
+        model.addAttribute("pendingItemRequests", this.itemRequestService.getPendingItemRequests());
 
-        List<ItemRequest> last5ItemRequests = this.itemRequestService.getLast5ItemRequests().stream().sorted().toList();
-        int counter = 0;
-        for (ItemRequest itemRequest : last5ItemRequests) {
-            itemRequest.setOrderInLast5ItemRequests(++counter);
-        }
-
-        ItemRequest itemRequestInProgress = this.itemRequestService.getDeliveryInProgress();
-        model.addAttribute("itemRequestInProgress", itemRequestInProgress);
-
-
-        model.addAttribute("last5ITemRequests", this.itemRequestService.getLast5ItemRequests());
-
-        return "item-request";
+        return "request-item-page";
     }
 
     @PostMapping("/item-request")
     public String sendItemRequest(@RequestParam("item") String itemSelected, @RequestParam("path") String pathSelected, Model model, HttpSession session) {
         List<ItemRequest> last5ItemRequests = this.itemRequestService.getLast5ItemRequests();
         if (last5ItemRequests.size() >= 5) return "redirect:/item-request";
-
-        List<String> items = itemService.getItemCategories();
-        model.addAttribute("items", items);
-        model.addAttribute("paths", PathName.values());
 
         ItemRequest itemRequest = new ItemRequest(itemSelected, PathName.valueOf(pathSelected), ItemRequestStatus.PENDING);
         itemRequest.setEmployee((Employee) session.getAttribute("userLoggedIn"));
@@ -90,7 +72,7 @@ public class ItemRequestController {
     public String logInAuto(HttpSession session) {
         Employee employee = this.employeeService.getEmployeeByEmail("user@gmail.com");
         session.setAttribute("userLoggedIn", employee);
-//
+
         return "redirect:/item-request";
     }
     @GetMapping("/item-request/confirm-delivery/{id}")
@@ -105,59 +87,4 @@ public class ItemRequestController {
 
         return "redirect:/item-request";
     }
-
-//    previous:
-//    @PostMapping("/item-request")
-//    public String sendItemRequest(@RequestParam("itemId") int itemId,
-//                                  @RequestParam("employeeUsername") String employeeUsername,
-//                                  Model model) {
-//
-//        Item selectedItem = itemService.getItemById(itemId)
-//                .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + itemId));
-//
-//        Employee employee = employeeRepository.findByUsername(employeeUsername)
-//                .orElseThrow(() -> new IllegalArgumentException("Employee not found with username: " + employeeUsername));
-//
-//        ItemRequest itemRequest = new ItemRequest();
-//        itemRequest.setItem(selectedItem);
-//        itemRequest.setEmployee(employee);
-//        itemRequest.setRequestTime(LocalDateTime.now());
-//
-//        itemRequestService.saveItemRequest(itemRequest);
-//
-//        model.addAttribute("message", "Item request submitted successfully.");
-//        return "redirect:/item-request";
-//    }
-
-//    @PostMapping("/item-request")
-//    public String sendItemRequest(@RequestParam("itemId") int itemId,
-//                                  @RequestParam("dropPointId") int pointNumber,
-//                                  @RequestParam("employeeUsername") String employeeUsername,
-//                                  Model model) {
-//
-//        Item selectedItem = itemService.getItemById(itemId)
-//                .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + itemId));
-//
-//        Point selectedPoint = dropPoints.stream()
-//                .filter(point -> point.getPointNumber() == pointNumber)
-//                .findFirst()
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid point number: " + pointNumber));
-//
-//        ItemRequest itemRequest = new ItemRequest();
-//        itemRequest.setItem(selectedItem);
-//        itemRequest.setPoint(selectedPoint);
-//        itemRequest.setRequestTime(LocalDateTime.now());
-//
-//        itemRequestService.saveItemRequest(itemRequest);
-//
-//        model.addAttribute("message", "Item request submitted successfully.");
-//        return "redirect:/item-request"; //this should redirect to the page after succesful submission but we just show the request below right?
-//    }
-
-//    @GetMapping("/warehouse")
-//    public String viewItemRequests(Model model) {
-//        List<ItemRequest> itemRequests = itemRequestService.getAllItemRequests();
-//        model.addAttribute("itemRequests", itemRequests);
-//        return "warehouse";
-//    }
 }
