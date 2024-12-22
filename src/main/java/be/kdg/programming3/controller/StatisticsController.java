@@ -42,7 +42,7 @@ public class StatisticsController {
             process.waitFor();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             predictions.add("Error fetching predictions.");
         }
 

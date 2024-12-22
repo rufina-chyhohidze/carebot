@@ -23,11 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.getAllEmployees();
-    }
-
-    @Override
     public Employee createEmployee(Employee employee) {
         try {
             String salt = pbkdf2Util.generateSalt();
@@ -53,7 +48,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean checkCorrectPasswordForEmployeeWithEmail(String email, String password) {
-//        return this.employeeRepository.checkCorrectPasswordForEmployeeWithEmail(email, password);
         Employee employee = this.employeeRepository.getEmployeeByEmail(email);
         if (employee == null) {
             return false;

@@ -12,9 +12,6 @@
 
 <div class="overlay"></div>
 
-<!-- NAVBAR -->
-<!--<nav th:replace="fragments/fragments :: navbar"></nav>-->
-
 <div class="container">
   <div class="form-section">
     <h2>Sign Up</h2>
@@ -92,19 +89,8 @@
   </div>
 </div>
 
-<!--<div th:replace="fragments/fragments :: footer"></div>-->
 
-<script>
-  document.getElementById('signupForm').addEventListener('submit', function (e) {
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (password !== confirmPassword) {
-      e.preventDefault();
-      alert('Passwords do not match!');
-    }
-  });
-</script>
+<script th:src="@{/js/signup.js}" src="/static/js/signup.js"></script>
 
 </body>
 </html>

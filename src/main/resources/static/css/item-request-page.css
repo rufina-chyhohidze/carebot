@@ -4,17 +4,11 @@ input[name="path"]:checked ~ label, input[name="item"]:checked ~ label {
 }
 .order-item {
     margin: auto;
-    /* border: 3px solid red; */
     height: 600px;
 }
 .item-to-select {
-    /*border: 1px solid red;*/
     width: 15rem;
     height: 7rem;
-    /*3px solid red;*/
-}
-.card-body {
-    /*margin-top: -15px;*/
 }
 .order-title {
     margin: auto;
@@ -22,7 +16,6 @@ input[name="path"]:checked ~ label, input[name="item"]:checked ~ label {
     text-align: center;
 }
 .path-element {
-    /*border: 1px solid red;*/
     width: 15rem;
     height: 7rem;
 }
@@ -42,7 +35,6 @@ input[name="path"]:checked ~ label, input[name="item"]:checked ~ label {
 
 .car-moving {
     width: 200px;
-    /* bottom: 0%; */
     margin-top: 35px;
     margin-left: -73%;
     height: auto;
@@ -119,9 +111,7 @@ input[name="path"]:checked ~ label, input[name="item"]:checked ~ label {
 
 /* warehouse PAGE */
 .irs-container {
-    /* border: 3px solid red; */
     height: 10%;
-    
 } 
 .send-d {
     margin-top: 30px !important;

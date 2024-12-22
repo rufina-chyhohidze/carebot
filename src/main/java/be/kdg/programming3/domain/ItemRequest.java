@@ -13,18 +13,10 @@ import java.time.LocalDateTime;
 public class ItemRequest implements Comparable<ItemRequest> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @SequenceGenerator(name = "item_request_seq", sequenceName = "item_requests_id_seq", allocationSize = 1)
     private int id;
-
-    /* FOR LATER */
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "item_id", referencedColumnName = "id")
-//    private Item item;
 
     private String itemName;
 
-//    @Embedded
-//    private Point point;
     @Enumerated(EnumType.STRING)
     private PathName path;
 
@@ -37,21 +29,8 @@ public class ItemRequest implements Comparable<ItemRequest> {
     @Enumerated(EnumType.STRING)
     private ItemRequestStatus status;
 
-//    private int numberOfObstacles;
-
-//    @OneToOne(mappedBy = "itemRequest", fetch = FetchType.LAZY)
-//    private Delivery delivery;
-
     @Transient
     private int orderInLast5ItemRequests;
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
 
     public int getOrderInLast5ItemRequests() {
         return orderInLast5ItemRequests;
@@ -68,15 +47,8 @@ public class ItemRequest implements Comparable<ItemRequest> {
         this.itemName = itemName;
         this.path = path;
         this.status = status;
-//        this.employee = employee;
         this.requestTime = LocalDateTime.now();
     }
-
-
-//    public ItemRequest(int id, Item item, Point point, Employee employee, LocalDateTime requestTime, Delivery delivery) {
-//        this.id = id;
-//        this.item = item;
-
 
     public ItemRequestStatus getStatus() {
         return status;
@@ -102,38 +74,11 @@ public class ItemRequest implements Comparable<ItemRequest> {
         this.path = path;
     }
 
-    ////        this.point = point;
-//        this.employee = employee;
-//        this.requestTime = requestTime;
-//        this.delivery = delivery;
-//    }
-
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
-//    public Item getItem() {return item;}
-//    public void setItem(Item item) {this.item = item;}
-//    public Point getPoint() {return point;}
-//    public void setPoint(Point point) {this.point = point;}
     public Employee getEmployee() {return employee;}
     public void setEmployee(Employee employee) {this.employee = employee;}
     public LocalDateTime getRequestTime() {return requestTime;}
-    public void setRequestTime(LocalDateTime requestTime) {this.requestTime = requestTime;}
-//    public Delivery getDelivery() {return delivery;}
-//    public void setDelivery(Delivery delivery) {this.delivery = delivery;}
-//    public int getNumberOfObstacles() {return numberOfObstacles;}
-//    public void setNumberOfObstacles(int numberOfObstacles) {}
-
-//    @Override
-//    public String toString() {
-//        return "ItemRequest{" +
-//                "id=" + id +
-////                ", item=" + item +
-////                ", point=" + point +
-//                ", employee=" + employee +
-//                ", requestTime=" + requestTime +
-////                ", delivery=" + delivery +
-//                '}';
-//    }
 
     @Override
     public String toString() {

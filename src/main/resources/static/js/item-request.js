@@ -1,67 +1,5 @@
-//  script to select only one item and one path
-// document.querySelectorAll('.btn-check').forEach((input) => {
-//     input.addEventListener('change', () => {
-//         if (input.name === 'item') {
-//             document.querySelectorAll('input[name="item"] + label.card')
-//                 .forEach((card) => card.classList.remove('selected'));
-//         }
-//         if (input.name === 'path') {
-//             document.querySelectorAll('input[name="path"] + label.card')
-//                 .forEach((card) => card.classList.remove('selected'));
-//         }
-//
-//         const associatedLabel = document.querySelector(`label[for="${input.id}"]`);
-//         associatedLabel.classList.add('selected');
-//     });
-// });
-//
-// // script to show the details of uncompleted requests
-// document.querySelectorAll('.request-item').forEach(item => {
-//     item.addEventListener('click', function() {
-//         const details = this.querySelector('.details');
-//         details.style.display = (details.style.display === 'none' || details.style.display === '') ? 'block' : 'none';
-//     });
-// });
-//
-// // script to show and hide uncompleted requests
-// document.addEventListener('DOMContentLoaded', function() {
-//     const showRequestsBtn = document.getElementById('showRequestsBtn');
-//     const requestList = document.getElementById('request-list');
-//     const requestItems = document.querySelectorAll('.request-item');
-//
-//     requestList.style.display = 'none';
-//
-//     showRequestsBtn.addEventListener('click', function() {
-//         if (requestList.style.display === 'none') {
-//             requestList.style.display = 'block';
-//             showRequestsBtn.innerText = 'Hide Last Requests';
-//
-//             let count = 0;
-//             requestItems.forEach(item => {
-//                 if (count < 5) {
-//                     item.style.display = 'block';
-//                     count++;
-//                 } else {
-//                     item.style.display = 'none';
-//                 }
-//             });
-//         } else {
-//             requestList.style.display = 'none';
-//             showRequestsBtn.innerText = 'Show Last Requests';
-//         }
-//     });
-// });
 
-
-
-
-// let progressBar = document.getElementById("progress-bar");
-// let fillProgressBar = document.getElementById("fill-progress-bar");
-// fillProgressBar.style.width = "0%";
-    
-
-
-
+// We use a websocket to automatically reload the item-request page and the warehouse page when a new item request is entered
 const socket = new SockJS('/ws');  // Connect to WebSocket
 const stompClient = Stomp.over(socket);
 
@@ -70,10 +8,15 @@ stompClient.connect({}, function (frame) {
     stompClient.subscribe('/topic/start-delivery-progress', function (message) {
         console.log('Message received:', message.body);
         location.reload();
-        // startProgressBarForDelivery(message.body);
     });
 });
 
+
+/** The following code is still needed for later (needs fixing)
+
+// let progressBar = document.getElementById("progress-bar");
+// let fillProgressBar = document.getElementById("fill-progress-bar");
+// fillProgressBar.style.width = "0%";
 
 
 // let detailsProgressBar = [
@@ -112,4 +55,4 @@ stompClient.connect({}, function (frame) {
 
 //     greenPercentage = 0;
     
-// }
+// }**/

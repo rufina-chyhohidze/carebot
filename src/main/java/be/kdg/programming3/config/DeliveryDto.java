@@ -1,11 +1,11 @@
 package be.kdg.programming3.config;
 
 public class DeliveryDto {
-    private int deliveryId;
-    private String deliveryStarted;
-    private String deliveryFinished;
-    private int numberOfObstacles;
-    private String path;
+    private final int deliveryId;
+    private final String deliveryStarted;
+    private final String deliveryFinished;
+    private final int numberOfObstacles;
+    private final String path;
 
     // Constructor
     public DeliveryDto(int deliveryId, String deliveryStarted, String deliveryFinished, int numberOfObstacles, String path) {

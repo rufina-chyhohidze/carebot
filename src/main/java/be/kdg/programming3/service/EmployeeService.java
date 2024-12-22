@@ -5,7 +5,6 @@ import be.kdg.programming3.domain.Employee;
 import java.util.List;
 
 public interface EmployeeService {
-    List<Employee> getAllEmployees();
     Employee createEmployee(Employee employee);
     boolean checkIfEmployeeEmailExists(String email);
     boolean checkCorrectPasswordForEmployeeWithEmail(String email, String password);

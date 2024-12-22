@@ -5,7 +5,6 @@ import be.kdg.programming3.domain.*;
 import be.kdg.programming3.service.DeliveryService;
 import be.kdg.programming3.service.EmployeeService;
 import be.kdg.programming3.service.ItemRequestService;
-import be.kdg.programming3.service.ItemService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -15,25 +14,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 
 @Controller
 public class ItemRequestController {
 
     private final ItemRequestService itemRequestService;
-    private final ItemService itemService;
     private final SimpMessagingTemplate messagingTemplate;
     private final DeliveryService deliveryService;
     private final EmployeeService employeeService;
 
-//    private List<Point> points;
 
     @Autowired
-    public ItemRequestController(ItemRequestService itemRequestService, ItemService itemService, SimpMessagingTemplate messagingTemplate, EmployeeService employeeService, DeliveryService deliveryService) {
+    public ItemRequestController(ItemRequestService itemRequestService, SimpMessagingTemplate messagingTemplate, EmployeeService employeeService, DeliveryService deliveryService) {
         this.itemRequestService = itemRequestService;
-        this.itemService = itemService;
         this.messagingTemplate = messagingTemplate;
         this.employeeService = employeeService;
         this.deliveryService = deliveryService;
@@ -65,7 +58,7 @@ public class ItemRequestController {
         messagingTemplate.convertAndSend("/topic/warehouse-updates", itemRequest);
 
 
-        return "redirect:/item-request"; // Or you can use a custom response if needed
+        return "redirect:/item-request";
     }
 
     @GetMapping("/1")
@@ -76,7 +69,7 @@ public class ItemRequestController {
         return "redirect:/item-request";
     }
     @GetMapping("/item-request/confirm-delivery/{id}")
-    public String confirmDelivery(@PathVariable("id") int id, HttpSession session, Model model) {
+    public String confirmDelivery(@PathVariable("id") int id) {
         ItemRequest itemRequest = this.itemRequestService.getItemRequestById(id);
         itemRequest.setStatus(ItemRequestStatus.FULFILLED);
         this.itemRequestService.updateItemRequest(itemRequest);

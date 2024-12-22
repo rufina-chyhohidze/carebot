@@ -50,8 +50,6 @@ public class WarehouseController {
 
         List<ItemRequest> last5ItemRequests = this.itemRequestService.getLast5ItemRequests().stream().sorted().toList();
 
-//        model.addAttribute("deliveries", this.deliveryService.getAllDeliveries());
-
         ItemRequest itemRequestInProgress = this.itemRequestService.getDeliveryInProgress();
 
         model.addAttribute("deliveryInProgress", this.itemRequestService.getDeliveryInProgress());
@@ -74,8 +72,6 @@ public class WarehouseController {
 
         ItemRequest itemRequestSelected = this.itemRequestService.getItemRequestById(itemRequestId);
 
-//        this.itemRequestService.setItemRequestToCompleted(itemRequestId);
-
         deliveryLOG.add("Delivery started at : " + LocalDateTime.now());
         deliveryLOG.add("Delivering item: " + itemRequestSelected.getItem() + " to path: " + itemRequestSelected.getPath().toString());
 
@@ -89,12 +85,6 @@ public class WarehouseController {
         model.addAttribute("deliveries", deliveries);
 
         System.err.println("ITEM REQUEST SELECTED: " + itemRequestSelected + " with path: " + pathSelected);
-
-//        List<ItemRequest> last5ItemRequests = this.itemRequestService.getLast5ItemRequests().stream().sorted().toList();
-//        int counter = 0;
-//        for (ItemRequest itemRequest : last5ItemRequests) {
-//            itemRequest.setOrderInLast5ItemRequests(++counter);
-//        }
 
         messagingTemplate.convertAndSend("/topic/start-delivery-progress", "reload item request page");
 

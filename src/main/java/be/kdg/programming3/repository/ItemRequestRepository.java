@@ -9,12 +9,6 @@ import java.util.List;
 @Repository
 public interface ItemRequestRepository {
     List<ItemRequest> getAllItemRequests();
-//    List<ItemRequest> findByEmployeeUsername(String username);
-//    List<ItemRequest> findByItemId(int itemId);
-//    List<ItemRequest> findByRequestTimeBetween(LocalDateTime startTime, LocalDateTime endTime);
-//    Optional<ItemRequest> findById(int id);
-
-//    List<ItemRequest> path(PathName path);
 
     ItemRequest createItemRequest(ItemRequest itemRequest);
 

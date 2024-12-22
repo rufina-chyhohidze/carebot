@@ -40,11 +40,6 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     }
 
     @Override
-    public List<ItemRequest> getAllItemRequestsOfEmployee(int userId) {
-        return this.itemRequestRepository.getAllItemRequestsOfEmployee(userId);
-    }
-
-    @Override
     public List<ItemRequest> getLast5ItemRequests() {
         return this.itemRequestRepository.getLast5ItemRequests();
     }
@@ -66,11 +61,6 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     public ItemRequest getItemRequestById(int id) {
         LOG.debug("Fetching ItemRequest by ID: {}", id);
         return itemRequestRepository.getItemRequestById(id);
-    }
-
-    @Override
-    public void setItemRequestToCompleted(int itemRequestId) {
-        this.itemRequestRepository.setItemRequestToCompleted(itemRequestId);
     }
 
 }

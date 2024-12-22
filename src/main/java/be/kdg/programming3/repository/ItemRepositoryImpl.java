@@ -13,16 +13,6 @@ public class ItemRepositoryImpl implements ItemRepository {
     private EntityManager em;
 
     @Override
-    public List<Item> findByCategory(String category) {
-        return List.of();
-    }
-
-    @Override
-    public List<Item> findByNameContaining(String name) {
-        return List.of();
-    }
-
-    @Override
     public List<String> getCategories() {
         return em.createQuery("SELECT i.category FROM Item i GROUP BY i.category", String.class).getResultList();
     }

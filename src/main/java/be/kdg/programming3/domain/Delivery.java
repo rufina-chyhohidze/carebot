@@ -32,10 +32,6 @@ public class Delivery {
         return numberOfObstacles;
     }
 
-    public void setNumberOfObstacles(int numberOfObstacles) {
-        this.numberOfObstacles = numberOfObstacles;
-    }
-
     protected Delivery() {} // JPA requires a no-arg constructor
 
     public Delivery(ItemRequest itemRequest, LocalDateTime deliveryStarted, DeliveryStatus status) {
@@ -45,20 +41,17 @@ public class Delivery {
     }
 
     public int getDeliveryId() { return deliveryId; }
-    public void setDeliveryId(int deliveryId) { this.deliveryId = deliveryId; }
     public ItemRequest getItemRequest() { return itemRequest; }
     public void setItemRequest(ItemRequest itemRequest) { this.itemRequest = itemRequest; }
     public DeliveryStatus getStatus() { return status; }
     public void setStatus(DeliveryStatus status) { this.status = status; }
     public LocalDateTime getDeliveryStarted() { return deliveryStarted; }
-    public void setDeliveryStarted(LocalDateTime deliveryStarted) { this.deliveryStarted = deliveryStarted; }
     public LocalDateTime getDeliveryFinished() { return deliveryFinished; }
     public void setDeliveryFinished(LocalDateTime deliveryFinished) {
         this.deliveryFinished = deliveryFinished;
         this.totalDeliveryTime = Duration.between(deliveryStarted, deliveryFinished).toSeconds();
     }
     public Long getTotalDeliveryTime() { return totalDeliveryTime; }
-    public void setTotalDeliveryTime(Long totalDeliveryTime) { this.totalDeliveryTime = totalDeliveryTime; }
 
     @Override
     public String toString() {
@@ -72,12 +65,4 @@ public class Delivery {
                 '}';
     }
 
-//    public void calculateTotalDeliveryTime() {
-//        if (deliveryStarted != null && deliveryFinished != null) {
-//            Duration duration = Duration.between(deliveryStarted, deliveryFinished);
-//            this.totalDeliveryTime = (int) duration.toMinutes();
-//        } else {
-//            this.totalDeliveryTime = 0;
-//        }
-//    }
 }

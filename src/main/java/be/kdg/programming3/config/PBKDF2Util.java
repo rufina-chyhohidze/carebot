@@ -5,7 +5,7 @@ import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.Base64;
-
+/// PASSWORD ENCRYPTION
 public class PBKDF2Util {
     private static final int SALT_LENGTH = 16;
     private static final int ITERATIONS = 65536;

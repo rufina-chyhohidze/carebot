@@ -23,11 +23,6 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public Delivery getLastDeliveryLogged() {
-        return this.deliveryRepository.getLastDeliveryLogged();
-    }
-
-    @Override
     public void setNumberOfObstaclesOfLastDelivery(Integer obstacle) {
         this.deliveryRepository.setNumberOfObstaclesOfLastDelivery(obstacle);
     }
@@ -41,12 +36,6 @@ public class DeliveryServiceImpl implements DeliveryService {
     public List<Delivery> getAllDeliveries() {
         LOG.info("Retrieving all deliveries");
         return deliveryRepository.getAllDeliveries();
-    }
-
-    @Override
-    public Delivery getDeliveryById(int deliveryId) {
-        LOG.info("Fetching delivery with ID: {}", deliveryId);
-        return deliveryRepository.getDeliveryById(deliveryId);
     }
 
     @Override
@@ -68,40 +57,5 @@ public class DeliveryServiceImpl implements DeliveryService {
     public boolean noDeliveriesInProcess() {
         return this.deliveryRepository.noDeliveriesInProcess();
     }
-
-    //    @Override
-//    public void addDelivery(Delivery delivery) {
-//        LOG.debug("Adding new delivery: {}", delivery);
-//        deliveryRepository.save(delivery);
-//        LOG.info("Delivery added: {}", delivery);
-//    }
-
-//    @Override
-//    public void addDelivery(int employeeId, Timestamp deliveryTime) {
-//        LOG.debug("Adding new delivery for employeeId: {}", employeeId);
-//
-//        Delivery delivery = new Delivery(); // Don't set deliveryId, it's auto-generated
-//        delivery.setEmployeeId(employeeId);
-//        delivery.setTotalDeliveryTime(deliveryTime);
-//
-//        deliveryRepository.save(delivery); // Save will handle the ID generation
-//        LOG.info("Delivery added: {}", delivery);
-//    }
-
-//    @Override
-//    public void updateDelivery(int deliveryId, LocalDateTime deliveryFinished) {
-//        LOG.info("Updating delivery with ID: {}", deliveryId);
-//
-//        Optional<Delivery> optionalDelivery = deliveryRepository.findById(deliveryId);
-//        if (optionalDelivery.isPresent()) {
-//            Delivery delivery = optionalDelivery.get();
-//            delivery.setDeliveryFinished(deliveryFinished);
-//            delivery.calculateTotalDeliveryTime();
-//            deliveryRepository.save(delivery);
-//            LOG.info("Delivery updated: {}", delivery);
-//        } else {
-//            LOG.warn("Delivery with ID: {} not found", deliveryId);
-//        }
-//    }
 
 }

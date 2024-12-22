@@ -163,43 +163,6 @@
 
 
 
-// GRAPH 7
-
-
-//     async function updateGraphs() {
-//         try {
-//             const response = await fetch('/statistics'); // Replace with your actual data endpoint
-//             const data = await response.json();
-//
-//             // Update graphs dynamically with new data
-//             graph1.data = data.graph1;
-//             graph1.update();
-//             graph2.data = data.graph2;
-//             graph2.update();
-//             graph3.data = data.graph3;
-//             graph3.update();
-//             graph4.data = data.graph4;
-//             graph4.update();
-//             graph5.data = data.graph5;
-//             graph5.update();
-//             graph6.data = data.graph6;
-//             graph6.update();
-//             graph7.data = data.graph7;
-//             graph7.update();
-//         } catch (error) {
-//             console.error('Error fetching data:', error);
-//         }
-//     }
-//
-//     // Call the update function periodically
-//     setInterval(updateGraphs, 3000); // Update every 3 seconds
-// });
-
-/*!
-
-// Scripts
-// */
-
 window.addEventListener('DOMContentLoaded', event => {
 
     // Toggle the side navigation
@@ -217,6 +180,3 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
-
-// let progressBarFill = document.getElementById("fill-progress-bar");
-// progressBarFill.style.width = '10%';

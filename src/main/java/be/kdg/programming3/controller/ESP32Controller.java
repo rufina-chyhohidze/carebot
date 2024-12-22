@@ -1,6 +1,5 @@
 package be.kdg.programming3.controller;
 
-import be.kdg.programming3.domain.Delivery;
 import be.kdg.programming3.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+/**
+ * This controller handles the two-way communication between the spring app and the arduino/wifi module
+ */
 @Controller
 @RequestMapping("/data")
 public class ESP32Controller {
@@ -62,8 +64,6 @@ public class ESP32Controller {
 
             return ResponseEntity.ok("Data received successfully");
         }
-//        this.deliveryService.setDeliveryInProcessStatusToFinished(LocalDateTime.now());
-//        Delivery lastDeliveryLogged = this.deliveryService.getLastDeliveryLogged();
         this.deliveryService.setNumberOfObstaclesOfLastDelivery(obstacle);
 
         WarehouseController.deliveryLOG.add("Delivery COMPLETED at: " + LocalDateTime.now() + " - Number of Obstacles Found: " + obstacle);
@@ -73,14 +73,10 @@ public class ESP32Controller {
 
 
         return ResponseEntity.ok("Data received successfully");
-
-        /// TODO: Redirect to warhouse (new getmapping that gets the finished path data to store the delivery in the database, then show the delivery information in a website - then test with my hotspot and host website on server - finish preparing talking points for presentation MVP)
     }
 
     @GetMapping("/control")
     public String control() {
         return "control-car";
     }
-
-
 }
