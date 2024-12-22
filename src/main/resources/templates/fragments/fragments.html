@@ -33,7 +33,7 @@
           <a style="color: white !important;" class="nav-link" th:href="@{/statistics}">Statistics</a>
           <a style="color: white !important;" class="nav-link" th:href="@{/item-request}" th:if="${session.userLoggedIn != null}">Request an Item</a>
           <a style="color: white !important;" class="nav-link" th:href="@{/warehouse}" th:if="${session.userLoggedIn != null}">Warehouse</a>
-<!--          <a style="color: white !important;" class="nav-link" th:href="@{/data/control}">Control Car</a>-->
+          <a style="color: white !important;" class="nav-link" th:href="@{/data/control}">Control Car</a>
           <a style="color: white !important;" class="nav-link" th:href="@{/login}" th:if="${session.userLoggedIn == null}">Log in</a>
           <a style="color: white !important;" class="nav-link" th:href="@{/logOut}" th:if="${session.userLoggedIn != null}">Log Out</a>
         </div>
@@ -117,7 +117,7 @@
   </div>
 
   <!-- Footer Bottom -->
-  <footer class="footer text-center text-white mt-4" style="background-color: #181a1b; padding: 15px 0;">
+  <footer class="d-none footer text-center text-white mt-4" style="background-color: #181a1b; padding: 15px 0;">
     <div class="container">
       <p class="mb-0">&copy; 2024 CareBot Team 17. All rights reserved.</p>
     </div>

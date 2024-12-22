@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Warehouse</title>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
@@ -12,20 +13,19 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link rel="stylesheet" th:href="@{/css/dashboard.css}" href="/static/css/dashboard.css">
 
-    <title>Warehouse</title>
     <style>
-        /* Custom styles to center the button and make it bigger */
+        /* Custom styles to center the button and make it bigger
         .sticky-bottom {
             position: fixed;
             bottom: 10px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 10; /* To ensure it is above other content */
+            z-index: 10; 
         }
 
         .btn-custom {
-            font-size: 1.9rem; /* Makes the button text bigger */
-            padding: 10px 100px; /* Increase padding for a bigger button */
+            font-size: 1.9rem; 
+            padding: 10px 100px;
         }
         .processingStatus {
             background-color: orange;
@@ -34,12 +34,36 @@
         .completedStatus {
             background-color: green;
             color: white;;
-        }
+        } */
     </style>
 </head>
 <body class="bg-black text-white">
 
-<div th:replace="fragments/fragments :: navbar"></div>
+<!--NAVBAR FRAGMENT-->
+<nav th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a style="color: white !important;" class="navbar-brand" href="/"><strong>CareBot</strong></a>
+        <a style="color: white !important;" th:text="${session.userLoggedIn == null ? 'Not Logged In' : session.userLoggedIn.getFirstName()}"></a>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto">
+            <a style="color: white !important;" class="nav-link" th:href="@{/}">Home</a>
+            <a style="color: white !important;" class="nav-link" th:href="@{/statistics}">Statistics</a>
+            <a style="color: white !important;" class="nav-link" th:href="@{/item-request}" th:if="${session.userLoggedIn != null}">Request an Item</a>
+            <a style="color: white !important;" class="nav-link" th:href="@{/warehouse}" th:if="${session.userLoggedIn != null}">Warehouse</a>
+            <a style="color: white !important;" class="nav-link" th:href="@{/data/control}">Control Car</a>
+            <a style="color: white !important;" class="nav-link" th:href="@{/login}" th:if="${session.userLoggedIn == null}">Log in</a>
+            <a style="color: white !important;" class="nav-link" th:href="@{/logOut}" th:if="${session.userLoggedIn != null}">Log Out</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </nav>
 
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-start">
@@ -316,6 +340,10 @@
 
     <footer class="fixed-bottom" th:replace="fragments/fragments :: footer"></footer>
 
+<!-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script> -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/datatables-simple-demo.js}" src="/static/js/datatables-simple-demo.js"></script>
 </body>
 </html>
