@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link rel="stylesheet" th:href="@{/css/dashboard.css}" href="/static/css/dashboard.css">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" href="/css/dashboard.css">
 
     <style>
         /* Custom styles to center the button and make it bigger
@@ -195,7 +195,7 @@
 
 
 
-        <!-- Previous Deliveries -->
+<!--         Previous Deliveries -->
 <!--        <div class="card mb-4 bg-dark text-white">-->
 <!--            <div class="card-header bg-secondary">-->
 <!--                <i class="fas fa-table me-1"></i>-->
@@ -289,51 +289,51 @@
 <script th:src="@{/js/warehouse.js}" src="/static/js/warehouse.js"></script>
 <script th:src="@{/js/datatables-simple-demo.js}" src="/static/js/datatables-simple-demo.js"></script>
 
-<!--<script>-->
-<!--    // Fetch completed deliveries asynchronously-->
-<!--    fetch('/warehouse/api/completed-deliveries')-->
-<!--        .then(response => {-->
-<!--            if (!response.ok) {-->
-<!--                throw new Error('Failed to fetch completed deliveries');-->
-<!--            }-->
-<!--            return response.json();-->
-<!--        })-->
-<!--        .then(data => {-->
-<!--            const tableBody = document.getElementById('completedDeliveriesTable');-->
-<!--            tableBody.innerHTML = ''; // Clear the loading message-->
+<script>
+    // Fetch completed deliveries asynchronously
+    fetch('/warehouse/api/completed-deliveries')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch completed deliveries');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const tableBody = document.getElementById('completedDeliveriesTable');
+            tableBody.innerHTML = ''; // Clear the loading message
 
-<!--            // Populate table rows dynamically-->
-<!--            data.forEach(delivery => {-->
-<!--                const row = document.createElement('tr');-->
+            // Populate table rows dynamically
+            data.forEach(delivery => {
+                const row = document.createElement('tr');
 
-<!--                // Add cells for each column-->
-<!--                row.innerHTML = `-->
-<!--                    <td>${delivery.deliveryId}</td>-->
-<!--                    <td>${delivery.deliveryStarted}</td>-->
-<!--                    <td>${delivery.deliveryFinished}</td>-->
-<!--                    <td>${delivery.numberOfObstacles}</td>-->
-<!--                    <td>${delivery.path}</td>-->
-<!--                `;-->
+                // Add cells for each column
+                row.innerHTML = `
+                    <td>${delivery.deliveryId}</td>
+                    <td>${delivery.deliveryStarted}</td>
+                    <td>${delivery.deliveryFinished}</td>
+                    <td>${delivery.numberOfObstacles}</td>
+                    <td>${delivery.path}</td>
+                `;
 
-<!--                tableBody.appendChild(row);-->
-<!--            });-->
+                tableBody.appendChild(row);
+            });
 
-<!--            // Re-initialize the Simple-DataTable after adding rows-->
-<!--            const datatablesSimple = document.getElementById('datatablesSimple');-->
-<!--            if (datatablesSimple) {-->
-<!--                new simpleDatatables.DataTable(datatablesSimple);-->
-<!--            }-->
-<!--        })-->
-<!--        .catch(error => {-->
-<!--            console.error('Error fetching completed deliveries:', error);-->
-<!--            const tableBody = document.getElementById('completedDeliveriesTable');-->
-<!--            tableBody.innerHTML = `-->
-<!--                <tr>-->
-<!--                    <td colspan="5" class="text-center text-danger">Failed to load completed deliveries.</td>-->
-<!--                </tr>-->
-<!--            `;-->
-<!--        });-->
-<!--</script>-->
+            // Re-initialize the Simple-DataTable after adding rows
+            const datatablesSimple = document.getElementById('datatablesSimple');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching completed deliveries:', error);
+            const tableBody = document.getElementById('completedDeliveriesTable');
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center text-danger">Failed to load completed deliveries.</td>
+                </tr>
+            `;
+        });
+</script>
 
 
 
@@ -344,6 +344,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-<script th:src="@{/js/datatables-simple-demo.js}" src="/static/js/datatables-simple-demo.js"></script>
+<script th:src="@{/js/datatables-simple-demo.js}" src="/static/js/warehouse.js"></script>
 </body>
 </html>

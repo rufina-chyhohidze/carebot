@@ -49,13 +49,12 @@ public class WarehouseController {
         model.addAttribute("deliveries", deliveries);
 
         List<ItemRequest> last5ItemRequests = this.itemRequestService.getLast5ItemRequests().stream().sorted().toList();
-        int counter = 0;
-        for (ItemRequest itemRequest : last5ItemRequests) {
-            itemRequest.setOrderInLast5ItemRequests(++counter);
-        }
+
+//        model.addAttribute("deliveries", this.deliveryService.getAllDeliveries());
 
         ItemRequest itemRequestInProgress = this.itemRequestService.getDeliveryInProgress();
 
+        model.addAttribute("deliveryInProgress", this.itemRequestService.getDeliveryInProgress());
         model.addAttribute("last5ITemRequests", last5ItemRequests);
         model.addAttribute("deliveryLOG", deliveryLOG);
         model.addAttribute("itemRequestInProgress", itemRequestInProgress);
@@ -64,7 +63,7 @@ public class WarehouseController {
         model.addAttribute("lastDelivery", lastDelivery);
 
 
-        return "warehouse";
+        return "warehouse-page";
     }
 
     @PostMapping("/warehouse")

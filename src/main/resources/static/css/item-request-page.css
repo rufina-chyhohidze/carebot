@@ -114,3 +114,18 @@ input[name="path"]:checked ~ label, input[name="item"]:checked ~ label {
         height: 1550px;
     }
 }
+
+
+
+/* warehouse PAGE */
+.irs-container {
+    /* border: 3px solid red; */
+    height: 10%;
+    
+} 
+.send-d {
+    margin-top: 30px !important;
+    margin-bottom: 5vh; 
+    font-size: 20px !important; 
+    padding: 15px 35px !important;
+}
